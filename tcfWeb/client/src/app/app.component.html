@@ -1,0 +1,51 @@
+<nav class="navbar navbar-light bg-light main-header" >
+  <a class="navbar-brand" href="#">
+    <img src="/assets/img/logo_fincons.png" height="70" class="d-inline-block" alt="">
+     <span class=".navbar-text">TCF</span>
+  </a>
+  <ul class="navbar-nav flex-row ml-md-auto d-none d-md-flex" *ngIf="userLogged">
+    <li class="nav-item">
+     <a class="nav-link p-2" aria-label="Modifica Profilo">
+        {{userLogged.nome}} {{userLogged.cognome}}
+     </a>
+    </li>
+
+    <li class="nav-item">
+      <a class="nav-link p-2" aria-label="Modifica Profilo">
+          <svg class="navbar-nav-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 248.349 248.349" focusable="false"><title>Modifica Profilo</title><path style="fill:#010002;" d="M9.954,241.305h228.441c3.051,0,5.896-1.246,7.805-3.416c1.659-1.882,2.393-4.27,2.078-6.723
+              c-5.357-41.734-31.019-76.511-66.15-95.053c-14.849,14.849-35.348,24.046-57.953,24.046s-43.105-9.197-57.953-24.046
+              C31.09,154.65,5.423,189.432,0.071,231.166c-0.315,2.453,0.424,4.846,2.078,6.723C4.058,240.059,6.903,241.305,9.954,241.305z"/>
+            <path style="fill:#010002;" d="M72.699,127.09c1.333,1.398,2.725,2.73,4.166,4.019c12.586,11.259,29.137,18.166,47.309,18.166
+              s34.723-6.913,47.309-18.166c1.441-1.289,2.834-2.622,4.166-4.019c1.327-1.398,2.622-2.828,3.84-4.329
+              c9.861-12.211,15.8-27.717,15.8-44.6c0-39.216-31.906-71.116-71.116-71.116S53.059,38.95,53.059,78.16
+              c0,16.883,5.939,32.39,15.8,44.6C70.072,124.262,71.366,125.687,72.699,127.09z"/>
+            </svg>
+
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link p-2" aria-label="Logout" (click)="logout()">
+        <svg class="navbar-nav-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" focusable="false"><title>Logout</title><path d="M584.7,881.1H146.9V118.9h437.7v163.3h107.8V118.9C692.5,59,643.5,10,583.6,10H148C88.1,10,39.1,59,39.1,118.9v762.2C39.1,941,88.1,990,148,990h435.6c59.9,0,108.9-49,108.9-108.9V772.2H584.7V881.1L584.7,881.1z M960.9,527.2L744.2,314.9v130.7h-369v163.3h369v130.7L960.9,527.2L960.9,527.2z"/>
+            </svg>
+      </a>
+    </li>
+  </ul>
+</nav>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark" *ngIf="userLogged">
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav">
+      <li class="nav-item active">
+        <a class="nav-link" href="#">Consuntivazione <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item" *ngIf="userLogged.isAdmin">
+        <a class="nav-link" href="#">Amministrazione</a>
+      </li>
+      <li class="nav-item" *ngIf="userLogged.isAdmin">
+        <a class="nav-link" href="#">Reportistica</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+<div class="container-fluid">
+	<router-outlet></router-outlet>
+</div>

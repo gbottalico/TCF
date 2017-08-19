@@ -1,0 +1,14 @@
+.main-container {
+	margin-top: 70px;
+}
+
+.main-header{
+	height: 100px;
+}
+
+.navbar-nav-svg {
+    display: inline-block;
+    width: 1rem;
+    height: 1rem;
+    vertical-align: middle;
+}
