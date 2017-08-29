@@ -12,6 +12,15 @@ const User = require('../models/user.js');
 service.authenticate = authenticate;
 service.addUser = addUser;
 service.getAll = getAll;
+service.addSede = addSede;
+service.addCliente = addCliente;
+service.addProfilo = addProfilo;
+service.addCommessa = addCommessa;
+service.addMacroArea = addMacroArea;
+service.addAmbito = addAmbito;
+service.addAttivita = addAttivita;
+service.addStatoAttivita = addStatoAttivita;
+service.addTipoDeliverable = addTipoDeliverable;
 /*service.getById = getById;
 service.create = create;
 service.update = update;
@@ -79,6 +88,59 @@ function getAll() {
 
     return deferred.promise;
 }
+
+
+function addSede(sedeParam) {
+    console.log("addSede "+sedeParam._id)
+    var deferred = Q.defer();
+    sedeParam.data_inizio_validita = Date.now();
+    console.log (sedeParam);
+    let newSede = new Sede(sedeParam);
+    console.log(newSede);
+    var query = {'_id':newSede._id};
+    Sede.findOneAndUpdate(query, newSede, {upsert:true}, function(err, doc){
+        if (err){
+            deferred.reject(err.name + ': ' + err.message);
+        }else{
+             deferred.resolve({msg: 'Sede add successfully'});
+        }
+    });
+     return deferred.promise;
+}
+
+function getSedi() { //da verificare
+    var deferred = Q.defer();
+
+    Sede.find(Date.now},function (err, users) {
+        if (err){
+          deferred.reject(err.name + ': ' + err.message);  
+      } else{
+        deferred.resolve(users);
+      }
+
+    });
+
+    return deferred.promise;
+}
+
+function addCliente(clienteParam) {
+    console.log("addCliente "+clienteParam._id)
+    var deferred = Q.defer();
+    clienteParam.data_inizio_validita = Date.now();
+    console.log (clienteParam);
+    let newCliente = new Cliente(clienteParam);
+    console.log(newCliente);
+    var query = {'_id':newCliente._id};
+    Cliente.findOneAndUpdate(query, newCliente, {upsert:true}, function(err, doc){
+        if (err){
+            deferred.reject(err.name + ': ' + err.message);
+        }else{
+             deferred.resolve({msg: 'Cliente add successfully'});
+        }
+    });
+     return deferred.promise;
+}
+
 /*
 function getById(_id) {
     var deferred = Q.defer();

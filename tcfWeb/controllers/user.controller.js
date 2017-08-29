@@ -6,17 +6,26 @@ var userService = require('services/user.service');
 router.post('/authenticate', authenticate);
 router.post('/user', addUser);
 router.get('/users', getAll);
+router.post('/sede', addSede);
 router.get('/sedi', getSedi);
+router.post('/cliente', addCliente);
 router.get('/clienti', getClienti);
+router.post('/profilo', addProfilo);
 router.get('/profili', getProfili);
+router.post('/commessa', addCommessa);
 router.get('/commesse', getCommesse);
+router.post('/macroArea', addMacroArea);
 router.get('/macroAree', getMacroAree);
 router.get('/commesseFincons', getCommessFincons);
+router.post('/ambito', addAmbito);
 router.get('/ambiti', getAmbiti);
 router.get('/ambiti/:idCliente', getAmbitiCliente);
+router.post('/addAttivita', addAttivita);
 router.get('/attivita', getAttivita);
 router.get('/attivita/:idCliente/:idAmbito', getAttivitaByClienteAndAmbito);
+router.post('/addStatoAttivita', addStatoAttivita);
 router.get('/statoAttivita', getStatoAttivita);
+router.post('/addTipoDeliverable', addTipoDeliverable);
 router.get('/tipiDeliverable', getTipiDeliverable);
 
 function authenticate(req, res) {
@@ -54,9 +63,28 @@ function getAll(req, res){
 	
 };
 
+function addSede(req, res){
+	userService.addSede(req.body).then(function(){
+		 res.sendStatus(200);
+	}).catch(function (err) {
+            res.status(400).send(err);
+        });
+	
+};
+
 function getSedi(req, res){
 	userService.getSedi().then(function(sedi){
 		 res.send(sedi);
+	}).catch(function (err) {
+            res.status(400).send(err);
+    });
+	
+};
+
+
+function addCliente(req, res){
+	userService.addCliente(req.body).then(function(){
+		 res.sendStatus(200);
 	}).catch(function (err) {
             res.status(400).send(err);
         });
@@ -68,6 +96,15 @@ function getClienti(req, res){
 		 res.send(clienti);
 	}).catch(function (err) {
             res.status(400).send(err);
+    });
+	
+};
+
+function addProfilo(req, res){
+	userService.addProfilo(req.body).then(function(){
+		 res.sendStatus(200);
+	}).catch(function (err) {
+            res.status(400).send(err);
         });
 	
 };
@@ -75,6 +112,16 @@ function getClienti(req, res){
 function getProfili(req, res){
 	userService.getProfili().then(function(profili){
 		 res.send(profili);
+	}).catch(function (err) {
+            res.status(400).send(err);
+	});
+	
+};
+
+
+function addCommessa(req, res){
+	userService.addCommessa(req.body).then(function(){
+		 res.sendStatus(200);
 	}).catch(function (err) {
             res.status(400).send(err);
         });
@@ -86,13 +133,23 @@ function getCommesse(req, res){
 		 res.send(commesse);
 	}).catch(function (err) {
             res.status(400).send(err);
-        });
+	});
 	
 };
 
 function getCommesseCliente(req, res){
 	userService.getCommesseCliente(req.body.idCliente).then(function(commesseCliente){
 		 res.send(commesseCliente);
+	}).catch(function (err) {
+            res.status(400).send(err);
+	});
+	
+};
+
+
+function addMacroArea(req, res){
+	userService.addMacroArea(req.body).then(function(){
+		 res.sendStatus(200);
 	}).catch(function (err) {
             res.status(400).send(err);
         });
@@ -104,13 +161,23 @@ function getMacroAree(req, res){
 		 res.send(macroaree);
 	}).catch(function (err) {
             res.status(400).send(err);
-        });
+	});
 	
 };
 
 function getCommesseFincons(req, res){
 	userService.getCommesseFincons().then(function(commesseFincons){
 		 res.send(commesseFincons);
+	}).catch(function (err) {
+            res.status(400).send(err);
+	});
+	
+};
+
+
+function addAmbito(req, res){
+	userService.addAmbito(req.body).then(function(){
+		 res.sendStatus(200);
 	}).catch(function (err) {
             res.status(400).send(err);
         });
@@ -122,13 +189,23 @@ function getAmbiti(req, res){
 		 res.send(ambiti);
 	}).catch(function (err) {
             res.status(400).send(err);
-        });
+	});
 	
 };
 
 function getAmbitiCliente(req, res){
 	userService.getAmbitiCliente(req.body.idCliente).then(function(ambiti){
 		 res.send(ambiti);
+	}).catch(function (err) {
+            res.status(400).send(err);
+	});
+	
+};
+
+
+function addAttivita(req, res){
+	userService.addMacroAree(req.body).then(function(){
+		 res.sendStatus(200);
 	}).catch(function (err) {
             res.status(400).send(err);
         });
@@ -140,13 +217,23 @@ function getAttivita(req, res){
 		 res.send(attivita);
 	}).catch(function (err) {
             res.status(400).send(err);
-        });
+	});
 	
 };
 
 function getAttivitaByClienteAndAmbito(req, res){
 	userService.getAttivita(req.body.idCliente, req.body.idAmbito).then(function(attivita){
 		 res.send(attivita);
+	}).catch(function (err) {
+            res.status(400).send(err);
+	});
+	
+};
+
+
+function addStatoAttivita(req, res){
+	userService.addStatoAttivita(req.body).then(function(){
+		 res.sendStatus(200);
 	}).catch(function (err) {
             res.status(400).send(err);
         });
@@ -158,6 +245,16 @@ function getStatoAttivita(req, res){
 		 res.send(statoAttivita);
 	}).catch(function (err) {
             res.status(400).send(err);
+	});
+	
+};
+
+
+function addTipoDeliverable(req, res){
+	userService.addTipoDeliverable(req.body).then(function(){
+		 res.sendStatus(200);
+	}).catch(function (err) {
+            res.status(400).send(err);
         });
 	
 };
@@ -167,7 +264,7 @@ function getTipiDeliverable(req, res){
 		 res.send(tipiDeliverable);
 	}).catch(function (err) {
             res.status(400).send(err);
-        });
+	});
 	
 };
 
