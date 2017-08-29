@@ -8,12 +8,13 @@ var Q = require('q');
 var service = {};
 
 const User = require('../models/user.js');
+const Sede = require('../models/sede.js');
 
 service.authenticate = authenticate;
 service.addUser = addUser;
 service.getAll = getAll;
 service.addSede = addSede;
-service.getSedi = getSede;
+service.getSedi = getSedi;
 service.addProfilo = addProfilo;
 service.getProfili = getProfili;
 service.addProfilo = addProfilo;
@@ -30,7 +31,7 @@ service.getAmbiti = getAmbiti;
 service.getAmbitiCliente = getAmbitiCliente;
 service.addAttivita = addAttivita;
 service.getAttivita = getAttivita;
-service.getAttivitaByClienteAndAmbito = getAttivitaByClienteAndAmbito;
+service.getAttivitaByCommessaClienteAndAmbito = getAttivitaByCommessaClienteAndAmbito;
 service.addStatoAttivita = addStatoAttivita;
 service.getAttivita = getAttivita;
 service.addTipoDeliverable = addTipoDeliverable;
@@ -124,8 +125,9 @@ function addSede(sedeParam) {
 
 function getSedi() {
     var deferred = Q.defer();
-
-    Sede.findAll({},function (err, sedi) {
+	
+	var sede = new Sede();
+    sede.findAll({},function (err, sedi) {
         if (err){
           deferred.reject(err.name + ': ' + err.message);  
       } else{
