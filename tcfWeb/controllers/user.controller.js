@@ -14,15 +14,17 @@ router.post('/profilo', addProfilo);
 router.get('/profili', getProfili);
 router.post('/commessa', addCommessa);
 router.get('/commesse', getCommesse);
+router.get('/commesse/:idCliente', getAmbitiCliente);
 router.post('/macroArea', addMacroArea);
 router.get('/macroAree', getMacroAree);
-router.get('/commesseFincons', getCommessFincons);
+router.post('/commessaFincons', addCommessaFincons);
+router.get('/commesseFincons', getCommesseFincons);
 router.post('/ambito', addAmbito);
 router.get('/ambiti', getAmbiti);
 router.get('/ambiti/:idCliente', getAmbitiCliente);
 router.post('/addAttivita', addAttivita);
 router.get('/attivita', getAttivita);
-router.get('/attivita/:idCliente/:idAmbito', getAttivitaByClienteAndAmbito);
+router.get('/attivita/:idCommessaCliente/:idAmbito', getAttivitaByCommessaClienteAndAmbito);
 router.post('/addStatoAttivita', addStatoAttivita);
 router.get('/statoAttivita', getStatoAttivita);
 router.post('/addTipoDeliverable', addTipoDeliverable);
@@ -165,6 +167,15 @@ function getMacroAree(req, res){
 	
 };
 
+function addCommessaFincons(req, res){
+	userService.addCommessa(req.body).then(function(){
+		 res.sendStatus(200);
+	}).catch(function (err) {
+            res.status(400).send(err);
+        });
+	
+};
+
 function getCommesseFincons(req, res){
 	userService.getCommesseFincons().then(function(commesseFincons){
 		 res.send(commesseFincons);
@@ -221,8 +232,8 @@ function getAttivita(req, res){
 	
 };
 
-function getAttivitaByClienteAndAmbito(req, res){
-	userService.getAttivita(req.body.idCliente, req.body.idAmbito).then(function(attivita){
+function getAttivitaByCommessaClienteAndAmbito(req, res){
+	userService.getAttivitaByCommessaClienteAndAmbito(req.body.idCommessaCliente, req.body.idAmbito).then(function(attivita){
 		 res.send(attivita);
 	}).catch(function (err) {
             res.status(400).send(err);

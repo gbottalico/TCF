@@ -28,4 +28,12 @@ const CommessaFinconsSchema = mongoose.Schema({
 });
 
 
-const CommessaFincons = module.exports = mongoose.model('CommessaFincons', CommessaFinconsSchema); 
+const CommessaFincons = module.exports = mongoose.model('CommessaFincons', CommessaFinconsSchema); ù
+
+function findAll() {
+	CommessaFincons.
+		find().
+		where('data_inizio_validita').lte(Date.now()).
+		where('data_inizio_validita').gte(Date.now()).
+		exec(callback);
+}

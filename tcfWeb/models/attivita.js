@@ -49,3 +49,21 @@ const AttivitaSchema = mongoose.Schema({
 
 
 const Attivita = module.exports = mongoose.model('Attivita', AttivitaSchema); 
+
+function findAll() {
+	Attivita.
+		find().
+		where('data_inizio_validita').lte(Date.now()).
+		where('data_inizio_validita').gte(Date.now()).
+		exec(callback);
+}
+
+function findByCommessaClienteAndAmbito(idCommessaCliente, idAmbito) {
+	Attivita.
+		find().
+		where('data_inizio_validita').lte(Date.now()).
+		where('data_fine_validita').gte(Date.now()).
+		where('id_commessa_cliente').equals(idCommessaCliente).
+		where('id_ambito').equals(idAmbito).
+		exec(callback);
+}

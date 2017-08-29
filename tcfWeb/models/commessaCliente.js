@@ -41,7 +41,8 @@ const CommessaClienteSchema = mongoose.Schema({
 	codice_ordine:{
 		type: String,
 		required: false
-	},	data_inizio_validita:{
+	},	
+	data_inizio_validita:{
 		type: Date,
 		required: true,
 	},
@@ -51,5 +52,21 @@ const CommessaClienteSchema = mongoose.Schema({
 	}
 });
 
-
 const CommessaCliente = module.exports = mongoose.model('CommessaCliente', CommessaClienteSchema); 
+
+function findAll() {
+	CommessaCliente.
+		find().
+		where('data_inizio_validita').lte(Date.now()).
+		where('data_fine_validita').gte(Date.now()).
+		exec(callback);
+}
+
+function findByCliente(idCliente) {
+	CommessaCliente.
+		find().
+		where('data_inizio_validita').lte(Date.now()).
+		where('data_fine_validita').gte(Date.now()).
+		where('id_cliente').equals(idCliente).
+		exec(callback);
+}

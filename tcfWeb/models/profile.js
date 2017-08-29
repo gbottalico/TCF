@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const ProfileSchema = mongoose.Schema({
+const ProfiloSchema = mongoose.Schema({
 	_id: {
 		type: String,
 		required: true
@@ -19,5 +19,12 @@ const ProfileSchema = mongoose.Schema({
 	}
 });
 
+const Profilo = module.exports = mongoose.model('Profilo', ProfiloSchema); 
 
-const Profile = module.exports = mongoose.model('Profile', ProfileSchema); 
+function findAll() {
+	Profilo.
+		find().
+		where('data_inizio_validita').lte(Date.now()).
+		where('data_fine_validita').gte(Date.now()).
+		exec(callback);
+}

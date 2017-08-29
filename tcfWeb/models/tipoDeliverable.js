@@ -21,3 +21,11 @@ const TipoDeliverableSchema = mongoose.Schema({
 
 
 const TipoDeliverable = module.exports = mongoose.model('TipoDeliverable', TipoDeliverableSchema); 
+
+function findAll() {
+	TipoDeliverable.
+		find().
+		where('data_inizio_validita').lte(Date.now()).
+		where('data_fine_validita').gte(Date.now()).
+		exec(callback);
+}
