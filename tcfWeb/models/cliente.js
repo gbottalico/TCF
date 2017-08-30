@@ -19,12 +19,12 @@ const ClienteSchema = mongoose.Schema({
 	}
 });
 
-const Cliente = module.exports = mongoose.model('Cliente', ClienteSchema); 
 
-function findAll() {
-	Cliente.
-		find().
+ClienteSchema.methods.findAll = function findAll(params, callback) {
+	return this.model('Cliente').find().
 		where('data_inizio_validita').lte(Date.now()).
-		where('data_inizio_validita').gte(Date.now()).
+		where('data_fine_validita').gte(Date.now()).
 		exec(callback);
 }
+
+const Cliente = module.exports = mongoose.model('Cliente', ClienteSchema); 

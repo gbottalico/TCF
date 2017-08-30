@@ -20,12 +20,11 @@ const StatoAttivitaSchema = mongoose.Schema({
 });
 
 
-const StatoAttivita = module.exports = mongoose.model('StatoAttivita', StatoAttivitaSchema); 
-
-function findAll() {
-	StatoAttivita.
-		find().
+StatoAttivitaSchema.methods.findAll = function findAll(params, callback) {
+	return this.model('StatoAttivita').find().
 		where('data_inizio_validita').lte(Date.now()).
 		where('data_fine_validita').gte(Date.now()).
 		exec(callback);
 }
+
+const StatoAttivita = module.exports = mongoose.model('StatoAttivita', StatoAttivitaSchema); 

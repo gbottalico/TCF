@@ -14,7 +14,7 @@ router.post('/profilo', addProfilo);
 router.get('/profili', getProfili);
 router.post('/commessa', addCommessa);
 router.get('/commesse', getCommesse);
-router.get('/commesse/:idCliente', getAmbitiCliente);
+router.get('/commesse/:idCliente', getCommesseCliente);
 router.post('/macroArea', addMacroArea);
 router.get('/macroAree', getMacroAree);
 router.post('/commessaFincons', addCommessaFincons);
@@ -26,7 +26,7 @@ router.post('/addAttivita', addAttivita);
 router.get('/attivita', getAttivita);
 router.get('/attivita/:idCommessaCliente/:idAmbito', getAttivitaByCommessaClienteAndAmbito);
 router.post('/addStatoAttivita', addStatoAttivita);
-router.get('/statoAttivita', getStatoAttivita);
+router.get('/statiAttivita', getStatiAttivita);
 router.post('/addTipoDeliverable', addTipoDeliverable);
 router.get('/tipiDeliverable', getTipiDeliverable);
 
@@ -159,7 +159,7 @@ function addMacroArea(req, res){
 };
 
 function getMacroAree(req, res){
-	userService.getMacroaree().then(function(macroaree){
+	userService.getMacroAree().then(function(macroaree){
 		 res.send(macroaree);
 	}).catch(function (err) {
             res.status(400).send(err);
@@ -251,9 +251,9 @@ function addStatoAttivita(req, res){
 	
 };
 
-function getStatoAttivita(req, res){
-	userService.getStatoAttivita().then(function(statoAttivita){
-		 res.send(statoAttivita);
+function getStatiAttivita(req, res){
+	userService.getStatiAttivita().then(function(statiAttivita){
+		 res.send(statiAttivita);
 	}).catch(function (err) {
             res.status(400).send(err);
 	});

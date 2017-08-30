@@ -19,12 +19,12 @@ const ProfiloSchema = mongoose.Schema({
 	}
 });
 
-const Profilo = module.exports = mongoose.model('Profilo', ProfiloSchema); 
-
-function findAll() {
-	Profilo.
-		find().
+ProfiloSchema.methods.findAll = function findAll(params, callback) {
+	return this.model('Profilo').find().
 		where('data_inizio_validita').lte(Date.now()).
 		where('data_fine_validita').gte(Date.now()).
 		exec(callback);
 }
+
+const Profilo = module.exports = mongoose.model('Profilo', ProfiloSchema); 
+

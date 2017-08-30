@@ -52,21 +52,21 @@ const CommessaClienteSchema = mongoose.Schema({
 	}
 });
 
+CommessaClienteSchema.methods.findAll = function findAll(params, callback) {
+	return this.model('CommessaCliente').find().
+		where('data_inizio_validita').lte(Date.now()).
+		where('data_fine_validita').gte(Date.now()).
+		exec(callback);
+}
+
+CommessaClienteSchema.methods.findByCliente = function findByCliente(params, callback) {
+	return this.model('CommessaCliente').find().
+		where('data_inizio_validita').lte(Date.now()).
+		where('data_fine_validita').gte(Date.now()).
+		where('id_cliente').equals(params.idCliente).
+		exec(callback);
+}
+
+
 const CommessaCliente = module.exports = mongoose.model('CommessaCliente', CommessaClienteSchema); 
 
-function findAll() {
-	CommessaCliente.
-		find().
-		where('data_inizio_validita').lte(Date.now()).
-		where('data_fine_validita').gte(Date.now()).
-		exec(callback);
-}
-
-function findByCliente(idCliente) {
-	CommessaCliente.
-		find().
-		where('data_inizio_validita').lte(Date.now()).
-		where('data_fine_validita').gte(Date.now()).
-		where('id_cliente').equals(idCliente).
-		exec(callback);
-}

@@ -9,12 +9,23 @@ var service = {};
 
 const User = require('../models/user.js');
 const Sede = require('../models/sede.js');
+const Cliente = require('../models/sede.js');
+const Profilo = require('../models/profile.js');
+const CommessaCliente = require('../models/commessaCliente.js');
+const MacroArea = require('../models/macroArea.js');
+const CommessaFincons = require('../models/commessaFincons.js');
+const Ambito = require('../models/ambito.js');
+const Attivita = require('../models/attivita.js');
+const StatoAttivita = require('../models/statoAttivita.js');
+const TipoDeliverable = require('../models/tipoDeliverable.js');
 
 service.authenticate = authenticate;
 service.addUser = addUser;
 service.getAll = getAll;
 service.addSede = addSede;
 service.getSedi = getSedi;
+service.addCliente = addCliente;
+service.getClienti = getClienti;
 service.addProfilo = addProfilo;
 service.getProfili = getProfili;
 service.addProfilo = addProfilo;
@@ -33,7 +44,7 @@ service.addAttivita = addAttivita;
 service.getAttivita = getAttivita;
 service.getAttivitaByCommessaClienteAndAmbito = getAttivitaByCommessaClienteAndAmbito;
 service.addStatoAttivita = addStatoAttivita;
-service.getAttivita = getAttivita;
+service.getStatiAttivita = getStatiAttivita;
 service.addTipoDeliverable = addTipoDeliverable;
 service.getTipiDeliverable = getTipiDeliverable;
 /*service.getById = getById;
@@ -126,7 +137,7 @@ function addSede(sedeParam) {
 function getSedi() {
     var deferred = Q.defer();
 	
-	var sede = new Sede();
+	let sede = new Sede();
     sede.findAll({},function (err, sedi) {
         if (err){
           deferred.reject(err.name + ': ' + err.message);  
@@ -160,7 +171,8 @@ function addCliente(clienteParam) {
 function getClienti() {
     var deferred = Q.defer();
 
-    Cliente.findAll({},function (err, clienti) {
+	let cliente = new Cliente();
+    cliente.findAll({},function (err, clienti) {
         if (err){
           deferred.reject(err.name + ': ' + err.message);  
       } else{
@@ -193,7 +205,8 @@ function addProfilo(profiloParam) {
 function getProfili() {
     var deferred = Q.defer();
 
-    Profilo.findAll({},function (err, profili) {
+	let profilo = new Profilo();
+    profilo.findAll({},function (err, profili) {
         if (err){
           deferred.reject(err.name + ': ' + err.message);  
       } else{
@@ -226,7 +239,8 @@ function addCommessa(commessaParam) {
 function getCommesse() {
     var deferred = Q.defer();
 
-    Commessa.findAll({},function (err, commesse) {
+	let commessa = new CommessaCliente();
+    commessa.findAll({},function (err, commesse) {
         if (err){
           deferred.reject(err.name + ': ' + err.message);  
       } else{
@@ -241,7 +255,8 @@ function getCommesse() {
 function getCommesseCliente(idCliente) {
     var deferred = Q.defer();
 
-    Commessa.findByCliente({idCliente : idCliente},function (err, commesse) {
+	let commessa = new CommessaCliente();
+    commessa.findByCliente({idCliente : idCliente},function (err, commesse) {
         if (err){
           deferred.reject(err.name + ': ' + err.message);  
       } else{
@@ -274,7 +289,8 @@ function addMacroArea(macroAreaParam) {
 function getMacroAree() {
     var deferred = Q.defer();
 
-    MacroArea.findAll({},function (err, macroAree) {
+	let macroArea = new MacroArea();
+    macroArea.findAll({},function (err, macroAree) {
         if (err){
           deferred.reject(err.name + ': ' + err.message);  
       } else{
@@ -307,7 +323,8 @@ function addCommessaFincons(commessaFinconsParam) {
 function getCommesseFincons() {
     var deferred = Q.defer();
 
-    CommessaFincons.findAll({},function (err, commesseFincons) {
+	let commessaFincons = new CommessaFincons();
+    commessaFincons.findAll({},function (err, commesseFincons) {
         if (err){
           deferred.reject(err.name + ': ' + err.message);  
       } else{
@@ -340,7 +357,8 @@ function addAmbito(ambitoParam) {
 function getAmbiti() {
     var deferred = Q.defer();
 
-    Ambito.findAll({},function (err, ambiti) {
+	let ambito = new Ambito();
+    ambito.findAll({},function (err, ambiti) {
         if (err){
           deferred.reject(err.name + ': ' + err.message);  
       } else{
@@ -355,7 +373,8 @@ function getAmbiti() {
 function getAmbitiCliente(idCliente) {
     var deferred = Q.defer();
 
-    Ambito.findByCliente({idCliente : idCliente},function (err, ambiti) {
+	let ambito = new Ambito();
+    ambito.findByCliente({idCliente : idCliente},function (err, ambiti) {
         if (err){
           deferred.reject(err.name + ': ' + err.message);  
       } else{
@@ -388,7 +407,8 @@ function addAttivita(attivitaParam) {
 function getAttivita() {
     var deferred = Q.defer();
 
-    Attivita.findAll({},function (err, attivita) {
+	let attivita = new Attivita();
+    attivita.findAll({},function (err, attivita) {
         if (err){
           deferred.reject(err.name + ': ' + err.message);  
       } else{
@@ -403,7 +423,8 @@ function getAttivita() {
 function getAttivitaByCommessaClienteAndAmbito(idCommessaCliente, idAmbito) {
     var deferred = Q.defer();
 
-    Attivita.findByCommessaClienteAndAmbito({idCommessaCliente : idCommessaCliente, idAmbito : idAmbito},function (err, attivita) {
+	let attivita = new Attivita();
+    attivita.findByCommessaClienteAndAmbito({idCommessaCliente : idCommessaCliente, idAmbito : idAmbito},function (err, attivita) {
         if (err){
           deferred.reject(err.name + ': ' + err.message);  
       } else{
@@ -436,7 +457,8 @@ function addStatoAttivita(statoAttivitaParam) {
 function getStatiAttivita() {
     var deferred = Q.defer();
 
-    StatoAttivita.findAll({},function (err, statiAttivita) {
+	let statoAttivita = new StatoAttivita();
+    statoAttivita.findAll({},function (err, statiAttivita) {
         if (err){
           deferred.reject(err.name + ': ' + err.message);  
       } else{
@@ -469,7 +491,8 @@ function addTipoDeliverable(tipoDeliverableParam) {
 function getTipiDeliverable() {
     var deferred = Q.defer();
 
-    TipoDeliverable.findAll({},function (err, tipiDeliverable) {
+	let tipoDeliverable = new TipoDeliverable();
+    tipoDeliverable.findAll({},function (err, tipiDeliverable) {
         if (err){
           deferred.reject(err.name + ': ' + err.message);  
       } else{

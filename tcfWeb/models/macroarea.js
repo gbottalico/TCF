@@ -19,12 +19,11 @@ const MacroAreaSchema = mongoose.Schema({
 	}
 });
 
-const MacroArea = module.exports = mongoose.model('MacroArea', MacroAreaSchema); 
-
-function findAll() {
-	MacroArea.
-		find().
+MacroAreaSchema.methods.findAll = function findAll(params, callback) {
+	return this.model('MacroArea').find().
 		where('data_inizio_validita').lte(Date.now()).
 		where('data_fine_validita').gte(Date.now()).
 		exec(callback);
 }
+
+const MacroArea = module.exports = mongoose.model('MacroArea', MacroAreaSchema); 

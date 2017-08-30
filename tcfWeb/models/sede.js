@@ -19,11 +19,13 @@ const SedeSchema = mongoose.Schema({
 	}
 });
 
-const Sede = module.exports = mongoose.model('Sede', SedeSchema); 
 
-SedeSchema.methods.findAll = function findAll() {
+SedeSchema.methods.findAll = function findAll(params, callback) {
 	return this.model('Sede').find().
 		where('data_inizio_validita').lte(Date.now()).
 		where('data_fine_validita').gte(Date.now()).
 		exec(callback);
 }
+
+const Sede = module.exports = mongoose.model('Sede', SedeSchema); 
+
