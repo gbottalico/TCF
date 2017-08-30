@@ -29,6 +29,8 @@ mongoose.connect(config.connectionString);
 // routes
 app.use('/tcf/api/userController', require('./controllers/user.controller'));
 
+app.use('/tcf/api/domainController', require('./controllers/domain.controller'));
+
 // start server
 var port = process.env.NODE_ENV === 'production' ? 80 : 4000;
 var server = app.listen(port, function () {
