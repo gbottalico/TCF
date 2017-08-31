@@ -21,9 +21,9 @@ const StatoAttivitaSchema = mongoose.Schema({
 
 
 StatoAttivitaSchema.methods.findAll = function findAll(params, callback) {
-	return this.model('StatoAttivita').find().
+	return this.model('StatoAttivita').find( { 
+		$or: [ { data_fine_validita: null }, { data_fine_validita: { $gte: Date.now() } } ] }).
 		where('data_inizio_validita').lte(Date.now()).
-		where('data_fine_validita').gte(Date.now()).
 		exec(callback);
 }
 

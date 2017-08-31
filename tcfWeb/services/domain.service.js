@@ -15,6 +15,7 @@ const Ambito = require('../models/ambito.js');
 const Attivita = require('../models/attivita.js');
 const StatoAttivita = require('../models/statoAttivita.js');
 const TipoDeliverable = require('../models/tipoDeliverable.js');
+const StatoMeseConsuntivo = require('../models/statoMeseConsuntivo.js');
 
 
 serviceDomain.addSede = addSede;
@@ -42,6 +43,8 @@ serviceDomain.addStatoAttivita = addStatoAttivita;
 serviceDomain.getStatiAttivita = getStatiAttivita;
 serviceDomain.addTipoDeliverable = addTipoDeliverable;
 serviceDomain.getTipiDeliverable = getTipiDeliverable;
+serviceDomain.addStatoMeseConsuntivo = addStatoMeseConsuntivo;
+serviceDomain.getStatiMeseConsuntivo = getStatiMeseConsuntivo;
 
 module.exports = serviceDomain;
 
@@ -50,7 +53,9 @@ module.exports = serviceDomain;
 function addSede(sedeParam) {
     console.log("addSede "+sedeParam._id)
     var deferred = Q.defer();
-    sedeParam.data_inizio_validita = Date.now();
+	if(sedeParam.data_inizio_validita == undefined){
+		sedeParam.data_inizio_validita = Date.now();
+	}
     console.log (sedeParam);
     let newSede = new Sede(sedeParam);
     console.log(newSede);
@@ -84,7 +89,9 @@ function getSedi() {
 function addCliente(clienteParam) {
     console.log("addCliente "+clienteParam._id)
     var deferred = Q.defer();
-    clienteParam.data_inizio_validita = Date.now();
+	if(clienteParam.data_inizio_validita == undefined){
+		clienteParam.data_inizio_validita = Date.now();
+	}
     console.log (clienteParam);
     let newCliente = new Cliente(clienteParam);
     console.log(newCliente);
@@ -118,7 +125,9 @@ function getClienti() {
 function addProfilo(profiloParam) {
     console.log("addProfilo "+profiloParam._id)
     var deferred = Q.defer();
-    profiloParam.data_inizio_validita = Date.now();
+	if(profiloParam.data_inizio_validita == undefined){
+		profiloParam.data_inizio_validita = Date.now();
+	}
     console.log (profiloParam);
     let newProfilo = new Profilo(profiloParam);
     console.log(newProfilo);
@@ -152,12 +161,14 @@ function getProfili() {
 function addCommessa(commessaParam) {
     console.log("addCommessa "+commessaParam._id)
     var deferred = Q.defer();
-    commessaParam.data_inizio_validita = Date.now();
+	if(commessaParam.data_inizio_validita == undefined){
+		commessaParam.data_inizio_validita = Date.now();
+	}
     console.log (commessaParam);
-    let newCommessa = new Commessa(commessaParam);
+    let newCommessa = new CommessaCliente(commessaParam);
     console.log(newCommessa);
     var query = {'_id':newCommessa._id};
-    Commessa.findOneAndUpdate(query, newCommessa, {upsert:true}, function(err, doc){
+    CommessaCliente.findOneAndUpdate(query, newCommessa, {upsert:true}, function(err, doc){
         if (err){
             deferred.reject(err.name + ': ' + err.message);
         }else{
@@ -202,7 +213,9 @@ function getCommesseCliente(idCliente) {
 function addMacroArea(macroAreaParam) {
     console.log("addMacroArea "+macroAreaParam._id)
     var deferred = Q.defer();
-    macroAreaParam.data_inizio_validita = Date.now();
+	if(macroAreaParam.data_inizio_validita == undefined){
+		macroAreaParam.data_inizio_validita = Date.now();
+	}
     console.log (macroAreaParam);
     let newMacroArea = new MacroArea(macroAreaParam);
     console.log(newMacroArea);
@@ -236,7 +249,9 @@ function getMacroAree() {
 function addCommessaFincons(commessaFinconsParam) {
     console.log("addCommessaFincons "+commessaFinconsParam._id)
     var deferred = Q.defer();
-    commessaFinconsParam.data_inizio_validita = Date.now();
+	if(commessaFinconsParam.data_inizio_validita == undefined){
+		commessaFinconsParam.data_inizio_validita = Date.now();
+	}
     console.log (commessaFinconsParam);
     let newCommessaFincons = new CommessaFincons(commessaFinconsParam);
     console.log(newCommessaFincons);
@@ -270,7 +285,9 @@ function getCommesseFincons() {
 function addAmbito(ambitoParam) {
     console.log("addAmbito "+ambitoParam._id)
     var deferred = Q.defer();
-    ambitoParam.data_inizio_validita = Date.now();
+	if(ambitoParam.data_inizio_validita == undefined){
+		ambitoParam.data_inizio_validita = Date.now();
+	}
     console.log (ambitoParam);
     let newAmbito = new Ambito(ambitoParam);
     console.log(newAmbito);
@@ -320,7 +337,9 @@ function getAmbitiCliente(idCliente) {
 function addAttivita(attivitaParam) {
     console.log("addAttivita "+attivitaParam._id)
     var deferred = Q.defer();
-    attivitaParam.data_inizio_validita = Date.now();
+	if(attivitaParam.data_inizio_validita == undefined){
+		attivitaParam.data_inizio_validita = Date.now();
+	}
     console.log (attivitaParam);
     let newAttivita = new Attivita(attivitaParam);
     console.log(newAttivita);
@@ -370,7 +389,9 @@ function getAttivitaByCommessaClienteAndAmbito(idCommessaCliente, idAmbito) {
 function addStatoAttivita(statoAttivitaParam) {
     console.log("addStatoAttivita "+statoAttivitaParam._id)
     var deferred = Q.defer();
-    statoAttivitaParam.data_inizio_validita = Date.now();
+	if(statoAttivitaParam.data_inizio_validita == undefined){
+		statoAttivitaParam.data_inizio_validita = Date.now();
+	}
     console.log (statoAttivitaParam);
     let newStatoAttivita = new StatoAttivita(statoAttivitaParam);
     console.log(newStatoAttivita);
@@ -404,7 +425,9 @@ function getStatiAttivita() {
 function addTipoDeliverable(tipoDeliverableParam) {
     console.log("addTipoDeliverable "+tipoDeliverableParam._id)
     var deferred = Q.defer();
-    tipoDeliverableParam.data_inizio_validita = Date.now();
+	if(tipoDeliverableParam.data_inizio_validita == undefined){
+		tipoDeliverableParam.data_inizio_validita = Date.now();
+	}
     console.log (tipoDeliverableParam);
     let newTipoDeliverable = new TipoDeliverable(tipoDeliverableParam);
     console.log(newTipoDeliverable);
@@ -428,6 +451,42 @@ function getTipiDeliverable() {
           deferred.reject(err.name + ': ' + err.message);  
       } else{
         deferred.resolve(tipiDeliverable);
+      }
+
+    });
+
+    return deferred.promise;
+}
+
+function addStatoMeseConsuntivo(statoMeseConsuntivoParam) {
+    console.log("addStatoMeseConsuntivo "+statoMeseConsuntivoParam._id)
+    var deferred = Q.defer();
+	if(statoMeseConsuntivoParam.data_inizio_validita == undefined){
+		statoMeseConsuntivoParam.data_inizio_validita = Date.now();
+	}
+    console.log (statoMeseConsuntivoParam);
+    let newStatoMeseConsuntivo = new StatoMeseConsuntivo(statoMeseConsuntivoParam);
+    console.log(newStatoMeseConsuntivo);
+    var query = {'_id':newStatoMeseConsuntivo._id};
+    StatoMeseConsuntivo.findOneAndUpdate(query, newStatoMeseConsuntivo, {upsert:true}, function(err, doc){
+        if (err){
+            deferred.reject(err.name + ': ' + err.message);
+        }else{
+             deferred.resolve({msg: 'StatoMeseConsuntivo add successfully'});
+        }
+    });
+     return deferred.promise;
+}
+
+function getStatiMeseConsuntivo() {
+    var deferred = Q.defer();
+
+	let statoMeseConsuntivo = new StatoMeseConsuntivo();
+    statoMeseConsuntivo.findAll({},function (err, statiMeseConsuntivo) {
+        if (err){
+          deferred.reject(err.name + ': ' + err.message);  
+      } else{
+        deferred.resolve(statiMeseConsuntivo);
       }
 
     });

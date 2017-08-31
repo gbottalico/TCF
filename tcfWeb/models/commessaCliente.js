@@ -53,16 +53,16 @@ const CommessaClienteSchema = mongoose.Schema({
 });
 
 CommessaClienteSchema.methods.findAll = function findAll(params, callback) {
-	return this.model('CommessaCliente').find().
+	return this.model('CommessaCliente').find( { 
+		$or: [ { data_fine_validita: null }, { data_fine_validita: { $gte: Date.now() } } ] }).
 		where('data_inizio_validita').lte(Date.now()).
-		where('data_fine_validita').gte(Date.now()).
 		exec(callback);
 }
 
 CommessaClienteSchema.methods.findByCliente = function findByCliente(params, callback) {
-	return this.model('CommessaCliente').find().
+	return this.model('CommessaCliente').find( { 
+		$or: [ { data_fine_validita: null }, { data_fine_validita: { $gte: Date.now() } } ] }).
 		where('data_inizio_validita').lte(Date.now()).
-		where('data_fine_validita').gte(Date.now()).
 		where('id_cliente').equals(params.idCliente).
 		exec(callback);
 }
