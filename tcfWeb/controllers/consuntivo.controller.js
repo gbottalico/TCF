@@ -6,7 +6,7 @@ var consuntivoService = require('services/consuntivo.service');
 routerConsuntivo.post('/meseConsuntivo', addMeseConsuntivo);
 routerConsuntivo.get('/meseConsuntivoCliente/:idCliente/:anno/:mese', getMeseConsuntivoCliente);
 routerConsuntivo.post('/consuntivo', addConsuntivo);
-routerConsuntivo.get('/consuntivoCliente/:idCliente/:anno/:mese/', getConsuntivoCliente);
+routerConsuntivo.get('/consuntivoCliente/:idCliente/:data/', getConsuntivoCliente);
 
 function addMeseConsuntivo(req, res){
 	consuntivoService.addMeseConsuntivo(req.body).then(function(){
@@ -36,7 +36,7 @@ function addConsuntivo(req, res){
 };
 
 function getConsuntivoCliente(req, res){
-	consuntivoService.getConsuntivoCliente(req.params.idCliente, req.params.anno, req.params.mese).then(function(consuntivo){
+	consuntivoService.getConsuntivoCliente(req.params.idCliente, req.params.data).then(function(consuntivo){
 		 res.send(consuntivo);
 	}).catch(function (err) {
             res.status(400).send(err);

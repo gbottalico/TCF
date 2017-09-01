@@ -2,15 +2,11 @@ const mongoose = require('mongoose');
 
 const ConsuntivoSchema = mongoose.Schema({
     _id: {
-		type: Number, 
+		type: String, 
 		required: true
 	}, 
-	anno_consuntivo: { 
-		type: Number, 
-		required: true
-	},
-	mese_consuntivo: { 
-		type: Number, 
+	data_consuntivo: { 
+		type: Date, 
 		required: true
 	},
 	id_cliente: {
@@ -56,40 +52,12 @@ const ConsuntivoSchema = mongoose.Schema({
 	note: {
 		type: String,
 		required: false
-	},
-	dettagli: [
-		{
-			giorno: {
-				type : Number,
-				required: false
-			},
-			ore : {
-				type : Number,
-				required: false
-			}
-		}
-	],
-
+	}
 });
 
-var entitySchema = mongoose.Schema({
-    testvalue: {type: String}
-});
-
-entitySchema.pre('save', function(next) {
-    var doc = this;
-    counter.findByIdAndUpdate({_id: 'entityId'}, {$inc: { seq: 1} }, function(error, counter)   {
-        if(error)
-            return next(error);
-        doc.testvalue = counter.seq;
-        next();
-    });
-});
-
-ConsuntivoSchema.methods.findByClienteAnnoAndMese = function findByClienteAnnoAndMese(params, callback) {
+ConsuntivoSchema.methods.findByClienteAndData = function findByClienteAndData(params, callback) {
 	return this.model('Consuntivo').find().
-		where('anno_consuntivo').equals(params.anno).
-		where('mese_consuntivo').equals(params.mese).
+		where('data_consuntivo').equals(new Date(2017,08,31)).
 		where('id_cliente').equals(params.idCliente).
 		exec(callback);
 }
