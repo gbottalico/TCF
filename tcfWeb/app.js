@@ -30,6 +30,7 @@ mongoose.connect(config.connectionString);
 app.use('/tcf/api/userController', require('./controllers/user.controller'));
 app.use('/tcf/api/domainController', require('./controllers/domain.controller'));
 app.use('/tcf/api/consuntivoController', require('./controllers/consuntivo.controller'));
+app.use('/tcf/api/reportisticaController', require('./controllers/reportistica.controller'));
 
 // start server
 var port = process.env.NODE_ENV === 'production' ? 80 : 4000;

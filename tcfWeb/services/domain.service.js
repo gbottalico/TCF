@@ -194,7 +194,7 @@ function getCommesse() {
     return deferred.promise;
 }
 
-function getCommesseCliente(idCliente) {
+function getCommesseCliente() {
     var deferred = Q.defer();
 
 	let commessa = new CommessaCliente();
