@@ -1,10 +1,6 @@
 const mongoose = require('mongoose');
 
 const ConsuntivoSchema = mongoose.Schema({
-    _id: {
-		type: String, 
-		required: true
-	}, 
 	data_consuntivo: { 
 		type: Date, 
 		required: true
@@ -57,8 +53,15 @@ const ConsuntivoSchema = mongoose.Schema({
 
 ConsuntivoSchema.methods.findByClienteAndData = function findByClienteAndData(params, callback) {
 	return this.model('Consuntivo').find().
-		where('data_consuntivo').equals(new Date(2017,08,31)).
+		where('data_consuntivo').equals(params.data).
 		where('id_cliente').equals(params.idCliente).
+		exec(callback);
+}
+
+ConsuntivoSchema.methods.findBetweenDates = function findBetweenDates(params, callback) {
+	return this.model('Consuntivo').find().
+		where('data_consuntivo').gte(params.start).
+		where('data_consuntivo').lte(params.end).
 		exec(callback);
 }
 
