@@ -15,7 +15,7 @@ module.exports = serviceReportistica;
 function getReportistica(reportisticaParam){
 	var deferred = Q.defer();
 
-	var workbook = excelbuilder.createWorkbook("C:/Users/luca.massa/Desktop/file.xlsx")
+	var workbook = excelbuilder.createWorkbook("C:/Users/luca.massa/Desktop/", "file.xlsx");
 
 	// Create a new worksheet with 10 columns and 12 rows 
 	var sheet1 = workbook.createSheet('sheet1', 10, 12);
