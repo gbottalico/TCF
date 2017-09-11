@@ -35,7 +35,7 @@ function addUser(req, res){
 };
 
 function getAll(req, res){
-	userService.getAll().then(function(users){
+	userService.getAll().then(function(users){		 
 		 res.send(users);
 	}).catch(function (err) {
             res.status(400).send(err);
