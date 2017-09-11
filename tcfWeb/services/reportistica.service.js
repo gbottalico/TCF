@@ -9,6 +9,7 @@ var serviceReportistica = {};
 const Consuntivo = require('../models/consuntivo.js');
 
 serviceReportistica.getReportistica = getReportistica;
+serviceReportistica.getRowsForExcel = getRowsForExcel;
 
 module.exports = serviceReportistica;
 
@@ -33,4 +34,18 @@ function getReportistica(reportisticaParam){
 		deferred.resolve({msg: 'XLS created successfully'});
 	});
 	return deferred.promise;
+}
+
+function getRowsForExcel(params, res){
+	var deferred = Q.defer();
+
+	let consuntivo = new Consuntivo(); 
+
+	var start = dateFormat(new Date(params.start), "yyyy-dd-mm");
+	var end = dateFormat(new Date(params.end), "yyyy-dd-mm");
+    consuntivo.getRowsForExcel({start : new Date(start).toISOString(), end : new Date(end).toISOString(), res : res},function (err, reportistica) {
+        
+    });
+
+    return deferred.promise;
 }

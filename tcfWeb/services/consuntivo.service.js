@@ -36,7 +36,7 @@ function addMeseConsuntivo(meseConsuntivoParam) {
 function addConsuntivo(consuntivoParam) {
     console.log("addConsuntivo "+consuntivoParam._id)
     var deferred = Q.defer();
-	consuntivoParam.data_consuntivo = dateFormat(new Date(consuntivoParam.data_consuntivo), "yyyy-mm-dd");
+	consuntivoParam.data_consuntivo = dateFormat(new Date(consuntivoParam.data_consuntivo), "yyyy-dd-mm");
 	console.log(consuntivoParam.data_consuntivo);
     console.log (consuntivoParam);
     let newConsuntivo = new Consuntivo(consuntivoParam);
@@ -72,6 +72,7 @@ function getConsuntivoCliente(idCliente, data) {
     var deferred = Q.defer();
 
 	let consuntivo = new Consuntivo();
+	data = dateFormat(new Date(data), "yyyy-dd-mm");
     consuntivo.findByClienteAndData({idCliente : idCliente, data : new Date(data).toISOString()},function (err, consuntivo) {
         if (err){
           deferred.reject(err.name + ': ' + err.message);  
@@ -87,8 +88,8 @@ function getConsuntivoCliente(idCliente, data) {
 function getConsuntiviBetweenDates(start, end) {
     var deferred = Q.defer();
 
-	start = dateFormat(new Date(start), "yyyy-mm-dd");
-	end = dateFormat(new Date(end), "yyyy-mm-dd");
+	start = dateFormat(new Date(start), "yyyy-dd-mm");
+	end = dateFormat(new Date(end), "yyyy-dd-mm");
 	console.log("Dal: " + new Date(start).toISOString() + "Al: "+ new Date(end).toISOString());
 	let consuntivo = new Consuntivo();
     consuntivo.findBetweenDates({start : new Date(start).toISOString(), end : new Date(end).toISOString()},function (err, consuntivo) {
