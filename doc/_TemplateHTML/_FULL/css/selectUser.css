@@ -9,7 +9,9 @@
     transform: translate(0, -50%);
     margin: 0;
     left: 0;
-    font-size: 1rem;
+    font-size: 0.8rem;
+    font-weight: normal;
+    user-select: none;
 }
 .searchUser input {
     width: 270px;
@@ -29,7 +31,6 @@
 }
 .user {
     position: relative;
-    cursor: pointer;
     user-select: none;
     display: inline-block;
     margin-bottom: 5px;

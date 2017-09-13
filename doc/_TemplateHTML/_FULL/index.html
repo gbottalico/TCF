@@ -31,6 +31,7 @@
         <link rel="stylesheet" href="css/leftSidebar.css">
         <link rel="stylesheet" href="css/rightSidebar.css">
         <link rel="stylesheet" href="css/selectUser.css">
+        <link rel="stylesheet" href="css/userSelected.css">
         <!--END SECTION CSS-->
 
     </head>
@@ -118,7 +119,7 @@
                                     <i class="fa fa-user" aria-hidden="true"></i>
                                     <h3>Fabio Verlato</h3>
                                     <div class="infoalternative">
-                                        <button class="btn btnPrimary select">Seleziona</button>
+                                        <button class="btn btnPrimary selectUserBtn">Seleziona</button>
                                         <button type="button" class="btn btnTertiary delete">Elimina</button>
                                     </div>
                                 </div>
@@ -128,7 +129,7 @@
                                     <i class="fa fa-user-plus" aria-hidden="true"></i>
                                     <h3>Gianluca Bottalico</h3>
                                     <div class="infoalternative">
-                                        <button class="btn btnPrimary select">Seleziona</button>
+                                        <button class="btn btnPrimary selectUserBtn">Seleziona</button>
                                         <button type="button" class="btn btnTertiary delete">Elimina</button>
                                     </div>
                                 </div>
@@ -138,7 +139,7 @@
                                     <i class="fa fa-user-md" aria-hidden="true"></i>
                                     <h3>Giuseppe Mannarà</h3>
                                     <div class="infoalternative">
-                                        <button class="btn btnPrimary select">Seleziona</button>
+                                        <button class="btn btnPrimary selectUserBtn">Seleziona</button>
                                         <button type="button" class="btn btnTertiary delete">Elimina</button>
                                     </div>
                                 </div>
@@ -149,7 +150,7 @@
                                     <i class="fa fa-user" aria-hidden="true"></i>
                                     <h3>Stefano Riva</h3>
                                     <div class="infoalternative">
-                                        <button class="btn btnPrimary select">Seleziona</button>
+                                        <button class="btn btnPrimary selectUserBtn">Seleziona</button>
                                         <button type="button" class="btn btnTertiary delete">Elimina</button>
                                     </div>
                                 </div>
@@ -159,7 +160,7 @@
                                     <i class="fa fa-user-plus" aria-hidden="true"></i>
                                     <h3>Gianluca Polo</h3>
                                     <div class="infoalternative">
-                                        <button class="btn btnPrimary select">Seleziona</button>
+                                        <button class="btn btnPrimary selectUserBtn">Seleziona</button>
                                         <button type="button" class="btn btnTertiary delete">Elimina</button>
                                     </div>
                                 </div>
@@ -169,7 +170,7 @@
                                     <i class="fa fa-user-md" aria-hidden="true"></i>
                                     <h3>Alberto Feriotti</h3>
                                     <div class="infoalternative">
-                                        <button class="btn btnPrimary select">Seleziona</button>
+                                        <button class="btn btnPrimary selectUserBtn">Seleziona</button>
                                         <button type="button" class="btn btnTertiary delete">Elimina</button>
                                     </div>
                                 </div>
@@ -179,7 +180,7 @@
                                     <i class="fa fa-user" aria-hidden="true"></i>
                                     <h3>Giacomo Rossi</h3>
                                     <div class="infoalternative">
-                                        <button class="btn btnPrimary select">Seleziona</button>
+                                        <button class="btn btnPrimary selectUserBtn">Seleziona</button>
                                         <button type="button" class="btn btnTertiary delete">Elimina</button>
                                     </div>
                                 </div>
@@ -189,7 +190,7 @@
                                     <i class="fa fa-user-plus" aria-hidden="true"></i>
                                     <h3>Davide Leone</h3>
                                     <div class="infoalternative">
-                                        <button class="btn btnPrimary select">Seleziona</button>
+                                        <button class="btn btnPrimary selectUserBtn">Seleziona</button>
                                         <button type="button" class="btn btnTertiary delete">Elimina</button>
                                     </div>
                                 </div>
@@ -199,7 +200,7 @@
                                     <i class="fa fa-user-md" aria-hidden="true"></i>
                                     <h3>Luca Damiano Massa</h3>
                                     <div class="infoalternative">
-                                        <button class="btn btnPrimary select">Seleziona</button>
+                                        <button class="btn btnPrimary selectUserBtn">Seleziona</button>
                                         <button type="button" class="btn btnTertiary delete">Elimina</button>
                                     </div>
                                 </div>
@@ -209,7 +210,13 @@
                     </section>
 
                     <section class="userSelected">
-                        User selected & change user
+                        <div class="userSelectedSection">
+                            <div class='userSelectedIcon'>
+                                <i class="fa fa-user" aria-hidden="true"></i>
+                            </div>
+                            <h1>Utente selezionato</h1>
+                            <button class="btn btnPrimary changeUserBtn">Cambia utente</button>
+                        </div>
                     </section>
 
                     <section class="riassuntoMesi">
@@ -243,6 +250,8 @@
         <script src="js/breadcrumb.js"></script>
         <script src="js/leftSidebar.js"></script>
         <script src="js/consuntivazione.js"></script>
+        <script src="js/selectUser.js"></script>
+        <script src="js/userSelected.js"></script>
         <!--END SECTION JS-->
 
     </footer>
