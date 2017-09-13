@@ -16,10 +16,13 @@ export class AppComponent implements OnInit{
 
    constructor( private authenticationService: AuthenticationService ) { 
    		 this.subscription = this.authenticationService.user$
-      			.subscribe(item => {
-      				this.userLogged = item;
-      				console.log(this.userLogged);
-      			})
+      			.subscribe(
+					item => setTimeout( 
+							() => {
+      							this.userLogged = item;
+					  			console.log(this.userLogged);} 
+					  		, 0)
+      			) //timeout fix error ExpressionChangedAfterItHasBeenCheckedError
    }
 
 
