@@ -1,3 +1,6 @@
+/*SOLUZIONE RESPONSIVE POSSIBILE*/
+/*AL MOMENTO é STATA SETTATA UNA MIN_WIDTH AL BODY DI 768px. PROPONGO DI UTILIZZARE UNA ROTAZIONE DEL PROGETTO, IN RISOLUZIONI INFERIORI A 768px, ANZICHé UTILIZZARE DELLE CLASSI RESPONSIVE VISTA LA PRESENZA DI TABELLE*/
+
 html {
     box-sizing: border-box;
     font-family: 'Raleway-Regular', sans-serif;
@@ -10,7 +13,7 @@ html {
 body {
     background-color: #f2f2f2;
     margin: 0;
-    min-width: 760px;
+    min-width: 768px;
 }
 
 ::-webkit-scrollbar {
