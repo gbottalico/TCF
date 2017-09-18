@@ -1,0 +1,19 @@
+.riassuntoMesi {
+    position: relative;
+    height: 70px;
+    user-select: none;
+}
+.riassuntoSection h1 {
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    transform: translate(0, -50%);
+    font-size: 0.8rem;
+    font-weight: normal;
+}
+.selectContainer {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translate(0, -50%);
+}

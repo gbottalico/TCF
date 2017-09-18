@@ -1,0 +1,10 @@
+<header [userLogged]="this.userLogged"></header>
+<section class="generalIndexContainer" *ngIf="this.userLogged">
+  <sitemap [userLogged]="this.userLogged"></sitemap>
+  <toggle></toggle>
+  <leftsidebar></leftsidebar>
+</section>
+
+<rightsidebar>
+    <router-outlet></router-outlet>
+</rightsidebar>

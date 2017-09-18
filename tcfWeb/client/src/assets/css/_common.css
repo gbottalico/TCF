@@ -1,3 +1,6 @@
+/*SOLUZIONE RESPONSIVE POSSIBILE*/
+/*AL MOMENTO é STATA SETTATA UNA MIN_WIDTH AL BODY DI 768px. PROPONGO DI UTILIZZARE UNA ROTAZIONE DEL PROGETTO, IN RISOLUZIONI INFERIORI A 768px, ANZICHé UTILIZZARE DELLE CLASSI RESPONSIVE VISTA LA PRESENZA DI TABELLE*/
+
 html {
     box-sizing: border-box;
     font-family: 'Raleway-Regular', sans-serif;
@@ -10,7 +13,7 @@ html {
 body {
     background-color: #f2f2f2;
     margin: 0;
-    min-width: 630px;
+    min-width: 768px;
 }
 
 ::-webkit-scrollbar {
@@ -23,8 +26,6 @@ body {
   background-color: rgba(0, 0, 0, .5);
   -webkit-box-shadow: 0 0 1px rgba(255, 255, 255, .5);
 }
-
-/*prova*/
 
 .cookie {
     position: fixed;
@@ -78,6 +79,11 @@ body {
     color: #f2f2f2;
     border: 2px solid #f2f2f2;
 }
+.btnTertiary {
+    background: transparent;
+    color: #666;
+    border: 2px solid #666;  
+}
 .btn:focus {
     outline: 0;
 }
@@ -107,4 +113,69 @@ body {
 }
 .login div .input:focus {
     outline: 0;
+}
+
+.selectContainer i {
+    position: absolute;
+    right: 0.4rem;
+    top: 50%;
+    margin: 0;
+    transform: translate(-0.2rem, -50%);
+    font-size: 0.8rem;
+    z-index: 1;
+    transition: all 0.4s ease-in;
+}
+.selectContainer i.active {
+    transform: rotate(180deg) translate(0.2rem, 50%);
+    transition: all 0.4s ease-in;
+}
+.selectContainer input.date {
+    cursor: pointer;
+    user-select: none;
+    position: absolute;
+    right: 0;
+    top: 50%;
+    margin: 0;
+    transform: translate(0, -50%);
+    -webkit-appearance: none; 
+    -moz-appearance: none;
+    appearance: none;  
+    width: 220px;
+    background: transparent;
+    border: none;
+    font-family: 'Raleway-Regular', sans-serif;
+    padding: 0.4rem 30px 0.2rem 0.2rem;
+    font-size: 0.8rem;
+    border-bottom: 1px solid #666;
+    outline: none;
+    z-index: 2;
+    box-shadow:none;
+}
+.selectContainer ul {
+    position: absolute;
+    width: 220px;
+    left: -220px;
+    list-style: none;
+    padding: 0;
+    font-size: 0.8rem;
+    background: #666;
+    color: #f2f2f2;
+    border-radius: 3px;
+    margin: 0;
+    box-shadow: 0px 3px 8px 0px rgba(0, 0, 0, 0.4);
+    max-height: 100px;
+    overflow-y: auto;
+    top: 20px;
+}
+.selectContainer ul li {
+    padding: 10px;
+    cursor: pointer;
+    user-select: none;
+}
+.selectContainer ul li:hover{
+    opacity: 0.7;
+}
+
+input::-ms-clear {
+    display: none;
 }

@@ -39,5 +39,12 @@ export class AuthenticationService {
         this.router.navigate(['/login']);
     }
 
+
+  /**
+   * Reset the password for a user and send it via mail
+   *//*
+  forgotPassword(token:string, newPassword:string) {
+    return this.http.post('/tcf/api/userController/forgotpassword', { email: email});
+  }*/
  
 }
