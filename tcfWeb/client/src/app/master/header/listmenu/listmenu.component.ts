@@ -1,6 +1,3 @@
-
-
-
 import { Component, OnInit, Input } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AuthenticationService } from '../../../login/authentication.service';
@@ -29,13 +26,12 @@ export class ListMenuComponent{
     }
 
     public onMenuClick(){
-        alert("ciao");
-        if ($('.listMenu').hasClass('deactive')) {
-            $('.listMenu').removeClass('deactive').addClass('active');
-            $('.listMenu').fadeTo( "slow", 1 ).css('display', 'block');
-        } else if ($('.listMenu').hasClass('active')) {
-            $('.listMenu').removeClass('active').addClass('deactive');
-            $('.listMenu').fadeTo( "slow", 0 ).css('display', 'none');
+        if ($('#listMenu').hasClass('deactive')) {
+            $('#listMenu').removeClass('deactive').addClass('active');
+            $('#listMenu').fadeTo( "slow", 1 ).css('display', 'block');
+        } else if ($('#listMenu').hasClass('active')) {
+            $('#listMenu').removeClass('active').addClass('deactive');
+            $('#listMenu').fadeTo( "slow", 0 ).css('display', 'none');
         }
     }
     

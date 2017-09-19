@@ -8,14 +8,6 @@ import { Component, OnInit } from '@angular/core';
   providers: []
 })
 
-export class HomeComponent implements OnInit {
-  
-
-  constructor() { }
-
- 
-  ngOnInit() {
-  	
-  }
+export class HomeComponent {
 
 }
