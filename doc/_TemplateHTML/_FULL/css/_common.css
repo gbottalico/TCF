@@ -150,6 +150,7 @@ body {
     outline: none;
     z-index: 2;
     box-shadow:none;
+    color: #666;
 }
 .selectContainer ul {
     position: absolute;
