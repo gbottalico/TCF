@@ -2,7 +2,7 @@
 <section class="selectUser" style="display: block;">
     <div class="searchUser">
         <h1>Seleziona l'utente:</h1>
-        <input placeholder="Filtra lista utenti" id="search" class="input" type="text" [(ngModel)]="query" ng-minlength="3">
+        <input placeholder="Filtra lista utenti" id="search" class="input" type="text" [(ngModel)]="query">
     </div>
     <ul>
         <li *ngFor="let user of users | search:' ':query">
