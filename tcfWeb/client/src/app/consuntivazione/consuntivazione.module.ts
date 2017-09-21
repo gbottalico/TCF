@@ -7,7 +7,7 @@ import { NgModule } from '@angular/core';
 import { ConsuntivazioneComponent } from './consuntivazione.component';
 import { UserListComponent } from './userList/userList.component';
 import { UserSelectedComponent } from './userSelected/userSelected.component';
-
+import { SearchUser } from './userList/userList.component';
 //import { CustomHttpProvider } from '../../../helpers/custom-http';
 
 
@@ -16,13 +16,15 @@ import { UserSelectedComponent } from './userSelected/userSelected.component';
   declarations: [
     ConsuntivazioneComponent,
     UserListComponent,
-    UserSelectedComponent
+    UserSelectedComponent,
+    SearchUser
   ],
   imports: [
     BrowserModule,
     HttpModule,
     //AppRoutingModule,
-    NgbModule.forRoot()
+    NgbModule.forRoot(),
+    FormsModule
   ],
   providers: [
     //CustomHttpProvider,

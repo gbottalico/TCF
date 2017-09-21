@@ -2,13 +2,13 @@
 <section class="selectUser" style="display: block;">
     <div class="searchUser">
         <h1>Seleziona l'utente:</h1>
-        <input placeholder="Filtra lista utenti" class="input" type="text">
+        <input placeholder="Filtra lista utenti" id="search" class="input" type="text" [(ngModel)]="query" ng-minlength="3">
     </div>
     <ul>
-        <li>
-            <div class="user">
+        <li *ngFor="let user of users | search:' ':query">
+            <div class="user" >
                 <i class="fa fa-user" aria-hidden="true"></i>
-                <h3>Fabio Verlato</h3>
+                <h3>{{user.nome}} {{user.cognome}}</h3> 
                 <div class="infoalternative">
                     <button class="btn btnPrimary selectUserBtn">Seleziona</button>
                     <button type="button" class="btn btnTertiary delete">Elimina</button>
