@@ -1,8 +1,8 @@
 <section class="consuntivazioneContainer">
 
-    <user-list></user-list>
+    <user-list (userSelected)="selectUser($event)"></user-list>
 
-    <user-selected></user-selected> 
+    <user-selected [userSelected] = "this.userSelected"></user-selected> 
 
     <section class="riassuntoMesi">
         <div class="riassuntoSection">

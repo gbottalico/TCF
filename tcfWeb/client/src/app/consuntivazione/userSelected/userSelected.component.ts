@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { User } from '../../user/user';
 
 
 @Component({
@@ -7,6 +8,8 @@ import { Component } from '@angular/core';
   styleUrls: ['./userSelected.component.css'],
   providers: []
 })
-export class UserSelectedComponent {
 
+export class UserSelectedComponent {
+  @Input() userSelected : User;
+  
 }

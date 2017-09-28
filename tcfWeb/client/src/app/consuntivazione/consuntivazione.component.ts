@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { User } from '../user/user';
 
 
 @Component({
@@ -9,5 +10,13 @@ import { Component, OnInit } from '@angular/core';
 })
 
 export class ConsuntivazioneComponent {
+  
+  userSelected : User;
+  selection : boolean = false;  
 
+  constructor(){}
+
+  selectUser(userParam){
+    this.userSelected = userParam;
+  }
 }

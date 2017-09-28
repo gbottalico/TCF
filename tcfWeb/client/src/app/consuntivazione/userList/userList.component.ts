@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output } from '@angular/core';
 import {User} from '../../user/user';
 import {UserService} from '../../user/user.service';
-import {Pipe, PipeTransform} from '@angular/core';
+import { Pipe, PipeTransform, EventEmitter } from '@angular/core';
+
 
 @Pipe({
   name: 'search'
@@ -28,7 +29,23 @@ export class SearchUser implements PipeTransform {
 export class UserListComponent {
 
   users: User[];
+
+  @Output() userSelected = new EventEmitter();
+
   constructor(private userService : UserService) {
+    this.getUsers();
+  }
+
+  selectUser(userParam){
+    //this.userSelected = userParam;
+    this.userSelected.emit(userParam);
+  }
+
+  deleteUser(userParam){
+    //elimina utente per id
+  }
+
+  getUsers(){
     this.userService.getUsers().subscribe( users => this.users = users);
   }
 
