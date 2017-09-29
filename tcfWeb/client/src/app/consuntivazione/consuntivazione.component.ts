@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from '../user/user';
-
+import * as $ from 'jquery';
+import 'jquery-ui';
+import 'jquery-easing';
 
 @Component({
   selector: 'app-consuntivazione',
@@ -9,14 +11,24 @@ import { User } from '../user/user';
   providers: []
 })
 
-export class ConsuntivazioneComponent {
+export class ConsuntivazioneComponent{
   
   userSelected : User;
-  selection : boolean = false;  
+  selected : boolean = false;
 
   constructor(){}
 
   selectUser(userParam){
+    /*slidingPanel.animate({
+                'left': '46%'
+            }, 550, 'easeInOutBack');*/ 
     this.userSelected = userParam;
+    this.selected = true;
   }
+
+  changeUser(){
+    this.userSelected = null;
+    this.selected = false;
+  }
+
 }

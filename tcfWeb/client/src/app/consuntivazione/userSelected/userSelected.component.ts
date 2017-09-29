@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { User } from '../../user/user';
 
 
@@ -11,5 +11,9 @@ import { User } from '../../user/user';
 
 export class UserSelectedComponent {
   @Input() userSelected : User;
-  
+  @Output() userChanged = new EventEmitter();
+
+  changeUser(){
+    this.userChanged.emit();
+  }
 }
