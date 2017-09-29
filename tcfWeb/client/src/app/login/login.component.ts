@@ -3,7 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import * as $ from 'jquery';
 import 'jquery-ui';
 import 'jquery-easing';
-import { AuthenticationService } from './authentication.service';
+import { AuthenticationService } from '../service/authentication.service';
 
 @Component({
     moduleId: module.id,
@@ -81,7 +81,7 @@ export class LoginComponent implements OnInit {
                 this.router.navigate([this.returnUrl]);
             },
             error => {
-                alert(error);
+                alert("Errore di Login: " ||  error);
                 this.loading = false;
             });
 

@@ -179,3 +179,8 @@ body {
 input::-ms-clear {
     display: none;
 }
+
+a, a:hover, .nav a {
+    color: white;
+    text-decoration: none; /* no underline */
+  }

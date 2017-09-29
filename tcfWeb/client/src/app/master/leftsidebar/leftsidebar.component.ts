@@ -2,15 +2,26 @@ import {Component, Input, OnInit} from '@angular/core';
 import * as $ from 'jquery';
 import 'jquery-ui';
 import 'jquery-easing';
+import { SystemService } from '../../service/system.service';
 
 @Component({
     selector: "leftsidebar",
     templateUrl: 'leftsidebar.component.html',
     styleUrls: ['leftsidebar.component.css'],
-    providers: []
+    providers: [SystemService]
 })
 
 export class LeftsideBarComponent implements OnInit{
+
+    menuEntries : any;
+
+    constructor(
+        private systemService: SystemService
+    ) {
+   
+    }
+
+
     ngOnInit(){ //DA GESTIRE CON ANGULAR2
         // $('.btnConsuntivazione').addClass('active');
         // $('.subSection').hide();
@@ -76,5 +87,11 @@ export class LeftsideBarComponent implements OnInit{
             $('.subSection li').removeClass('active').addClass('deactive');
             $(this).addClass('active');
         });
+
+        this.systemService.getMenu(null).subscribe(
+            menulist => this.menuEntries = menulist,
+            error    => alert(error)
+                        
+        );
     }
 }

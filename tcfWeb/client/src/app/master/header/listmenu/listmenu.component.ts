@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { AuthenticationService } from '../../../login/authentication.service';
+import { AuthenticationService } from '../../../service/authentication.service';
 import * as $ from 'jquery';
 import 'jquery-ui';
 import 'jquery-easing';

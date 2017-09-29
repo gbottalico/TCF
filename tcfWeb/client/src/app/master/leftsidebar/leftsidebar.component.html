@@ -1,21 +1,15 @@
 <section class="leftSidebar active">
     <ul>
-        <li class="navigation btnConsuntivazione">
-            <div>Consuntivazione</div>
-        </li>
-        <li class="navigation btnAmministrazione">
-            <div>Amministrazione <i class="fa fa-arrow-down" aria-hidden="true"></i></div>
-            <ul class="subSection">
-                <li class="active">Gestione clienti</li>
-                <li class="deactive">Gestione utenti</li>
-                <li class="deactive">Gestione attività</li>
-                <li class="deactive">Gestione commesse cliente</li>
-                <li class="deactive">Gestione commesse Fincons</li>
-                <li class="deactive">Gestione ambiti</li>
+        <li *ngFor="let item of menuEntries; let i = index" class="navigation">
+            <div>
+                <a [routerLink]="item.url" >{{item.title_menu}}</a>
+                <i class="fa fa-arrow-down" aria-hidden="true" *ngIf="item.children_menu.length > 0">                </i>
+            </div>
+            <ul class="subSection" *ngIf="item.children_menu.length > 0">
+                <li *ngFor="let subitem of item.children_menu; let j = index">
+                    <a [routerLink]="item.url">{{subitem.title_menu}}</a>
+                </li>
             </ul>
-        </li>
-        <li class="navigation btnReportistica">
-            <div>Reportistica</div>
         </li>
     </ul>
 </section>

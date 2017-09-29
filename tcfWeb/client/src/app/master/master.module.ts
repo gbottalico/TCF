@@ -21,7 +21,7 @@ import { LoginComponent } from '../login/login.component';
 import { UsersComponent } from '../user/users.component';
 import { ConsuntivazioneModule } from '../consuntivazione/consuntivazione.module';
 
-import { AuthenticationService } from '../login/authentication.service';
+import { AuthenticationService } from '../service/authentication.service';
 
 @NgModule({
   declarations: [
