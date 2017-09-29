@@ -4,20 +4,14 @@ import { HttpModule } from '@angular/http';
 import { FormsModule }   from '@angular/forms';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { NgModule } from '@angular/core';
-import { ConsuntivazioneComponent } from './consuntivazione.component';
-import { UserListComponent } from './userList/userList.component';
-import { UserSelectedComponent } from './userSelected/userSelected.component';
-import { SearchUser } from './userList/userList.component';
+import { UserSelectedComponent } from './userSelected.component';
 //import { CustomHttpProvider } from '../../../helpers/custom-http';
 
 
 
 @NgModule({
   declarations: [
-    ConsuntivazioneComponent,
-    UserListComponent,
-    UserSelectedComponent,
-    SearchUser
+    UserSelectedComponent
   ],
   imports: [
     BrowserModule,
@@ -29,7 +23,7 @@ import { SearchUser } from './userList/userList.component';
   providers: [
     //CustomHttpProvider,
     ],
-  exports: [ConsuntivazioneComponent],
-  bootstrap: [ConsuntivazioneComponent]
+  exports: [UserSelectedComponent],
+  bootstrap: [UserSelectedComponent]
 })
-export class ConsuntivazioneModule { }
+export class UserSelectedModule { }

@@ -1,10 +1,10 @@
 <section class="consuntivazioneContainer">
 
-    <user-list></user-list>
+    <user-list *ngIf ="!selected" (userSelected)="selectUser($event)" ></user-list>
 
-    <user-selected></user-selected> 
+    <user-selected *ngIf="selected" (userChanged)="changeUser($event)" [userSelected]="this.userSelected" ></user-selected> 
 
-    <section class="riassuntoMesi">
+    <section class="riassuntoMesi" *ngIf="selected">
         <div class="riassuntoSection">
             <h1><i class="fa fa-calendar" aria-hidden="true"></i> Anno</h1>
             <div class="selectContainer">

@@ -3,7 +3,7 @@
         <div class="userSelectedIcon">
             <i class="fa fa-user" aria-hidden="true"></i>
         </div>
-        <h1>Fabio Verlato</h1>
-        <button class="btn btnPrimary changeUserBtn">Cambia utente</button>
+        <h1>{{this.userSelected.nome}} {{this.userSelected.cognome}}</h1>
+        <button class="btn btnPrimary changeUserBtn" (click)="changeUser()">Cambia utente</button>
     </div>
 </section>
