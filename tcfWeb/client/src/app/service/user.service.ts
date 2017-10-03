@@ -28,4 +28,12 @@ export class UserService {
       .map(res => res.json);
   }
 
+  changeUserEmail(username, newEmail){
+    var headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    var bodyparams = {username:username, newEmail:newEmail}
+  	return this.http.post('/tcf/api/userController/userChangeEmail', bodyparams, {headers:headers})
+  		.map(res => res.json());
+  }
+
 }
