@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { User } from '../user/user';
+import { User } from '../model/user';
 import * as $ from 'jquery';
 import 'jquery-ui';
 import 'jquery-easing';
