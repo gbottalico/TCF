@@ -6,7 +6,7 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { NgModule } from '@angular/core';
 import { ConsuntivazioneComponent } from './consuntivazione.component';
 import { UserListComponent } from './userList/userList.component';
-import { UserSelectedComponent } from './userSelected/userSelected.component';
+import { UserDetailModule } from './userDetail/userDetail.module';
 import { SearchUser } from './userList/userList.component';
 //import { CustomHttpProvider } from '../../../helpers/custom-http';
 
@@ -16,7 +16,6 @@ import { SearchUser } from './userList/userList.component';
   declarations: [
     ConsuntivazioneComponent,
     UserListComponent,
-    UserSelectedComponent,
     SearchUser
   ],
   imports: [
@@ -24,7 +23,8 @@ import { SearchUser } from './userList/userList.component';
     HttpModule,
     //AppRoutingModule,
     NgbModule.forRoot(),
-    FormsModule
+    FormsModule,
+    UserDetailModule,
   ],
   providers: [
     //CustomHttpProvider,

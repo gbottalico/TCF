@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { User } from '../user/user';
+import { Component, OnInit, Input } from '@angular/core';
+import { User } from '../model/user';
 import * as $ from 'jquery';
 import 'jquery-ui';
 import 'jquery-easing';
+import { AuthenticationService } from '../service/authentication.service';
 
 @Component({
   selector: 'app-consuntivazione',
@@ -14,14 +15,15 @@ import 'jquery-easing';
 export class ConsuntivazioneComponent{
   
   userSelected : User;
+  @Input() userLogged : User;
   selected : boolean = false;
 
-  constructor(){}
+  constructor(private authenticationService : AuthenticationService){
+    this.authenticationService.user$.subscribe(user => { this.userLogged = user });
+    alert(this.userLogged._id);
+  }
 
   selectUser(userParam){
-    /*slidingPanel.animate({
-                'left': '46%'
-            }, 550, 'easeInOutBack');*/ 
     this.userSelected = userParam;
     this.selected = true;
   }

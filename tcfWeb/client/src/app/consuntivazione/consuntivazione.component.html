@@ -2,30 +2,7 @@
 
     <user-list *ngIf ="!selected" (userSelected)="selectUser($event)" ></user-list>
 
-    <user-selected *ngIf="selected" (userChanged)="changeUser($event)" [userSelected]="this.userSelected" ></user-selected> 
-
-    <section class="riassuntoMesi" *ngIf="selected">
-        <div class="riassuntoSection">
-            <h1><i class="fa fa-calendar" aria-hidden="true"></i> Anno</h1>
-            <div class="selectContainer">
-                <i class="fa fa-arrow-down" aria-hidden="true"></i>
-                <input placeholder="Seleziona anno" class="date" maxlength="4" pattern="[0-9]" onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));" type="text">
-                <ul class="previusYear" style="display: none;">
-                    <li>2017</li>
-                    <li>2016</li>
-                    <li>2015</li>
-                    <li>2014</li>
-                    <li>2013</li>
-                    <li>2012</li>
-                </ul>
-            </div>
-        </div>
-    </section>
-
-    <section class="addMese">
-        Aggiungi mese
-        <button class="btn btnPrimary aggiungiMese">Aggiungi mese</button>
-    </section>
+    <user-detail *ngIf="selected" [userSelected]="this.userSelected" (userChanged)="changeUser($event)"></user-detail> 
 
 </section>
 
