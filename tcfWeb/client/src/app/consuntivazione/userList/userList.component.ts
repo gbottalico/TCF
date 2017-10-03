@@ -1,6 +1,6 @@
 import { Component, OnInit, Output } from '@angular/core';
-import {User} from '../../user/user';
-import {UserService} from '../../user/user.service';
+import {User} from '../../model/user';
+import {UserService} from '../../service/user.service';
 import { Pipe, PipeTransform, EventEmitter } from '@angular/core';
 
 

@@ -1,15 +1,15 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { User } from '../../user/user';
+import { User } from '../../model/user';
 
 
 @Component({
-  selector: 'user-selected',
-  templateUrl: './userSelected.component.html',
-  styleUrls: ['./userSelected.component.css'],
+  selector: 'user-detail',
+  templateUrl: './userDetail.component.html',
+  styleUrls: ['./userDetail.component.css'],
   providers: []
 })
 
-export class UserSelectedComponent {
+export class UserDetailComponent {
   @Input() userSelected : User;
   @Output() userChanged = new EventEmitter();
 
