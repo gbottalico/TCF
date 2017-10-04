@@ -24,6 +24,7 @@ import { ConsuntivazioneModule } from '../consuntivazione/consuntivazione.module
 import { AuthenticationService } from '../service/authentication.service';
 
 import { ChangeEmailComponent } from '../user/changeemail/changeemail.component';
+import { ChangePwdComponent } from '../user/changepwd/changepwd.component';
 
 
 @NgModule({
@@ -36,7 +37,8 @@ import { ChangeEmailComponent } from '../user/changeemail/changeemail.component'
     ToggleComponent,
     LeftsideBarComponent,
     RightsideBarComponent,
-    ChangeEmailComponent
+    ChangeEmailComponent,
+    ChangePwdComponent,
   ],
   imports: [
     BrowserModule,

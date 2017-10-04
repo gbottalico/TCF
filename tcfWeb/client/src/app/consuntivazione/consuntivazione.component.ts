@@ -15,7 +15,7 @@ import { AuthenticationService } from '../service/authentication.service';
 export class ConsuntivazioneComponent{
   
   userSelected : User;
-  @Input() userLogged : User;
+  userLogged : User;
   selected : boolean = false;
 
   constructor(private authenticationService : AuthenticationService){

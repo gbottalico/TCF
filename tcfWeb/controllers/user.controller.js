@@ -31,8 +31,9 @@ function changeUserEmail(req, res) {
 	
 	userService.changeUserEmail(req.body.username, req.body.newEmail)
 		.then(function(msg){
+
 			console.log("user.controller.changeUserEmail: ok");
-            res.sendStatus(200).send(msg);
+            res.send(msg);
 		}).catch(function (err) {
 			console.log("user.controller.changeUserEmail: fail");
 		   	res.status(400).send(err);
@@ -41,10 +42,10 @@ function changeUserEmail(req, res) {
 }
 
 function changeUserPwd(req, res) {
-    userService.changeUserPwd(req.body.username, req.body.oldPwd, req.body.newPwd)
+    userService.changeUserPwd(req.body.userLogged, req.body.oldPwd, req.body.newPwd)
 		.then(function(msg){
 			console.log("user.controller.changeUserPwd: ok");
-			res.sendStatus(200).send(msg);
+			res.send(msg);
 		}).catch(function (err) {
 			console.log("user.controller.changeUserPwd: fail");
 			res.status(400).send(err);

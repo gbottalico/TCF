@@ -2,10 +2,19 @@
     
     <div>
         
-        <form name="form" (ngSubmit)="f.form.valid && changeUserEmail()" #f="ngForm" novalidate>
+        <form name="form" (ngSubmit)="f.form.valid && changeUserPwd(f)" #f="ngForm" novalidate>
             <div class="form-group" [ngClass]="{ 'has-error': f.submitted }">
-                <input type="text" placeholder="Email" class="form-control input" name="email" [(ngModel)]="userLogged.email" #email="ngModel" required />
-                <div *ngIf="f.submitted && !email.valid" class="help-block">Email richiesta</div>
+                <input type="text" placeholder="Password attuale" class="form-control input" name="oldPwd_" [(ngModel)]="model.oldPwd" #oldPwd_="ngModel" required />
+                <div *ngIf="f.submitted && !oldPwd_.valid" class="help-block">Campo richiesto</div>
+            </div>
+            
+            <div class="form-group" [ngClass]="{ 'has-error': f.submitted }">
+                <input type="text" placeholder="Nuova password" class="form-control input" name="newPwd_" [(ngModel)]="model.newPwd" #newPwd_="ngModel" required />
+                <div *ngIf="f.submitted && !newPwd_.valid" class="help-block">Campo richiesto</div>
+            </div>
+            <div class="form-group" [ngClass]="{ 'has-error': f.submitted }">
+                <input type="text" placeholder="Ripeti nuova password" class="form-control input" name="newPwdConfirm_" [(ngModel)]="model.newPwdConfirm" #newPwdConfirm_="ngModel" required />
+                <div *ngIf="f.submitted && !newPwdConfirm_.valid" class="help-block">Campo richiesto</div>
             </div>
             <div class="form-group">
                 <button [disabled]="loading" class="btn btn-primary btnPrimary">Modifica</button>

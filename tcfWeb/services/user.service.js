@@ -85,7 +85,7 @@ function getAll() {
 }
 
 function changeUserEmail(username, newEmail) {
-    var logPrefix = 'user.service.changeUserPwd: ';
+    var logPrefix = 'user.service.changeUserEmail: ';
 
     console.log(logPrefix + "richiesto cambio email username " +username+ ", newEmail:"+newEmail);
     
@@ -100,10 +100,10 @@ function changeUserEmail(username, newEmail) {
                 user.email = newEmail;
                 user.save(function(err){
                     if(err){
-                        console.log(logPrefix + "user update fail");
+                        console.log(logPrefix + "user update email fail");
                         deferred.reject(err.name + ': ' + err.message);
                     }else{
-                        console.log(logPrefix + "user update ok");
+                        console.log(logPrefix + "user update email ok");
                         deferred.resolve({msg: 'User email changed successfully'});
                     }
                 });
@@ -117,13 +117,13 @@ function changeUserEmail(username, newEmail) {
     return deferred.promise;
 }
 
-function changeUserPwd(username, oldPwd, newPwd) {
+function changeUserPwd(userLogged, oldPwd, newPwd) {
 
     var logPrefix = 'user.service.changeUserPwd: ';
-    console.log(logPrefix + "richiesto cambio pwd username " +username);
+    console.log(logPrefix + "richiesto cambio pwd username " + userLogged._id);
     
     var deferred = Q.defer();
-    User.findById(username,(err, user)=>{
+    User.findById(userLogged._id,(err, user)=>{
         if (err){
             console.log(logPrefix + "error findById");
             deferred.reject(err.name + ': ' + err.message);   
@@ -133,10 +133,10 @@ function changeUserPwd(username, oldPwd, newPwd) {
                     user.password = bcrypt.hashSync(newPwd, 10);
                     user.save(function(err){
                         if(err){
-                            console.log(logPrefix + "user update fail");
+                            console.log(logPrefix + "user update pwd fail");
                             deferred.reject(err.name + ': ' + err.message);
                         }else{
-                            console.log(logPrefix + "user update ok");
+                            console.log(logPrefix + "user update pwd ok");
                             deferred.resolve({msg: 'User password changed successfully'});
                         }
                     });
@@ -147,27 +147,6 @@ function changeUserPwd(username, oldPwd, newPwd) {
             }else{
                 console.log(logPrefix + "user not found");
                 deferred.reject("user not found");
-            }
-        }
-    });
-   
-    return deferred.promise;
-
-    console.log("richiesto cambio password username "+username)
-    var deferred = Q.defer();
-    var userSelected = {};
-    User.findById(username,(err, user)=>{
-        if (err){
-            deferred.reject(err.name + ': ' + err.message);   
-        }else{
-            if (user && bcrypt.compareSync(password, user.password)){
-                //aggiungo il token
-                userSelected = JSON.parse(JSON.stringify(user));
-                userSelected.token = jwt.sign({ sub: userSelected._id }, config.secret);
-                console.log (userSelected);
-                deferred.resolve(userSelected)
-            }else{
-                deferred.resolve();
             }
         }
     });
