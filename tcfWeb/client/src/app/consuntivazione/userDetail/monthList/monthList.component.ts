@@ -58,6 +58,7 @@ export class MonthListComponent implements OnInit{
 
   selectMonth(monthParam){
     var anno = $('.date').val();
-    this.monthSelect.emit({monthParam, anno});    
+    this.monthSelect.emit({monthParam, anno});   
+    alert("nuovo mese"); 
   }
 }

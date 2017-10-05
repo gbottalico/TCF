@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnChanges, Input } from '@angular/core';
 import { Ng2SmartTableModule, LocalDataSource } from 'ng2-smart-table';
 import { Consuntivo } from '../../../model/consuntivo';
 import { User } from '../../../model/user';
@@ -11,7 +11,7 @@ import { ConsuntivazioneService } from '../../../service/consuntivazione.service
   providers: []
 })
 
-export class MonthGridComponent implements OnInit{
+export class MonthGridComponent implements OnChanges{
  
 
   @Input()
@@ -34,9 +34,9 @@ export class MonthGridComponent implements OnInit{
     alert("costru");
   }
 
-  ngOnInit(): void {
+  ngOnChanges(): void {
  
-
+    this.settings = {};
      /* General configuration*/
      this.settings.mode = 'external';
      this.settings.actions = {};
@@ -62,7 +62,7 @@ alert(this.monthSelected);
      while (i < nDays + 1){
        this.settings.columns[i] = {};      
        this.settings.columns[i].title = (i);
-       this.settings.columns[i].width = '5px';
+       this.settings.columns[i].width = '10px';
  
        if(i == 3){
          this.settings.columns[i].editable = false; //funziona solo in modifica non in inserimento
@@ -79,10 +79,8 @@ alert(this.monthSelected);
    */
      
      this.data = this.buildData(userDays, nDays); 
-     this.source = new LocalDataSource(this.data); 
+     //this.source = new LocalDataSource(this.data); 
      this.source.load(this.data);
-     alert("oninit");
-
 
   }
 
