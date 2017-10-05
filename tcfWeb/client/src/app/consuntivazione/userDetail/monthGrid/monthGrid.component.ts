@@ -11,6 +11,12 @@ import { ConsuntivazioneService } from '../../../service/consuntivazione.service
   providers: []
 })
 
+<<<<<<< HEAD
+export class MonthGridComponent{
+  @Input() monthSelected : Number;
+  @Input() yearSelected : Number;
+  @Input() userSelected : Number;
+=======
 export class MonthGridComponent implements OnInit{
  
 
@@ -93,4 +99,5 @@ export class MonthGridComponent implements OnInit{
   }
 
   
+>>>>>>> ed19fedfa993349b67adcd19ea2fd6632d0ccec5
 }

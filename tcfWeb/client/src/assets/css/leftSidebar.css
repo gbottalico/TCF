@@ -26,6 +26,10 @@
 	margin: 0;
 	padding: 0;
 }
+
+.leftSidebar a {
+	color: #fff;
+}
 .navigation {
 	cursor: pointer;
 	user-select: none;
@@ -62,5 +66,3 @@
 .navigation.active .subSection .active {
 	color: #b10022;
 }
-
-

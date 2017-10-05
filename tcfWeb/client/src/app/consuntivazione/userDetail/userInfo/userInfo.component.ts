@@ -10,9 +10,10 @@ import { User } from '../../../model/user';
 
 export class UserInfoComponent{
  @Input() userSelected : User;
+ @Input() isAdmin : boolean;
  @Output() userChanged = new EventEmitter();
- 
-   changeUser(){
-     this.userChanged.emit();
-   }
+
+  changeUser(){
+    this.userChanged.emit();
+  }
 }

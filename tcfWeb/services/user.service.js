@@ -8,13 +8,16 @@ var Q = require('q');
 var serviceUser = {};
 
 const User = require('../models/user.js');
-
+const Profilo = require('../models/profile.js');
+const Cliente = require('../models/cliente.js');
+const UserCliente = require('../models/userCliente.js');
 
 serviceUser.authenticate = authenticate;
 serviceUser.addUser = addUser;
 serviceUser.changeUserEmail = changeUserEmail;
 serviceUser.changeUserPwd = changeUserPwd;
 serviceUser.getAll = getAll;
+//serviceUser.getAllByUser = getAllByUser;
 
 /*serviceUser.getById = getById;
 serviceUser.create = create;
@@ -84,6 +87,65 @@ function getAll() {
     return deferred.promise;
 }
 
+<<<<<<< HEAD
+/*
+    userlogged = user.findbyid(username)
+    for cliente = userlogged.cliente
+        profilo =  profile.findbyid(cliente.id_profilo)
+        if(userlogged.isadmin OR profilo = 'AS')
+            //vedo tutti
+            for cliente.id_cliente
+
+            end for
+        else   
+            //vedo solo mio
+    end for    
+    */ 
+
+/*function getAllByUser(userParam){
+    var userlogged = {};
+    var profilo = {};
+    var cliente = {};
+    var userCliente = {};
+    userlogged = User.findById(userParam._id, (err, user) =>{
+        if (err){
+            deferred.reject(err.name + ': ' + err.message);   
+        }else{
+            for (let i = 0; i < userlogged.cliente; i++){ 
+                cliente = userlogged.cliente;
+                profilo = Profilo.findById(cliente.id_profilo, (err, user) =>{
+                    if (err){
+                        deferred.reject(err.name + ': ' + err.message);   
+                    }else{    
+                        if(userlogged.isAdmin || profilo == 'AS'){
+                            userCliente = UserCliente.find(userCliente => userCliente.id_cliente == cliente._id, (err, userCliente) =>{
+                                if (err){
+                                    deferred.reject(err.name + ': ' + err.message);   
+                                }else{ 
+                                    userCliente = UserCliente.find(userCliente => userCliente.id_profilo == profilo._id, (err, userCliente) =>{
+                                        if (err){
+                                            deferred.reject(err.name + ': ' + err.message);   
+                                        }else{
+                                        }
+                                    });
+                                }
+                            });
+                            //deferred.resolve(user);
+
+                        }else{
+                            // vedo solo me stesso    
+                        }
+                    }
+                });
+            }
+        }
+    });
+}*/
+    
+    
+
+
+=======
 function changeUserEmail(username, newEmail) {
     var logPrefix = 'user.service.changeUserEmail: ';
 
@@ -153,6 +215,7 @@ function changeUserPwd(userLogged, oldPwd, newPwd) {
    
     return deferred.promise;
 }
+>>>>>>> ed19fedfa993349b67adcd19ea2fd6632d0ccec5
 
 /*
 function getById(_id) {

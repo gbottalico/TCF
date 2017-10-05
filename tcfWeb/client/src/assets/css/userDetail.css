@@ -1,10 +1,10 @@
-.userSelectedSection {
+.userDetailSection {
     position: relative;
     height: 70px;
     user-select: none;
     border-bottom: 1px solid #666;
 }
-.userSelectedIcon {
+.userDetailIcon {
     user-select: none;
     display: inline-block;
     width: 100%;
@@ -12,7 +12,7 @@
     top: 50%;
     transform: translate(0, -50%);
 }
-.userSelectedIcon i {
+.userDetailIcon i {
     box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.4);
     transition: all 0.4s ease-in;
     float: left;
@@ -26,7 +26,7 @@
     z-index: 2;
     position: relative;
 }
-.userSelectedSection h1 {
+.userDetailSection h1 {
     margin: 0;
     position: absolute;
     top: 50%;
@@ -35,7 +35,7 @@
     font-size: 0.8rem;
     font-weight: normal;
 }
-.userSelectedSection button {
+.userDetailSection button {
     position: absolute;
     right: 0;
     top: 50%;
