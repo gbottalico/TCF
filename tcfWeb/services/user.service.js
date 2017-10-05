@@ -87,7 +87,6 @@ function getAll() {
     return deferred.promise;
 }
 
-<<<<<<< HEAD
 /*
     userlogged = user.findbyid(username)
     for cliente = userlogged.cliente
@@ -145,7 +144,6 @@ function getAll() {
     
 
 
-=======
 function changeUserEmail(username, newEmail) {
     var logPrefix = 'user.service.changeUserEmail: ';
 
@@ -215,7 +213,6 @@ function changeUserPwd(userLogged, oldPwd, newPwd) {
    
     return deferred.promise;
 }
->>>>>>> ed19fedfa993349b67adcd19ea2fd6632d0ccec5
 
 /*
 function getById(_id) {
