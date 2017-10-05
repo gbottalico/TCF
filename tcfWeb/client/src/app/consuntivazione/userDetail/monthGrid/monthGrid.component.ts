@@ -29,56 +29,61 @@ export class MonthGridComponent implements OnInit{
 
   source: LocalDataSource;
 
-  constructor(private consuntivazioneService : ConsuntivazioneService) {
-    /* General configuration*/
-    this.settings.mode = 'external';
-    this.settings.actions = {};
-    this.settings.actions.columnTitle = '';
-    this.settings.edit = {};
-    this.settings.edit.editButtonContent = 'Modifica';
-    this.settings.add = {};
-    this.settings.add.addButtonContent = 'Aggiungi';
-    
-
-    /* Specific Month configuration */
-    var nDays = this.daysInMonth(this.monthSelected, this.yearSelected);
-
-        
-    this.settings.columns = new Array(nDays);
-
-    this.settings.columns[0] = {};
-    this.settings.columns[0].title = 'attività';    
-    this.settings.columns[0].width = '50px';
-    
-    var i = 1;
-
-    while (i < nDays + 1){
-      this.settings.columns[i] = {};      
-      this.settings.columns[i].title = (i + 1);
-      this.settings.columns[i].width = '5px';
-
-      if(i == 3){
-        this.settings.columns[i].editable = false; //funziona solo in modifica non in inserimento
-        this.settings.columns[i].width = '5px';
-      }
-      
-      i++;
-    }
-    
-    var userDays: [Consuntivo];
-  /*   consuntivazioneService
-                    .getMeseConsuntivoCliente(this.userSelected, this.monthSelected, this.yearSelected)
-                    .subscribe(userDays => { this.userDays = userDays }); 
-  */
-    
-    this.data = this.buildData(userDays, nDays); 
-    this.source = new LocalDataSource(this.data); 
-    this.source.load(this.data);
-      
+  constructor(private consuntivazioneService : ConsuntivazioneService) {  
+    this.source = new LocalDataSource(this.data);  
+    alert("costru");
   }
 
   ngOnInit(): void {
-    this.source = new LocalDataSource(this.data);  
+ 
+
+     /* General configuration*/
+     this.settings.mode = 'external';
+     this.settings.actions = {};
+     this.settings.actions.columnTitle = '';
+     this.settings.edit = {};
+     this.settings.edit.editButtonContent = 'Modifica';
+     this.settings.add = {};
+     this.settings.add.addButtonContent = 'Aggiungi';
+     
+alert(this.monthSelected); 
+     /* Specific Month configuration */
+     var nDays = this.daysInMonth(this.monthSelected, this.yearSelected);
+ 
+         
+     this.settings.columns = new Array(nDays);
+ 
+     this.settings.columns[0] = {};
+     this.settings.columns[0].title = 'attività';    
+     this.settings.columns[0].width = '50px';
+     
+     var i = 1;
+ 
+     while (i < nDays + 1){
+       this.settings.columns[i] = {};      
+       this.settings.columns[i].title = (i);
+       this.settings.columns[i].width = '5px';
+ 
+       if(i == 3){
+         this.settings.columns[i].editable = false; //funziona solo in modifica non in inserimento
+         this.settings.columns[i].width = '5px';
+       }
+       
+       i++;
+     }
+     
+     var userDays: [Consuntivo];
+      /*this.consuntivazioneService
+                     .getMeseConsuntivoCliente(this.userSelected, this.monthSelected, this.yearSelected)
+                     .subscribe(userDays => { this.userDays = userDays }); 
+   */
+     
+     this.data = this.buildData(userDays, nDays); 
+     this.source = new LocalDataSource(this.data); 
+     this.source.load(this.data);
+     alert("oninit");
+
+
   }
 
   buildData( _userDays: any, _days: number) : any[] {
