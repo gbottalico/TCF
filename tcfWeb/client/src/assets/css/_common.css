@@ -150,6 +150,7 @@ body {
     outline: none;
     z-index: 2;
     box-shadow:none;
+    color: #666;
 }
 .selectContainer ul {
     position: absolute;
@@ -179,8 +180,3 @@ body {
 input::-ms-clear {
     display: none;
 }
-
-a, a:hover, .nav a {
-    color: white;
-    text-decoration: none; /* no underline */
-  }

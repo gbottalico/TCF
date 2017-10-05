@@ -8,5 +8,7 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 
 export class MonthGridComponent{
- 
+  @Input() monthSelected : Number;
+  @Input() yearSelected : Number;
+  @Input() userSelected : Number;
 }

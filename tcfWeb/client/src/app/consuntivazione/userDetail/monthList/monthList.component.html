@@ -1,0 +1,31 @@
+<section class="riassuntoAnni">
+    <div class="riassuntoAnniSection">
+        <h1 aria-hidden="true"><i class="fa fa-calendar" aria-hidden="true"></i> Anno</h1>
+        <div class="selectContainer">
+            <i class="fa fa-arrow-down" aria-hidden="true"></i>
+            <!--(keypress)="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));"-->
+            <input placeholder="Seleziona anno" class="date" maxlength="4" pattern="[0-9]" type="text" id="anno">
+            <ul class="previusYear">
+                <li *ngFor="let year of years">{{year}}</li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+<section class="riassuntoMesi">
+    <div class="riassuntoMesiSection">
+        <h1><i class="fa fa-calendar" aria-hidden="true"></i> Riepilogo mesi</h1>
+        <h1 class="toggleRight active"><i class="fa fa-arrow-down" aria-hidden="true"></i></h1>
+    </div>
+    <ul>
+        <li *ngFor="let month of months; let j = index">
+            <div class="mese" (click)="selectMonth(j+1)">
+               <!--<i class="fa fa-calendar-minus-o" aria-hidden="true"></i> Novembre-->
+                <i class="fa fa-calendar-check-o" aria-hidden="true"></i> {{month}}
+            </div>
+            <div class="statoMese">
+                Chiuso
+            </div>
+        </li>       
+    </ul>
+</section>
