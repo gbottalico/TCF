@@ -5,6 +5,8 @@ var userService = require('services/user.service');
 
 routerUser.post('/authenticate', authenticate);
 routerUser.post('/user', addUser);
+routerUser.post('/userChangeEmail', changeUserEmail);
+routerUser.post('/userChangePwd', changeUserPwd);
 routerUser.get('/users', getAll);
 
 
@@ -23,6 +25,32 @@ function authenticate(req, res) {
             res.status(400).send(err);
         });
 }
+
+function changeUserEmail(req, res) {
+	console.log("user.controller.changeUserEmail");
+	
+	userService.changeUserEmail(req.body.username, req.body.newEmail)
+		.then(function(msg){
+
+			console.log("user.controller.changeUserEmail: ok");
+            res.send(msg);
+		}).catch(function (err) {
+			console.log("user.controller.changeUserEmail: fail");
+		   	res.status(400).send(err);
+		});
+	
+}
+
+function changeUserPwd(req, res) {
+    userService.changeUserPwd(req.body.userLogged, req.body.oldPwd, req.body.newPwd)
+		.then(function(msg){
+			console.log("user.controller.changeUserPwd: ok");
+			res.send(msg);
+		}).catch(function (err) {
+			console.log("user.controller.changeUserPwd: fail");
+			res.status(400).send(err);
+		});
+};
 
 //add user
 function addUser(req, res){

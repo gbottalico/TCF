@@ -39,4 +39,14 @@ export class ListMenuComponent{
 		this.authenticationService.logout();
     }
 
+    public navtoChangeEmail(){
+        this.onMenuClick();
+        this.router.navigateByUrl('userChangeEmail')
+    }
+
+    public navtoChangePwd(){
+        this.onMenuClick();
+        this.router.navigateByUrl('userChangePwd')
+    }
+
 }

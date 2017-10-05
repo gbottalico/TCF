@@ -17,6 +17,7 @@ export class ConsuntivazioneComponent {
 
   userSelected : User;
   userLogged : User;
+<<<<<<< HEAD
   isAdmin : boolean = false;
   selected : boolean = false;
 
@@ -25,6 +26,13 @@ export class ConsuntivazioneComponent {
     this.isAdmin = this.userLogged.isAdmin;
     if(!this.isAdmin)
        this.userSelected = this.userLogged;   
+=======
+  selected : boolean = false;
+
+  constructor(private authenticationService : AuthenticationService){
+    this.authenticationService.user$.subscribe(user => { this.userLogged = user });
+    //alert(this.userLogged._id);
+>>>>>>> ed19fedfa993349b67adcd19ea2fd6632d0ccec5
   }
 
   selectUser(userParam){
