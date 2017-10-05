@@ -20,7 +20,7 @@ export class ConsuntivazioneComponent{
 
   constructor(private authenticationService : AuthenticationService){
     this.authenticationService.user$.subscribe(user => { this.userLogged = user });
-    alert(this.userLogged._id);
+    //alert(this.userLogged._id);
   }
 
   selectUser(userParam){
