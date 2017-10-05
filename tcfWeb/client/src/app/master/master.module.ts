@@ -23,6 +23,10 @@ import { ConsuntivazioneModule } from '../consuntivazione/consuntivazione.module
 
 import { AuthenticationService } from '../service/authentication.service';
 
+import { ChangeEmailComponent } from '../user/changeemail/changeemail.component';
+import { ChangePwdComponent } from '../user/changepwd/changepwd.component';
+
+
 @NgModule({
   declarations: [
     MasterComponent,
@@ -32,7 +36,9 @@ import { AuthenticationService } from '../service/authentication.service';
     SitemapComponent,
     ToggleComponent,
     LeftsideBarComponent,
-    RightsideBarComponent
+    RightsideBarComponent,
+    ChangeEmailComponent,
+    ChangePwdComponent,
   ],
   imports: [
     BrowserModule,

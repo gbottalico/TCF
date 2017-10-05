@@ -14,7 +14,7 @@ app.use(bodyParser.json());
 mongoose.connect(config.connectionString);
 
 // use JWT auth to secure the api, the token can be passed in the authorization header or querystring
-/*app.use(expressJwt({
+app.use(expressJwt({
     secret: config.secret,
     getToken: function (req) {
         if (req.headers.authorization && req.headers.authorization.split(' ')[0] === 'Bearer') {
@@ -24,7 +24,7 @@ mongoose.connect(config.connectionString);
         }
         return null;
     }
-}).unless({ path: ['/tcf/api/userController/authenticate'] }));*/
+}).unless({ path: ['/tcf/api/userController/authenticate'] }));
 
 // routes
 app.use('/tcf/api/userController', require('./controllers/user.controller'));
