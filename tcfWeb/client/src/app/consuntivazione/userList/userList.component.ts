@@ -2,7 +2,9 @@ import { Component, OnInit, Output } from '@angular/core';
 import {User} from '../../model/user';
 import {UserService} from '../../service/user.service';
 import { Pipe, PipeTransform, EventEmitter } from '@angular/core';
-
+import * as $ from 'jquery';
+import 'jquery-ui';
+import 'jquery-easing';
 
 @Pipe({
   name: 'search'
@@ -37,7 +39,6 @@ export class UserListComponent {
   }
 
   selectUser(userParam){
-    //this.userSelected = userParam;
     this.userSelected.emit(userParam);
   }
 

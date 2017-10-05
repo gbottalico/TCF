@@ -4,10 +4,10 @@ import { HttpModule } from '@angular/http';
 import { FormsModule }   from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgModule } from '@angular/core';
-import { UserDetailComponent } from './userDetail.component';
-import { UserInfoComponent } from './userInfo/userInfo.component';
-import { MonthGridModule} from './monthGrid/monthGrid.module';
-import { MonthListComponent } from './monthList/monthList.component';
+import { MonthGridComponent} from './monthGrid.component';
+import { Ng2SmartTableModule } from 'ng2-smart-table';
+import { ConsuntivazioneService } from '../../../service/consuntivazione.service';
+
 
 //import { CustomHttpProvider } from '../../../helpers/custom-http';
 
@@ -15,10 +15,7 @@ import { MonthListComponent } from './monthList/monthList.component';
 
 @NgModule({
   declarations: [
-    UserDetailComponent,
-    UserInfoComponent,
-    MonthListComponent,
-
+    MonthGridComponent
   ],
   imports: [
     BrowserModule,
@@ -26,12 +23,12 @@ import { MonthListComponent } from './monthList/monthList.component';
     //AppRoutingModule,
     NgbModule.forRoot(),
     FormsModule,
-    MonthGridModule
+    Ng2SmartTableModule
   ],
   providers: [
-    //CustomHttpProvider,
+    ConsuntivazioneService
     ],
-  exports: [UserDetailComponent],
-  bootstrap: [UserDetailComponent]
+  exports: [MonthGridComponent],
+  bootstrap: [MonthGridComponent]
 })
-export class UserDetailModule { }
+export class MonthGridModule { }

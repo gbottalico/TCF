@@ -1,0 +1,41 @@
+:host /deep/ ng2-smart-table thead > tr > th 
+{  
+  padding: 0px; 
+  font-size: .675em;
+  text-align: center;
+}
+
+:host /deep/ ng2-smart-table tbody > tr > td
+{  
+  padding: 0px; 
+  font-size: .675em;
+  text-align: center;
+  background-color: transparent;
+  border: 0;
+}
+
+:host /deep/ ng2-smart-table tbody > tr > td > input
+{  
+  padding: 0px; 
+  font-size: .675em;
+  text-align: center;
+  background-color: transparent;
+  border: 0;
+}
+
+:host /deep/ ng2-smartfilter input
+{ 
+    width: 100%;
+    line-height: normal;
+    padding: 0px;
+    font-weight: 200;
+    background-color: transparent;
+    text-align: center;
+    border: 0;
+}
+
+:host /deep/ ng2-smart-title *
+{     
+    text-align: center;
+}
+

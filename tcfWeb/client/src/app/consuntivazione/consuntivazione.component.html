@@ -1,8 +1,9 @@
 <section class="consuntivazioneContainer">
-
-    <user-list *ngIf ="!selected" (userSelected)="selectUser($event)" ></user-list>
-
-    <user-detail *ngIf="selected" [userSelected]="this.userSelected" (userChanged)="changeUser($event)"></user-detail> 
-
+   <user-list class="searchUser" *ngIf ="!selected&&isAdmin" (userSelected)="selectUser($event)" ></user-list>
+    <user-detail class="userSelected" *ngIf="selected||!isAdmin" [userSelected]="this.userSelected" [userLogged]="this.userLogged" (userChanged)="changeUser($event)"></user-detail> 
+   
+   <!--<user-list class="selectUser" *ngIf="isAdmin" (userSelected)="selectUser($event)" ></user-list>
+   <user-detail class="userDetail" [userSelected]="this.userSelected" [userLogged]="this.userLogged" (userChanged)="changeUser($event)"></user-detail> 
+   -->
 </section>
 

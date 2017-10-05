@@ -12,25 +12,35 @@ import { AuthenticationService } from '../service/authentication.service';
   providers: []
 })
 
-export class ConsuntivazioneComponent{
-  
+export class ConsuntivazioneComponent {
+
+
   userSelected : User;
   userLogged : User;
+  isAdmin : boolean = false;
   selected : boolean = false;
 
   constructor(private authenticationService : AuthenticationService){
-    this.authenticationService.user$.subscribe(user => { this.userLogged = user });
-    alert(this.userLogged._id);
+    this.authenticationService.user$.subscribe(user => { this.userLogged = user; });
+    this.isAdmin = this.userLogged.isAdmin;
+    if(!this.isAdmin)
+       this.userSelected = this.userLogged;   
   }
 
   selectUser(userParam){
     this.userSelected = userParam;
+    this.isAdmin = this.userLogged.isAdmin;
     this.selected = true;
+    /*$('.selectUser').slideUp().fadeOut().hide('slow');
+    $('.userDetail').fadeIn().show('slow');*/
   }
 
   changeUser(){
     this.userSelected = null;
+    this.isAdmin = true;
     this.selected = false;
+    /*$('.userDetail').slideDown().fadeOut().hide('slow');
+    $('.selectUser').fadeIn().show('slow');*/
   }
 
 }

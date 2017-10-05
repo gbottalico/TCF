@@ -8,9 +8,4 @@ import {Component, Input} from '@angular/core';
 })
 
 export class RightsideBarComponent{
-    @Input() userLogged : any;
-
-    public getUserLogged(){
-        return this.userLogged;
-    }
 }
