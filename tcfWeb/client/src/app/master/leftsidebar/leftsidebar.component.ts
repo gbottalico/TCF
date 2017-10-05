@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit, AfterViewInit} from '@angular/core';
 import * as $ from 'jquery';
 import 'jquery-ui';
 import 'jquery-easing';
@@ -14,6 +14,7 @@ import { SystemService } from '../../service/system.service';
 export class LeftsideBarComponent implements OnInit{
 
     menuEntries : any;
+    selectedMenu : any;
 
     constructor(
         private systemService: SystemService
@@ -72,6 +73,7 @@ export class LeftsideBarComponent implements OnInit{
         
         //     $('.subSection').slideUp();
         // });
+       
         $('.sidebarToggle').on('click', function() {
             if ($(this).hasClass('active')) {
                 $(this).removeClass('active').hide().fadeIn().addClass('deactive');
@@ -83,15 +85,51 @@ export class LeftsideBarComponent implements OnInit{
                 $('.rightSidebar').removeClass('active').hide().fadeIn().addClass('deactive');
             } 
         });
-        $('.subSection li').on('click', function() {
-            $('.subSection li').removeClass('active').addClass('deactive');
-            $(this).addClass('active');
-        });
-
+    
         this.systemService.getMenu(null).subscribe(
             menulist => this.menuEntries = menulist,
             error    => alert(error)
-                        
         );
     }
+
+    select(event, item){
+        this.selectedMenu = (this.selectedMenu === item ? null : item);
+        var target = event.target || event.srcElement || event.currentTarget;
+        var menuElement = target.closest( "li" );
+        //$(xxx).fadeIn().show();
+        if(this.selectedMenu){
+            $(menuElement).children("ul").slideDown(500);
+        }else{
+            $(menuElement).children("ul").slideUp(500);
+        }
+
+        /*
+        $(".sectionHead" ).each(function( index ) {
+           if( this.id != target.id ){
+               $(this.parentElement).children("ul").slideUp(1000);
+           }
+        });*/
+
+        $(".navigation" ).each(function( index ) {
+            if($(this).hasClass('active')){
+                if( this.id != target.id ){
+                    $('.navigation').removeClass('active');
+                    $(this).children("ul").slideUp(500);
+                }
+            }
+        });
+
+    }
+
+    @Input()
+    set ready(isReady: boolean) {
+        if (isReady) {
+            $('.subSection').hide();
+        }
+    }
+
+    isActive(item){
+        return this.selectedMenu === item;
+    }
+
 }
