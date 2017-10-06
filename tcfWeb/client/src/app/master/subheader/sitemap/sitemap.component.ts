@@ -8,6 +8,5 @@ import {Component, Input} from '@angular/core';
 })
 
 export class SitemapComponent{
-    @Input() 
-    userLogged : any;
+    @Input() userLogged : any;
 }

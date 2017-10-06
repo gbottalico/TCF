@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output, OnChanges } from '@angular/core';
 import { User } from '../../../model/user';
 import * as $ from 'jquery';
 import 'jquery-ui';
@@ -11,7 +11,7 @@ import 'jquery-easing';
   providers: []
 })
 
-export class MonthListComponent implements OnInit{
+export class MonthListComponent implements OnChanges{
   @Input() userSelected : User;  
   @Output() monthSelect = new EventEmitter();
   years : number[] = new Array<number>();
@@ -19,10 +19,11 @@ export class MonthListComponent implements OnInit{
                  "Luglio", "Agosto", "Settembre", "Ottobre", "Novembre", "Dicembre" ];
   diffYears : number; 
     
-  ngOnInit(){
+  ngOnChanges(){
     /*Mi calcolo la differenza tra l'anno da sistema e l'anno di assunzione*/
+    this.years.pop();
     var today = (new Date()).getFullYear();
-    var assunzione = 2013;//(new Date(this.userSelected.data_inizio_validita)).getFullYear();
+    var assunzione = (new Date(this.userSelected.data_inizio_validita)).getFullYear();
     this.diffYears = today - assunzione;
 
     for(let i=0; i<=this.diffYears; i++)
@@ -30,7 +31,6 @@ export class MonthListComponent implements OnInit{
   
       $('.date').val(today);
       $('.previusYear').hide();
-
     }
 
   /*Gestione click arrow anno*/
