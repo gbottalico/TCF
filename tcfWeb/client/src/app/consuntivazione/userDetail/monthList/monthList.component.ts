@@ -14,51 +14,52 @@ import 'jquery-easing';
 export class MonthListComponent implements OnInit{
   @Input() userSelected : User;  
   @Output() monthSelect = new EventEmitter();
-  years : Number[] = new Array<Number>();
+  years : number[] = new Array<number>();
   months = [ "Gennaio", "Febbraio", "Marzo", "Aprile", "Maggio", "Giugno",
                  "Luglio", "Agosto", "Settembre", "Ottobre", "Novembre", "Dicembre" ];
-  diffYears : Number; 
-
-  constructor(){
-  }
+  diffYears : number; 
     
   ngOnInit(){
     /*Mi calcolo la differenza tra l'anno da sistema e l'anno di assunzione*/
     var today = (new Date()).getFullYear();
-    var assunzione = (new Date(this.userSelected.data_inizio_validita)).getFullYear();
+    var assunzione = 2013;//(new Date(this.userSelected.data_inizio_validita)).getFullYear();
     this.diffYears = today - assunzione;
 
     for(let i=0; i<=this.diffYears; i++)
-      this.years.push(assunzione - i);
+      this.years.push(today - i);
   
-      //gestione click arrow anno
       $('.date').val(today);
       $('.previusYear').hide();
-      $('.date').on('click', function() {
-        $('.previusYear').slideToggle();
-        $('i').toggleClass('active');
-      });
-      $('.previusYear li').on('click', function() {
-        $('.date').val(this.innerText);
-        $('.previusYear').slideToggle();
-        $('i').toggleClass('active');
-      });
-
-      //gestione click arrow riepilogo mesi
-      $('.riassuntoMesiSection').on('click', function () {
-        if ($(this).find('.toggleRight').hasClass('active')) {
-          $('.toggleRight').removeClass('active').addClass('deactive');
-        } else {
-          $('.toggleRight').removeClass('deactive').addClass('active');
-        }
-        $('.riassuntoMesi ul').slideToggle();
-      });
 
     }
 
-  selectMonth(monthParam){
-    var anno = $('.date').val();
-    this.monthSelect.emit({monthParam, anno});   
-    alert("nuovo mese"); 
+  /*Gestione click arrow anno*/
+  changeDate(){
+    $('.previusYear').slideToggle();
+    $('i').toggleClass('active');
   }
+
+  /*Gestione selezione mese da consuntivare per far appare la griglia*/
+  selectMonth(monthParam){
+    var year = $('.date').val();
+    this.monthSelect.emit({monthParam, year}); 
+  }
+
+  /*Gestione click dell'anno nella combobox*/
+  changeYear(yearParam){
+    $('.date').val(yearParam);
+    $('.previusYear').slideToggle();
+    $('i').toggleClass('active');
+  }
+
+  /*Gestione click arrow per aprire sezione mesi consuntivabili*/
+  openMonths(){
+    if ($('.toggleRight').hasClass('active')) {
+      $('.toggleRight').removeClass('active').addClass('deactive');
+    } else {
+      $('.toggleRight').removeClass('deactive').addClass('active');
+    }
+    $('.riassuntoMesi ul').slideToggle();
+  }
+
 }
