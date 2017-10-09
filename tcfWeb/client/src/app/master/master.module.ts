@@ -11,7 +11,6 @@ import { CustomHttpProvider } from '../helpers/custom-http';
 import { AuthGuard } from '../guard/auth.guard';
 import { HeaderModule } from './header/header.module';
 import { MasterComponent } from './master.component';
-import { SitemapComponent } from './sitemap/sitemap.component';
 import { ToggleComponent } from './toggle/toggle.component';
 import { LeftsideBarComponent } from './leftsidebar/leftsidebar.component';
 import { RightsideBarComponent } from './rightsidebar/rightsidebar.component';
@@ -20,7 +19,7 @@ import { HomeComponent } from '../home/home.component';
 import { LoginComponent } from '../login/login.component';
 import { UsersComponent } from '../user/users.component';
 import { ConsuntivazioneModule } from '../consuntivazione/consuntivazione.module';
-
+import { SubHeaderModule } from './subheader/subheader.module'
 import { AuthenticationService } from '../service/authentication.service';
 
 import { ChangeEmailComponent } from '../user/changeemail/changeemail.component';
@@ -33,7 +32,6 @@ import { ChangePwdComponent } from '../user/changepwd/changepwd.component';
     HomeComponent,
     LoginComponent,
     UsersComponent,
-    SitemapComponent,
     ToggleComponent,
     LeftsideBarComponent,
     RightsideBarComponent,
@@ -47,6 +45,7 @@ import { ChangePwdComponent } from '../user/changepwd/changepwd.component';
     AppRoutingModule,
     HeaderModule,
     ConsuntivazioneModule,
+    SubHeaderModule,
     NgbModule.forRoot()
   ],
   providers: [

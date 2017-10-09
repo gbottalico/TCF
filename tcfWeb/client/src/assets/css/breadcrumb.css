@@ -1,21 +1,34 @@
 .breadcrumb {
 	height: 50px;
-	position: relative;
+	/*position: relative;*/
 	background: #b10022;
 	z-index: -1;
 	padding: 15px;
 	border-bottom: 3px solid #f2f2f2;
 }
 
-.sectionFound {
+.sectionSubHeader {
+	width: 50%;
+	float: left;
+}
+
+.sitemap {
 	color: #fff;
 	margin: 0;
 	font-size: 0.8em;
 }
-.sectionFound p {
+
+.sitemap p {
 	margin: 0;
 	display: inline-block;
 }
-.tipologia {
+
+.tipoUtente {
+	color: #fff;
+	margin: 0;
+	font-size: 0.8em;
+}
+
+.tipoUtente p {
 	float: right;
 }
