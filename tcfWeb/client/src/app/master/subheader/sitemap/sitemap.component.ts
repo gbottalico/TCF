@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import { Component, Input, OnChanges } from '@angular/core';
 
 @Component({
     selector: "sitemap",
@@ -7,6 +7,12 @@ import {Component, Input} from '@angular/core';
     providers: []
 })
 
-export class SitemapComponent{
+export class SitemapComponent implements OnChanges{
     @Input() userLogged : any;
+    @Input() menuSelected : any;
+
+    ngOnChanges(){
+        if(this.menuSelected == null)
+            this.menuSelected = 'Home';
+    }
 }

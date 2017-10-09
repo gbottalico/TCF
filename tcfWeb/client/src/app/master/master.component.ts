@@ -12,7 +12,7 @@ import { AuthenticationService } from '../service/authentication.service';
 export class MasterComponent implements OnInit{
 	subscription:Subscription;
 	userLogged : any;
-
+	menuSelected : any;
 
    constructor( private authenticationService: AuthenticationService ) { 
    		 this.subscription = this.authenticationService.user$
@@ -32,6 +32,10 @@ export class MasterComponent implements OnInit{
 
 	logout(){
 		this.authenticationService.logout();
+	}
+
+	selectMenu(menuParam){
+		this.menuSelected = menuParam;
 	}
 
 }

@@ -9,4 +9,5 @@ import {Component, Input} from '@angular/core';
 
 export class SubHeaderComponent{
     @Input() userLogged : any;
+    @Input() menuSelected : any;
 }
