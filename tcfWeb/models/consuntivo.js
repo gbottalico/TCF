@@ -1,15 +1,15 @@
 const mongoose = require('mongoose');
 
 const ConsuntivoSchema = mongoose.Schema({
-	data_consuntivo: { 
-		type: Date, 
+	data_consuntivo: {
+		type: Date,
 		required: true
 	},
-	id_cliente: {
+	id_utente: {
 		type: String,
 		required: true
 	},
-	nome_cliente: {
+	nome_utente: {
 		type: String,
 		required: true
 	},
@@ -49,7 +49,7 @@ const ConsuntivoSchema = mongoose.Schema({
 		type: String,
 		required: false
 	},
-	ore : {
+	ore: {
 		type: Number,
 		required: true
 	}
@@ -70,50 +70,81 @@ ConsuntivoSchema.methods.findBetweenDates = function findBetweenDates(params, ca
 }
 
 ConsuntivoSchema.methods.getRowsForExcel = function getRowsForExcel(params, callback) {
-	
-	
-		console.log(params.start + " " + params.end);
-		var query = [
-		{   
+
+
+	console.log(params.start + " " + params.end);
+	var query = [
+		{
 			"$match": {
-				"data_consuntivo": { "$lte": params.start, "$gte": params.end }} 
+				"data_consuntivo": { "$lte": params.start, "$gte": params.end }
+			}
 		},
-		{ "$group": {
-			_id: {
-			   "data_consuntivo" : "$data_consuntivo",
-			   "cliente": "$nome_cliente",
-			   "ambito": "$nome_ambito",
-			   "macro_area": "$nome_macro_area",
-			   "attivita": "$nome_attivita",
-			   "deliverable" : "$nome_tipo_deliverable",
-			   "ore" : "$ore"
-			   
-			},
-			//"count": { "$sum": 1 }
-		}},
-		{ "$group": {
-		   "_id": "$_id.data_consuntivo",
-		   "info_consuntivo": { 
-			   "$push": {
-				   "cliente": "$_id.cliente",
-				   "ambito": "$_id.ambito",
-				   "macro_area": "$_id.macro_area",
-				   "attivita" : "$_id.attivita",
-				   "deliverable" : "$_id.deliverable",
-				   "ore": "$_id.ore"
-			   }
-		   }
-		}}
-		];
-	
-		Consuntivo.aggregate(query, function (err, result) {
-        if (err) {
-            console.log(err);
-        } else {
-            params.res.json(result);
-        }
-    });
-	
+		{
+			"$group": {
+				_id: {
+					"data_consuntivo": "$data_consuntivo",
+					"cliente": "$nome_cliente",
+					"ambito": "$nome_ambito",
+					"macro_area": "$nome_macro_area",
+					"attivita": "$nome_attivita",
+					"deliverable": "$nome_tipo_deliverable",
+					"ore": "$ore"
+
+				},
+				//"count": { "$sum": 1 }
+			}
+		},
+		{
+			"$group": {
+				"_id": "$_id.data_consuntivo",
+				"info_consuntivo": {
+					"$push": {
+						"cliente": "$_id.cliente",
+						"ambito": "$_id.ambito",
+						"macro_area": "$_id.macro_area",
+						"attivita": "$_id.attivita",
+						"deliverable": "$_id.deliverable",
+						"ore": "$_id.ore"
+					}
+				}
+			}
+		}
+	];
+
+	Consuntivo.aggregate(query, function (err, result) {
+		if (err) {
+			console.log(err);
+		} else {
+			return result;
+		}
+	});
+
+}
+
+ConsuntivoSchema.methods.getConsuntiviUtente = function getConsuntiviUtente(params, callback) {
+
+	console.log("user: " + params.id_user + " month: " + params.month + "/" + params.year);
+	mongoose.set('debug', true);
+	var query = [
+		{
+			"$project":
+			{
+				doc: "$$ROOT",
+				year: { $cond: ["$data_consuntivo", { $year: "$data_consuntivo" }, -1] },
+				month: { $cond: ["$data_consuntivo", { $month: "$data_consuntivo" }, -1] },
+				day: { $cond: ["$data_consuntivo", { $dayOfMonth: "$data_consuntivo" }, -1] },
+				user: "$id_utente"
+			}
+		},
+		{ "$match": { 
+			"month": new Number(params.month).valueOf(), 
+			"year":  new Number(params.year).valueOf(), 
+			"user":  params.id_user } 
+		}
+	];
+
+	return Consuntivo.aggregate(query).exec(callback);
+
 }
 
 const Consuntivo = module.exports = mongoose.model('Consuntivo', ConsuntivoSchema); 

@@ -3,10 +3,10 @@ const routerConsuntivo = express.Router();
 var consuntivoService = require('services/consuntivo.service');
 
 
-routerConsuntivo.post('/meseConsuntivo', addMeseConsuntivo);
-routerConsuntivo.get('/meseConsuntivoCliente/:idCliente/:anno/:mese', getMeseConsuntivoCliente);
+//routerConsuntivo.post('/meseConsuntivo', addMeseConsuntivo);
+routerConsuntivo.get('/meseConsuntivoCliente/:id_user/:month/:year', getConsuntiviUtente);
 routerConsuntivo.post('/consuntivo', addConsuntivo);
-routerConsuntivo.get('/consuntivoCliente/:idCliente/:data/', getConsuntivoCliente);
+routerConsuntivo.get('/consuntivoCliente/:idCliente/:data/', getConsuntiviUtente);
 routerConsuntivo.post('/consuntiviTraDate', getConsuntiviBetweenDates);
 
 function addMeseConsuntivo(req, res){
@@ -18,9 +18,9 @@ function addMeseConsuntivo(req, res){
 	
 };
 
-function getMeseConsuntivoCliente(req, res){
-	consuntivoService.getMeseConsuntivoCliente(req.params.idCliente, req.params.anno, req.params.mese).then(function(meseConsuntivo){
-		 res.send(meseConsuntivo);
+function getMeseConsuntivoUtente(req, res){
+	consuntivoService.getConsuntiviUtente(req.params.idCliente, req.params.mese, req.params.anno ).then(function(consuntiviUtente){
+		 res.send(consuntiviUtente);
 	}).catch(function (err) {
             res.status(400).send(err);
 	});
@@ -54,5 +54,13 @@ function getConsuntiviBetweenDates(req, res){
 	
 };
 
+function getConsuntiviUtente(req, res){
+	consuntivoService.getConsuntiviUtente(req.params.id_user, req.params.month, req.params.year).then(function(consuntivo){
+		 res.send(consuntivo);
+	}).catch(function (err) {
+            res.status(400).send(err);
+	});
+	
+};
 
 module.exports = routerConsuntivo;
