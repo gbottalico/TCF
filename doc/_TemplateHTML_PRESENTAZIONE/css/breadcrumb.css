@@ -1,0 +1,21 @@
+.breadcrumb {
+	height: 50px;
+	position: relative;
+	background: #b10022;
+	z-index: -1;
+	padding: 15px;
+	border-bottom: 3px solid #f2f2f2;
+}
+
+.sectionFound {
+	color: #fff;
+	margin: 0;
+	font-size: 0.8em;
+}
+.sectionFound p {
+	margin: 0;
+	display: inline-block;
+}
+.tipologia {
+	float: right;
+}

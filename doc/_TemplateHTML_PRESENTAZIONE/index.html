@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+
+        <title>Fincons FTC</title>
+        <link rel="shortcut icon" href="img/icon.ico">
+
+        <meta charset="UTF-8">  
+        <!--<meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+
+        <!--LIBRERIE-->
+        <link rel="stylesheet" href="css/librerie/font-awesome.css">
+        <!--END LIBRERIE-->
+
+        <!--COMMON CSS-->
+        <link rel="stylesheet" href="css/_font.css">
+        <link rel="stylesheet" href="css/_common.css">
+        <!--END COMMON CSS-->
+
+        <!--LIBRERIE-->
+        <script src="js/librerie/jquery-3.2.1.min.js"></script>
+        <script src='js/librerie/jquery.easing.min.js'></script>
+        <script src='js/librerie/jquery-ui.min.js'></script>
+        <!--END LIBRERIE-->
+
+        <!--SECTION CSS-->
+        <link rel="stylesheet" href="css/headerLogin.css">
+        <link rel="stylesheet" href="css/generalIndexContainer.css">
+        <link rel="stylesheet" href="css/breadcrumb.css">
+        <link rel="stylesheet" href="css/toggleControl.css">
+        <link rel="stylesheet" href="css/leftSidebar.css">
+        <link rel="stylesheet" href="css/rightSidebar.css">
+        <link rel="stylesheet" href="css/selectUser.css">
+        <link rel="stylesheet" href="css/userSelected.css">
+        <link rel="stylesheet" href="css/riassuntoAnni.css">
+        <link rel="stylesheet" href="css/riassuntoMesi.css">
+        <link rel="stylesheet" href="css/addMese.css">
+        <!--END SECTION CSS-->
+
+    </head>
+
+    <body>
+        
+        <section class="headerLogin">
+
+            <div class="sectionHeader logoLoginImg">
+                <img src="img/logo.png">
+                <p><i class="fa fa-clock-o" aria-hidden="true"></i> Fincons Time Control</p>
+            </div>
+
+            <div class="sectionHeader account">
+                <div>
+                    <h1>Benvenuto</h1>
+                    <p>Fabio Verlato <i class="fa fa-cogs listMenuControl" aria-hidden="true"></i></p>
+                    <div class="listMenu">
+                        <div class="arrow"></div>
+                        <ul>
+                            <li class="changepassword"><i class="fa fa-unlock-alt" aria-hidden="true"></i> Modifica password</li>
+                            <li class="changemail"><i class="fa fa-envelope" aria-hidden="true"></i> Cambia e-mail</li>
+                            <li class="logout" onclick="window.location.href = 'login.html';"><i class="fa fa-sign-out" aria-hidden="true"></i> Logout</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+        <section class="generalIndexContainer">
+
+            <section class="breadcrumb">
+
+                <div class="sectionFound">
+                    <i class="fa fa-map-marker" aria-hidden="true"></i> Ti trovi in:
+                    <p class="consuntivazione"> Consuntivazione</p>
+                    <p class="amministrazione"> Amministrazione</p>
+                    <p class="reportistica"> Reportistica</p>
+
+                    <p class="tipologia">Amministratore di sistema <i class="fa fa-user" aria-hidden="true"></i></p>
+                </div>
+
+            </section>
+
+            <section class="toggleControl">
+                <div class="sidebarToggle active">
+                    <i class="fa fa-arrow-circle-left" aria-hidden="true"></i>
+                </div>
+            </section>
+
+            <section class="leftSidebar active">
+                <ul>
+                    <li class="navigation btnConsuntivazione">
+                        <div>Consuntivazione</div>
+                    </li>
+                    <li class="navigation btnAmministrazione">
+                        <div>Amministrazione <i class="fa fa-arrow-down" aria-hidden="true"></i></div>
+                        <ul class="subSection">
+                            <li class="active">Gestione clienti</li>
+                            <li class="deactive">Gestione utenti</li>
+                            <li class="deactive">Gestione attività</li>
+                            <li class="deactive">Gestione commesse cliente</li>
+                            <li class="deactive">Gestione commesse Fincons</li>
+                            <li class="deactive">Gestione ambiti</li>
+                        </ul>
+                    </li>
+                    <li class="navigation btnReportistica">
+                        <div>Reportistica</div>
+                    </li>
+                </ul>
+            </section>
+
+            <section class="rightSidebar deactive">
+                
+                <section class="consuntivazioneContainer">
+                    
+                    <section class="selectUser">
+                        <div class="defaultUser">
+                            <h1>Utente loggato:</h1>
+                        </div>
+                        <div class="defaultUserSelectedSection selectUserBtn">
+                            <div class='defaultUserSelectedIcon'>
+                                <i class="fa fa-user" aria-hidden="true"></i>
+                            </div>
+                            <h3>Fabio Verlato</h3>
+                            <div class="infoalternative">
+                                <ul>
+                                    <li>ITAS,</li>
+                                    <li>NFC,</li>
+                                    <li>ZURICH,</li>
+                                    <li>MSA,</li>
+                                    <li>ASIA</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="searchUser">
+                            <h1>Seleziona l'utente:</h1>
+                            <input type="text" placeholder="Filtra per nome" class="input">
+                        </div>
+                        <ul>
+                            <li>
+                                <div class='user selectUserBtn'>
+                                    <i class="fa fa-user" aria-hidden="true"></i>
+                                    <h3>Fabio Verlato</h3>
+                                    <div class="infoalternative">
+                                        <ul>
+                                            <li>ITAS,</li>
+                                            <li>NFC,</li>
+                                            <li>ZURICH,</li>
+                                            <li>MSA,</li>
+                                            <li>ASIA</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class='user selectUserBtn'>
+                                    <i class="fa fa-user-plus" aria-hidden="true"></i>
+                                    <h3>Gianluca Bottalico</h3>
+                                    <div class="infoalternative">
+                                        <ul>
+                                            <li>ITAS,</li>
+                                            <li>NFC,</li>
+                                            <li>ZURICH,</li>
+                                            <li>MSA,</li>
+                                            <li>ASIA</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class='user selectUserBtn'>
+                                    <i class="fa fa-user-md" aria-hidden="true"></i>
+                                    <h3>Giuseppe Mannarà</h3>
+                                    <div class="infoalternative">
+                                        <ul>
+                                            <li>ITAS,</li>
+                                            <li>NFC,</li>
+                                            <li>ASIA</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </li>
+                            <!--INIZIO REPEAT-->
+                            <li>
+                                <div class='user selectUserBtn'>
+                                    <i class="fa fa-user" aria-hidden="true"></i>
+                                    <h3>Stefano Riva</h3>
+                                    <div class="infoalternative">
+                                        <ul>
+                                            <li>ITAS,</li>
+                                            <li>CRM</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class='user selectUserBtn'>
+                                    <i class="fa fa-user-plus" aria-hidden="true"></i>
+                                    <h3>Gianluca Polo</h3>
+                                    <div class="infoalternative">
+                                        <ul>
+                                            <li>ZURICH</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class='user selectUserBtn'>
+                                    <i class="fa fa-user-md" aria-hidden="true"></i>
+                                    <h3>Alberto Feriotti</h3>
+                                    <div class="infoalternative">
+                                        <ul>
+                                            <li>TCI,</li>
+                                            <li>FTC</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class='user selectUserBtn'>
+                                    <i class="fa fa-user" aria-hidden="true"></i>
+                                    <h3>Giacomo Rossi</h3>
+                                    <div class="infoalternative">
+                                        <ul>
+                                            <li>ITAS,</li>
+                                            <li>NFC,</li>
+                                            <li>FTC</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class='user selectUserBtn'>
+                                    <i class="fa fa-user-plus" aria-hidden="true"></i>
+                                    <h3>Davide Leone</h3>
+                                    <div class="infoalternative">
+                                        <ul>
+                                            <li>TCI,</li>
+                                            <li>FTC</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class='user selectUserBtn'>
+                                    <i class="fa fa-user-md" aria-hidden="true"></i>
+                                    <h3>Luca Damiano Massa</h3>
+                                    <div class="infoalternative">
+                                        <ul>
+                                            <li>TCI,</li>
+                                            <li>FTC</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </li>
+                            <!--END REPEAT-->
+                        </ul>
+                    </section>
+
+                    <section class="userSelected">
+                        <div class="userSelectedSection">
+                            <div class='userSelectedIcon'>
+                                <i class="fa fa-user" aria-hidden="true"></i>
+                            </div>
+                            <h1>Utente selezionato</h1>
+                            <button class="btn btnPrimary changeUserBtn">Cambia utente</button>
+                        </div>
+                    </section>
+
+                    <section class="riassuntoAnni">
+                        <div class="riassuntoAnniSection">
+                            <h1><i class="fa fa-calendar" aria-hidden="true"></i> Anno</h1>
+                            <div class="selectContainer">
+                                <i class="fa fa-arrow-down" aria-hidden="true"></i>
+                                <input type="text" placeholder="Seleziona anno" class="elementList" maxlength="4" pattern="[0-9]" onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));">
+                                <ul class="allList">
+                                    <li>2017</li>
+                                    <li>2016</li>
+                                    <li>2015</li>
+                                    <li>2014</li>
+                                    <li>2013</li>
+                                    <li>2012</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section class="riassuntoMesi">
+                        <div class="riassuntoMesiSection">
+                            <h1><i class="fa fa-calendar" aria-hidden="true"></i> Riepilogo mesi</h1>
+                            <h1 class="toggleRight active"><i class="fa fa-arrow-down" aria-hidden="true"></i></h1>
+                        </div>
+                        <ul>
+                            <li>
+                                <div class="mese">
+                                    <i class="fa fa-calendar-check-o" aria-hidden="true"></i> Gennaio
+                                </div>
+                                <div class="statoMese">
+                                    Chiuso
+                                </div>
+                            </li>
+                            <li>
+                                <div class="mese">
+                                    <i class="fa fa-calendar-check-o" aria-hidden="true"></i> Febbraio
+                                </div>
+                                <div class="statoMese">
+                                    Chiuso
+                                </div>
+                            </li>
+                            <li>
+                                <div class="mese">
+                                    <i class="fa fa-calendar-check-o" aria-hidden="true"></i> Marzo
+                                </div>
+                                <div class="statoMese">
+                                    Chiuso
+                                </div>
+                            </li>
+                            <li>
+                                <div class="mese">
+                                    <i class="fa fa-calendar-check-o" aria-hidden="true"></i> Aprile
+                                </div>
+                                <div class="statoMese">
+                                    Chiuso
+                                </div>
+                            </li>
+                            <li>
+                                <div class="mese">
+                                    <i class="fa fa-calendar-check-o" aria-hidden="true"></i> Maggio
+                                </div>
+                                <div class="statoMese">
+                                    Chiuso
+                                </div>
+                            </li>
+                            <li>
+                                <div class="mese">
+                                    <i class="fa fa-calendar-check-o" aria-hidden="true"></i> Giugno
+                                </div>
+                                <div class="statoMese">
+                                    Chiuso
+                                </div>
+                            </li>
+                            <li>
+                                <div class="mese">
+                                    <i class="fa fa-calendar-check-o" aria-hidden="true"></i> Luglio
+                                </div>
+                                <div class="statoMese">
+                                    Chiuso
+                                </div>
+                            </li>
+                            <li>
+                                <div class="mese">
+                                    <i class="fa fa-calendar-check-o" aria-hidden="true"></i> Agosto
+                                </div>
+                                <div class="statoMese">
+                                    Chiuso
+                                </div>
+                            </li>
+                            <li>
+                                <div class="mese">
+                                    <i class="fa fa-calendar-check-o" aria-hidden="true"></i> Settembre
+                                </div>
+                                <div class="statoMese">
+                                    Chiuso
+                                </div>
+                            </li>
+                            <li>
+                                <div class="mese">
+                                    <i class="fa fa-calendar-check-o" aria-hidden="true"></i> Ottobre
+                                </div>
+                                <div class="statoMese">
+                                    Chiuso
+                                </div>
+                            </li>
+                            <li>
+                                <div class="mese">
+                                    <i class="fa fa-calendar-minus-o" aria-hidden="true"></i> Novembre
+                                </div>
+                                <div class="statoMese">
+                                    In verifica
+                                </div>
+                            </li>
+                        </ul>
+                    </section>
+
+                </section>
+
+                <section class="amministrazioneContainer">
+                    Amministrazione
+                </section>
+
+                <section class="reportisticaContainer">
+                    Reportistica
+                </section>
+
+            </section>
+
+        </section>
+
+    </body>
+
+    <footer>
+
+        <!--SECTION JS-->
+        <script src="js/main.js"></script>
+        <script src="js/headerLogin.js"></script>
+        <script src="js/breadcrumb.js"></script>
+        <script src="js/toggleControl.js"></script>
+        <script src="js/leftSidebar.js"></script>
+        <script src="js/consuntivazione.js"></script>
+        <script src="js/selectUser.js"></script>
+        <script src="js/userSelected.js"></script>
+        <script src="js/riassuntoMesi.js"></script>
+        <!--END SECTION JS-->
+
+    </footer>
+
+</html>
