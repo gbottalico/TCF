@@ -98,40 +98,36 @@ export class LeftsideBarComponent implements OnInit {
         var target = event.target || event.srcElement || event.currentTarget;
         var menuElement = target.closest("li");
 
-        if(this.selectedMenu != item && this.selectedMenu != null)
-                $(".subSection" ).children("li").removeClass('active').addClass('deactive');
+        /*Se non si fa redirect, non si cambia il focus sulla voce di sottomenu*/
+        if (this.selectedMenu != item && this.selectedMenu != null)
+            $(".subSection").children("li").removeClass('active').addClass('deactive');
 
-        this.selectedMenu = (this.selectedMenu === item ? null : item);
-       
-        if (flag) {
-            //$(xxx).fadeIn().show();
-            if(this.selectedMenu){
+        this.selectedMenu = item;
+
+
+        if (flag) { // menu padre
+            $(this).addClass('active');
+
+            if (this.selectedMenu) {
                 $(menuElement).children("ul").slideDown(500);
-            }else{
+            } else {
                 $(menuElement).children("ul").slideUp(500);
             }
-    
-            /*
-            $(".sectionHead" ).each(function( index ) {
-                if( this.id != target.id ){
-                    $(this.parentElement).children("ul").slideUp(1000);
-                }
-            });*/
-    
-            $(".navigation" ).each(function( index ) {
-                if($(this).hasClass('active')){
-                    if( this.id != target.id ){
-                        $('.navigation').removeClass('active');
+
+            $(".navigation").each(function (index) {
+                if ($(this).hasClass('active')) {
+                    if (this.id != target.id) {
                         $(this).children("ul").slideUp(500);
                     }
                 }
             });
+
         }
-        else{
+        else { //sottomenu
             $(menuElement).addClass('active');
         }
 
-        if (children == 0){
+        if (children == 0) {
             this.menuSelected.emit(this.selectedMenu);
         }
     }
@@ -144,10 +140,10 @@ export class LeftsideBarComponent implements OnInit {
     }
 
     isActive(item) {
-        if(this.selectedMenu != null && this.selectedMenu.indexOf(" - ") != -1) //contiene la stringa - ? Se si, splitta
+        if (this.selectedMenu != null && this.selectedMenu.indexOf(" - ") != -1) //contiene la stringa - ? Se si, splitta
             this.selectedMenu = this.selectedMenu.split(" - ")[0];
-        
-            return this.selectedMenu === item;
+
+        return this.selectedMenu === item;
     }
 
 }
