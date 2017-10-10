@@ -94,7 +94,7 @@ export class LeftsideBarComponent implements OnInit{
 
     select(event, item){
         this.selectedMenu = (this.selectedMenu === item ? null : item);
-        var target = event.target || event.srcElement || event.currentTarget;
+        var target = event.currentTarget;
         var menuElement = target.closest( "li" );
         //$(xxx).fadeIn().show();
         if(this.selectedMenu){
