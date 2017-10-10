@@ -265,7 +265,7 @@
                             <h1><i class="fa fa-calendar" aria-hidden="true"></i> Anno</h1>
                             <div class="selectContainer">
                                 <i class="fa fa-arrow-down" aria-hidden="true"></i>
-                                <input type="text" placeholder="Seleziona anno" class="elementList" maxlength="4" pattern="[0-9]" onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));">
+                                <input type="text" placeholder="Seleziona anno" class="elementList today" maxlength="4" pattern="[0-9]" onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));">
                                 <ul class="allList">
                                     <li>2017</li>
                                     <li>2016</li>
@@ -400,14 +400,245 @@
                         <section class="gestioneUtenti">
                             <div class="userCustomTitle">
                                 <h1><i class="fa fa-users" aria-hidden="true"></i> Gestione utenti</h1>
+                                <h1 class="toggleRight userListRemote active"><i class="fa fa-arrow-down" aria-hidden="true"></i></h1>
                             </div>
+                        </section>
+                        <section class="listaUtenti">
+                            <ul>
+                                <li>
+                                    <div class="utente">
+                                        <i class="fa fa-user" aria-hidden="true"></i> Fabio Verlato
+                                    </div>
+                                    <div class="actionUser">
+                                        <div>
+                                            <i class="fa fa-pencil-square-o modifica" aria-hidden="true"></i>
+                                            <i class="fa fa-trash-o elimina" aria-hidden="true"></i>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="utente">
+                                        <i class="fa fa-user-plus" aria-hidden="true"></i> Gianluca Bottalico
+                                    </div>
+                                    <div class="actionUser">
+                                        <div>
+                                            <i class="fa fa-pencil-square-o modifica" aria-hidden="true"></i>
+                                            <i class="fa fa-trash-o elimina" aria-hidden="true"></i>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="utente">
+                                        <i class="fa fa-user-md" aria-hidden="true"></i> Giuseppe Mannarà
+                                    </div>
+                                    <div class="actionUser">
+                                        <div>
+                                            <i class="fa fa-pencil-square-o modifica" aria-hidden="true"></i>
+                                            <i class="fa fa-trash-o elimina" aria-hidden="true"></i>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="utente">
+                                        <i class="fa fa-user" aria-hidden="true"></i> Stefano Riva
+                                    </div>
+                                    <div class="actionUser">
+                                        <div>
+                                            <i class="fa fa-pencil-square-o modifica" aria-hidden="true"></i>
+                                            <i class="fa fa-trash-o elimina" aria-hidden="true"></i>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="utente">
+                                        <i class="fa fa-user-plus" aria-hidden="true"></i> Gianluca Polo
+                                    </div>
+                                    <div class="actionUser">
+                                        <div>
+                                            <i class="fa fa-pencil-square-o modifica" aria-hidden="true"></i>
+                                            <i class="fa fa-trash-o elimina" aria-hidden="true"></i>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="utente">
+                                        <i class="fa fa-user-md" aria-hidden="true"></i> Alberto Feriotti
+                                    </div>
+                                    <div class="actionUser">
+                                        <div>
+                                            <i class="fa fa-pencil-square-o modifica" aria-hidden="true"></i>
+                                            <i class="fa fa-trash-o elimina" aria-hidden="true"></i>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="utente">
+                                        <i class="fa fa-user" aria-hidden="true"></i> Giacomo Rossi
+                                    </div>
+                                    <div class="actionUser">
+                                        <div>
+                                            <i class="fa fa-pencil-square-o modifica" aria-hidden="true"></i>
+                                            <i class="fa fa-trash-o elimina" aria-hidden="true"></i>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="utente">
+                                        <i class="fa fa-user-plus" aria-hidden="true"></i> Davide Leone
+                                    </div>
+                                    <div class="actionUser">
+                                        <div>
+                                            <i class="fa fa-pencil-square-o modifica" aria-hidden="true"></i>
+                                            <i class="fa fa-trash-o elimina" aria-hidden="true"></i>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="utente">
+                                        <i class="fa fa-user-md" aria-hidden="true"></i> Luca Damiano Massa
+                                    </div>
+                                    <div class="actionUser">
+                                        <div>
+                                            <i class="fa fa-pencil-square-o modifica" aria-hidden="true"></i>
+                                            <i class="fa fa-trash-o elimina" aria-hidden="true"></i>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </section>
+                        <section class="aggiungiUtente">
+                            <button type="button" class="btn btnPrimary aggiungi">Aggiungi Utente</button>
+                            <button type="button" class="btn btnPrimary chiudi">Chiudi Senza Salvare</button>
+                        </section>
+                        <section class="aggiungiUtenteContainer">
+                            
+                            <section class="aggiungiUtenteTitleContainer">
+                                <div class="aggiungiUtenteTitle">
+                                    <h1><i class="fa fa-puzzle-piece" aria-hidden="true"></i> Aggiungi Utente</h1>
+                                    <h1 class="toggleRight utenteAdd active"><i class="fa fa-arrow-down" aria-hidden="true"></i></h1>
+                                </div>
+                            </section>
+                            <section class="aggiungiUtenteBodyContainer">
+                                <div class="halfWidth noPaddingLeft">
+                                    <input type="text" placeholder="Cognome" class="inputSecond">
+                                    <input type="text" placeholder="User" class="inputSecond">
+                                    <input type="text" placeholder="Email" class="inputSecond">
+                                    <input type="text" placeholder="Inizio validità" class="inputSecond" pattern="[0-9]" onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));">
+                                    <div class="selectContainer relative bottom">
+                                        <i class="fa fa-arrow-down" aria-hidden="true"></i>
+                                        <input type="text" placeholder="Amministratore di sistema" class="elementList relative alternativeInput text">
+                                        <ul class="allList inputSecondList" style="display: none;">
+                                            <li>Si</li>
+                                            <li>No</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="halfWidth noPaddingRight">
+                                    <input type="text" placeholder="Nome" class="inputSecond">
+                                    <input type="password" placeholder="Password" class="inputSecond">
+                                    <div class="selectContainer relative bottom">
+                                        <i class="fa fa-arrow-down" aria-hidden="true"></i>
+                                        <input type="text" placeholder="Sede" class="elementList relative alternativeInput text">
+                                        <ul class="allList inputSecondList" style="display: none;">
+                                            <li>Milano</li>
+                                            <li>Bari</li>
+                                            <li>Vimercate</li>
+                                        </ul>
+                                    </div>
+                                    <input type="text" placeholder="Fine Validità" class="inputSecond" pattern="[0-9]" onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));">
+                                    <button type="button" class="btn btnPrimary specialBtnPosition addClienteBtn">Aggiungi Cliente</button>
+                                    <button type="button" class="btn btnPrimary specialBtnPosition closePanelClienteBtn">Chiudi Aggiunta Cliente</button>
+                                </div>
+                            </section>
+                             
+                            <section class="gestioneClientiAssociabili">
+                                <div class="clientiAssociabiliCustomTitle">
+                                    <h1><i class="fa fa-handshake-o" aria-hidden="true"></i> Aggingi Cliente</h1>
+                                    <h1 class="toggleRight gestioneClienteAss active"><i class="fa fa-arrow-down" aria-hidden="true"></i></h1>
+                                </div>
+                            </section>
+                            <section class="listaClientiAssociabili">
+                                <ul>
+                                    <li>
+                                        <div class="clienteAssociablie">
+                                            <i class="fa fa-building-o" aria-hidden="true"></i> ITAS
+                                        </div>
+                                        <div class="actionClienteAssociabile">
+                                            <div>
+                                                <i class="fa fa-pencil-square-o modifica" aria-hidden="true"></i>
+                                                <i class="fa fa-trash-o elimina" aria-hidden="true"></i>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="clienteAssociablie">
+                                            <i class="fa fa-building-o" aria-hidden="true"></i> Zurich
+                                        </div>
+                                        <div class="actionClienteAssociabile">
+                                            <div>
+                                                <i class="fa fa-pencil-square-o modifica" aria-hidden="true"></i>
+                                                <i class="fa fa-trash-o elimina" aria-hidden="true"></i>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="clienteAssociablie">
+                                            <i class="fa fa-building-o" aria-hidden="true"></i> DoBank
+                                        </div>
+                                        <div class="actionClienteAssociabile">
+                                            <div>
+                                                <i class="fa fa-pencil-square-o modifica" aria-hidden="true"></i>
+                                                <i class="fa fa-trash-o elimina" aria-hidden="true"></i>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="clienteAssociablie">
+                                            <i class="fa fa-building-o" aria-hidden="true"></i> DAS
+                                        </div>
+                                        <div class="actionClienteAssociabile">
+                                            <div>
+                                                <i class="fa fa-pencil-square-o modifica" aria-hidden="true"></i>
+                                                <i class="fa fa-trash-o elimina" aria-hidden="true"></i>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="clienteAssociablie">
+                                            <i class="fa fa-building-o" aria-hidden="true"></i> Cerved
+                                        </div>
+                                        <div class="actionClienteAssociabile">
+                                            <div>
+                                                <i class="fa fa-pencil-square-o modifica" aria-hidden="true"></i>
+                                                <i class="fa fa-trash-o elimina" aria-hidden="true"></i>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="clienteAssociablie">
+                                            <i class="fa fa-building-o" aria-hidden="true"></i> Sky IT
+                                        </div>
+                                        <div class="actionClienteAssociabile">
+                                            <div>
+                                                <i class="fa fa-pencil-square-o modifica" aria-hidden="true"></i>
+                                                <i class="fa fa-trash-o elimina" aria-hidden="true"></i>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </section>
+
+                            <section class="salvaCliente">
+                                <button type="button" class="btn btnPrimary salva">Salva</button>
+                            </section>
+
                         </section>
                     </section>
                         
                     <section class="containerAttivita">    
                         <section class="gestioneAttivita">
                             <div class="activityCustomTitle">
-                                <h1><i class="fa fa-building" aria-hidden="true"></i> Gestione Attività</h1>
+                                <h1><i class="fa fa-building-o" aria-hidden="true"></i> Gestione Attività</h1>
                             </div>
                         </section>
                     </section>
@@ -461,6 +692,7 @@
         <script src="js/userSelected.js"></script>
         <script src="js/riassuntoMesi.js"></script>
         <script src="js/amministrazione.js"></script>
+        <script src="js/listaUtenti.js"></script>
         <!--END SECTION JS-->
 
     </footer>

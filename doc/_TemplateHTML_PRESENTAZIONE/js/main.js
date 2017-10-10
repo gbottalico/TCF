@@ -1,7 +1,7 @@
 var now = new Date();
 var today = now.getFullYear();
 
-$('.elementList').val(today);
+$('.today').val(today);
 $('.allList').hide();
 
 $('.elementList').on('click', function() {
