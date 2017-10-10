@@ -19,6 +19,14 @@
     font-size: 0.8rem;
     font-weight: normal;
 }
+.riassuntoMesiSection p {
+    position: absolute;
+    margin: 0;
+    font-size: 0.8rem;
+    top: 50%;
+    transform: translate(0, -50%);
+    right: 30px;
+}
 .riassuntoMesiSection .toggleRight {
     right: 10px;
     transition: all 0.4s ease-in;
@@ -27,9 +35,11 @@
 }
 .riassuntoMesiSection .toggleRight.active {
     transform: rotate(-180deg);
+    top: 40%;
 }
 .riassuntoMesiSection .toggleRight.deactive {
     transform: rotate(0deg);
+    top: 40%;
 }
 .riassuntoMesi ul {
     font-size: 0.8rem;

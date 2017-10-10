@@ -18,6 +18,7 @@
     height: 70px;
     user-select: none;
     cursor: pointer;
+    border-bottom: 1px solid #666;
 }
 .defaultUserSelectedIcon {
     user-select: none;
@@ -94,9 +95,11 @@
     background: #f2f2f2;
     position: absolute;
     top: 50%;
-    transform: translate(0, -50%);
+    /*transform: translate(0, -50%);
     margin: 0;
-    right: 0;
+    right: 0;*/
+    transform: translate(50%, -50%);
+    margin: 0;
 }
 .selectUser ul {
     list-style: none;
