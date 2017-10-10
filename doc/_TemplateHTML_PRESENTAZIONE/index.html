@@ -36,6 +36,12 @@
         <link rel="stylesheet" href="css/riassuntoAnni.css">
         <link rel="stylesheet" href="css/riassuntoMesi.css">
         <link rel="stylesheet" href="css/addMese.css">
+        <link rel="stylesheet" href="css/gestioneClienti.css">
+        <link rel="stylesheet" href="css/gestioneUtenti.css">
+        <link rel="stylesheet" href="css/gestioneAttivita.css">
+        <link rel="stylesheet" href="css/gestioneCommesseClienti.css">
+        <link rel="stylesheet" href="css/gestioneCommesseFincons.css">
+        <link rel="stylesheet" href="css/gestioneAmbiti.css">
         <!--END SECTION CSS-->
 
     </head>
@@ -95,12 +101,12 @@
                     <li class="navigation btnAmministrazione">
                         <div>Amministrazione <i class="fa fa-arrow-down" aria-hidden="true"></i></div>
                         <ul class="subSection">
-                            <li class="active">Gestione clienti</li>
-                            <li class="deactive">Gestione utenti</li>
-                            <li class="deactive">Gestione attività</li>
-                            <li class="deactive">Gestione commesse cliente</li>
-                            <li class="deactive">Gestione commesse Fincons</li>
-                            <li class="deactive">Gestione ambiti</li>
+                            <li class="clienti active">Gestione clienti</li>
+                            <li class="utenti deactive">Gestione utenti</li>
+                            <li class="attivita deactive">Gestione attività</li>
+                            <li class="commesseClienti deactive">Gestione commesse cliente</li>
+                            <li class="commesseFincons deactive">Gestione commesse Fincons</li>
+                            <li class="ambiti deactive">Gestione ambiti</li>
                         </ul>
                     </li>
                     <li class="navigation btnReportistica">
@@ -381,7 +387,55 @@
                 </section>
 
                 <section class="amministrazioneContainer">
-                    Amministrazione
+                    
+                    <section class="containerClienti">
+                        <section class="gestioneClienti">
+                            <div class="clientCustomTitle">
+                                <h1><i class="fa fa-handshake-o" aria-hidden="true"></i> Gestione Clienti</h1>
+                            </div>
+                        </section>
+                    </section>
+
+                    <section class="containerUtenti">
+                        <section class="gestioneUtenti">
+                            <div class="userCustomTitle">
+                                <h1><i class="fa fa-users" aria-hidden="true"></i> Gestione utenti</h1>
+                            </div>
+                        </section>
+                    </section>
+                        
+                    <section class="containerAttivita">    
+                        <section class="gestioneAttivita">
+                            <div class="activityCustomTitle">
+                                <h1><i class="fa fa-building" aria-hidden="true"></i> Gestione Attività</h1>
+                            </div>
+                        </section>
+                    </section>
+
+                    <section class="containerCommesseClienti">
+                        <section class="gestioneCommesseClienti">
+                            <div class="clientComCustomTitle">
+                                <h1><i class="fa fa-bar-chart" aria-hidden="true"></i> Gestione Commesse Clienti</h1>
+                            </div>
+                        </section>
+                    </section>
+
+                    <section class="containerCommesseFincons">
+                        <section class="gestioneCommesseFincons">
+                            <div class="finconsComCustomTitle">
+                                <h1><i class="fa fa-bar-chart" aria-hidden="true"></i> Gestione Commesse Fincons</h1>
+                            </div>
+                        </section>
+                    </section>
+
+                    <section class="containerAmbiti">
+                        <section class="gestioneAmbiti">
+                            <div class="ambitiCustomTitle">
+                                <h1><i class="fa fa-location-arrow" aria-hidden="true"></i> Gestione Ambiti</h1>
+                            </div>
+                        </section>
+                    </section>
+                    
                 </section>
 
                 <section class="reportisticaContainer">
@@ -406,6 +460,7 @@
         <script src="js/selectUser.js"></script>
         <script src="js/userSelected.js"></script>
         <script src="js/riassuntoMesi.js"></script>
+        <script src="js/amministrazione.js"></script>
         <!--END SECTION JS-->
 
     </footer>
