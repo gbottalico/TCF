@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, OnChanges } from '@angular/core';
 import { User } from '../../../model/user';
 
 @Component({
@@ -9,7 +9,8 @@ import { User } from '../../../model/user';
 })
 
 export class UserInfoComponent{
- @Input() userSelected : User;
+
+ @Input() userSelected: User;
  @Input() isAdmin : boolean;
  @Output() userChanged = new EventEmitter();
 

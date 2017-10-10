@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnChanges, OnInit } from '@angular/core';
 import { User } from '../../model/user';
 import * as $ from 'jquery';
 import 'jquery-ui';
@@ -12,7 +12,8 @@ import 'jquery-easing';
 })
 
 export class UserDetailComponent{
-  @Input() userLogged : User;
+
+  @Input() userLogged: User;
   @Input() userSelected : User;
   @Output() userChanged = new EventEmitter();
   monthSelected : Number;
@@ -20,7 +21,7 @@ export class UserDetailComponent{
 
   selectMonth($monthParams){
     this.monthSelected = $monthParams.monthParam;
-    this.yearSelected = $monthParams.anno;
+    this.yearSelected = $monthParams.year;
   }
 
   changeUser(){

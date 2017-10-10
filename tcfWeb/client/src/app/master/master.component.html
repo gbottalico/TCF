@@ -1,8 +1,8 @@
 <header [userLogged]="this.userLogged"></header>
+<subheader *ngIf="this.userLogged" [userLogged]="this.userLogged" [menuSelected]="this.menuSelected"></subheader>
 <section class="generalIndexContainer" *ngIf="this.userLogged">
-  <sitemap [userLogged]="this.userLogged"></sitemap>
   <toggle></toggle>
-  <leftsidebar></leftsidebar>
+  <leftsidebar (menuSelected)="selectMenu($event)"></leftsidebar>
 </section>
 
 <rightsidebar>

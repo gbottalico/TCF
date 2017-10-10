@@ -8,14 +8,15 @@ var serviceConsuntivo = {};
 const MeseConsuntivo = require('../models/meseConsuntivo.js');
 const Consuntivo = require('../models/consuntivo.js');
 
-serviceConsuntivo.addMeseConsuntivo = addMeseConsuntivo;
+//serviceConsuntivo.addMeseConsuntivo = addMeseConsuntivo;
 serviceConsuntivo.getMeseConsuntivoCliente = getMeseConsuntivoCliente;
 serviceConsuntivo.addConsuntivo = addConsuntivo;
 serviceConsuntivo.getConsuntivoCliente = getConsuntivoCliente;
 serviceConsuntivo.getConsuntiviBetweenDates = getConsuntiviBetweenDates;
+serviceConsuntivo.getConsuntiviUtente = getConsuntiviUtente;
 
 module.exports = serviceConsuntivo;
-
+/*
 function addMeseConsuntivo(meseConsuntivoParam) {
     console.log("addMeseConsuntivo "+meseConsuntivoParam._id)
     var deferred = Q.defer();
@@ -31,54 +32,56 @@ function addMeseConsuntivo(meseConsuntivoParam) {
         }
     });
      return deferred.promise;
-}
+}*/
 
+//OK
 function addConsuntivo(consuntivoParam) {
-    console.log("addConsuntivo "+consuntivoParam._id)
+    console.log("addConsuntivo " + consuntivoParam._id)
     var deferred = Q.defer();
-	consuntivoParam.data_consuntivo = dateFormat(new Date(consuntivoParam.data_consuntivo), "yyyy-dd-mm");
-	console.log(consuntivoParam.data_consuntivo);
-    console.log (consuntivoParam);
+    consuntivoParam.data_consuntivo = consuntivoParam.data_consuntivo
+    console.log(consuntivoParam.data_consuntivo);
+    console.log(consuntivoParam);
     let newConsuntivo = new Consuntivo(consuntivoParam);
     console.log(newConsuntivo);
-    var query = {'_id':newConsuntivo._id};
-    Consuntivo.findOneAndUpdate(query, newConsuntivo, {upsert:true}, function(err, doc){
-        if (err){
+    var query = { '_id': newConsuntivo._id };
+    Consuntivo.findOneAndUpdate(query, newConsuntivo, { upsert: true }, function (err, doc) {
+        if (err) {
             deferred.reject(err.name + ': ' + err.message);
-        }else{
-             deferred.resolve({msg: 'Consuntivo add successfully'});
+        } else {
+            deferred.resolve({ msg: 'Consuntivo add successfully' });
         }
     });
-     return deferred.promise;
+    return deferred.promise;
 }
 
 function getMeseConsuntivoCliente(idCliente, anno, mese) {
     var deferred = Q.defer();
-
-	let meseConsuntivo = new MeseConsuntivo();
-    meseConsuntivo.findByClienteAnnoAndMese({idCliente : idCliente, anno: anno, mese : mese},function (err, consuntivo) {
-        if (err){
-          deferred.reject(err.name + ': ' + err.message);  
-      } else{
-        deferred.resolve(consuntivo);
-      }
+    console.log(idCliente + "-" + anno + "-" + mese);
+    let meseConsuntivo = new MeseConsuntivo();
+    meseConsuntivo.findByClienteAnnoAndMese({ idCliente: idCliente, anno: anno, mese: mese }, function (err, consuntivo) {
+        if (err) {
+            deferred.reject(err.name + ': ' + err.message);
+        } else {
+            deferred.resolve(consuntivo);
+        }
 
     });
 
     return deferred.promise;
 }
 
+
 function getConsuntivoCliente(idCliente, data) {
     var deferred = Q.defer();
 
-	let consuntivo = new Consuntivo();
-	data = dateFormat(new Date(data), "yyyy-dd-mm");
-    consuntivo.findByClienteAndData({idCliente : idCliente, data : new Date(data).toISOString()},function (err, consuntivo) {
-        if (err){
-          deferred.reject(err.name + ': ' + err.message);  
-      } else{
-        deferred.resolve(consuntivo);
-      }
+    let consuntivo = new Consuntivo();
+    data = dateFormat(new Date(data), "yyyy-dd-mm");
+    consuntivo.findByClienteAndData({ idCliente: idCliente, data: new Date(data).toISOString() }, function (err, consuntivo) {
+        if (err) {
+            deferred.reject(err.name + ': ' + err.message);
+        } else {
+            deferred.resolve(consuntivo);
+        }
 
     });
 
@@ -88,16 +91,51 @@ function getConsuntivoCliente(idCliente, data) {
 function getConsuntiviBetweenDates(start, end) {
     var deferred = Q.defer();
 
-	start = dateFormat(new Date(start), "yyyy-dd-mm");
-	end = dateFormat(new Date(end), "yyyy-dd-mm");
-	console.log("Dal: " + new Date(start).toISOString() + "Al: "+ new Date(end).toISOString());
-	let consuntivo = new Consuntivo();
-    consuntivo.findBetweenDates({start : new Date(start).toISOString(), end : new Date(end).toISOString()},function (err, consuntivo) {
-        if (err){
-          deferred.reject(err.name + ': ' + err.message);  
-      } else{
-        deferred.resolve(consuntivo);
-      }
+    start = dateFormat(new Date(start), "yyyy-dd-mm");
+    end = dateFormat(new Date(end), "yyyy-dd-mm");
+    console.log("Dal: " + new Date(start).toISOString() + "Al: " + new Date(end).toISOString());
+    let consuntivo = new Consuntivo();
+    consuntivo.findBetweenDates({ start: new Date(start).toISOString(), end: new Date(end).toISOString() }, function (err, consuntivo) {
+        if (err) {
+            deferred.reject(err.name + ': ' + err.message);
+        } else {
+            deferred.resolve(consuntivo);
+        }
+
+    });
+
+    return deferred.promise;
+}
+
+
+function getConsuntiviUtente(id_user, month, year) {
+    var deferred = Q.defer();
+
+
+    let consuntivo = new Consuntivo();
+    consuntivo.getConsuntiviUtente({ start: new Date(start).toISOString(), end: new Date(end).toISOString() }, function (err, consuntivo) {
+        if (err) {
+            deferred.reject(err.name + ': ' + err.message);
+        } else {
+            deferred.resolve(consuntivo);
+        }
+
+    });
+
+    return deferred.promise;
+}
+
+//OK
+function getConsuntiviUtente(id_user, month, year) {
+    var deferred = Q.defer();
+    console.log("user: " + id_user + " month: " + month + "/" + year);
+    let consuntivo = new Consuntivo();
+    consuntivo.getConsuntiviUtente({ id_user: id_user, month: month, year: year}, function (err, consuntiviUtente) {
+        if (err) {
+            deferred.reject(err.name + ': ' + err.message);
+        } else {
+            deferred.resolve(consuntiviUtente);
+        }
 
     });
 

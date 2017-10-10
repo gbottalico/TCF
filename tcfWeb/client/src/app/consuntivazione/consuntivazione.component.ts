@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnChanges } from '@angular/core';
 import { User } from '../model/user';
 import * as $ from 'jquery';
 import 'jquery-ui';
@@ -12,35 +12,50 @@ import { AuthenticationService } from '../service/authentication.service';
   providers: []
 })
 
-export class ConsuntivazioneComponent {
+export class ConsuntivazioneComponent implements OnInit{
 
 
   userSelected : User;
   userLogged : User;
   isAdmin : boolean = false;
   selected : boolean = false;
+  userList;
+  userDetail;
 
   constructor(private authenticationService : AuthenticationService){
     this.authenticationService.user$.subscribe(user => { this.userLogged = user; });
     this.isAdmin = this.userLogged.isAdmin;
-    if(!this.isAdmin)
-       this.userSelected = this.userLogged;   
+    
+  }
+
+  ngOnInit(){
+    this.userList = $('.selectUser');
+    this.userDetail = $('.userDetail');
+    if(!this.isAdmin){
+      this.userSelected = this.userLogged;
+      this.userList.hide();
+      this.userDetail.show();
+   }
+   else{
+    this.userList.show();
+    this.userDetail.hide();
+   }
   }
 
   selectUser(userParam){
     this.userSelected = userParam;
     this.isAdmin = this.userLogged.isAdmin;
     this.selected = true;
-    /*$('.selectUser').slideUp().fadeOut().hide('slow');
-    $('.userDetail').fadeIn().show('slow');*/
+    this.userList.slideUp().fadeOut().hide('slow');
+    this.userDetail.fadeIn().show('slow');
   }
 
   changeUser(){
     this.userSelected = null;
     this.isAdmin = true;
-    this.selected = false;
-    /*$('.userDetail').slideDown().fadeOut().hide('slow');
-    $('.selectUser').fadeIn().show('slow');*/
+    this.selected = false;    
+    this.userDetail.slideDown().fadeOut().hide('slow');
+    this.userList.fadeIn().show('slow');
   }
 
 }

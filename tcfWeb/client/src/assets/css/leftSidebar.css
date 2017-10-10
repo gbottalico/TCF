@@ -37,6 +37,8 @@
 }
 .navigation div {
 	padding: 15px;
+	outline: 0;
+	border: none;
 }
 .navigation div i {
 	float: right;
@@ -67,6 +69,8 @@
 
 .subSection li {
 	padding: 15px;
+	/*eliminazione bordo arancio al click*/
+	outline: 0;
 }
 .subSection li:hover {
 	color: #b10022;
