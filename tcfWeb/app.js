@@ -24,13 +24,8 @@ mongoose.connect(config.connectionString);
         }
         return null;
     }
-<<<<<<< HEAD
 }).unless({ path: ['/tcf/api/userController/authenticate'] }));
 */
-=======
-}).unless({ path: ['/tcf/api/userController/authenticate'] }));*/
-
->>>>>>> 719b80e1d43b59f674c94ff6dec5d8d260cc155d
 // routes
 app.use('/tcf/api/userController', require('./controllers/user.controller'));
 app.use('/tcf/api/domainController', require('./controllers/domain.controller'));

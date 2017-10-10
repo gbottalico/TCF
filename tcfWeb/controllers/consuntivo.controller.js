@@ -8,6 +8,7 @@ routerConsuntivo.get('/meseConsuntivoCliente/:id_user/:month/:year', getConsunti
 routerConsuntivo.post('/consuntivo', addConsuntivo);
 routerConsuntivo.get('/consuntivoCliente/:idCliente/:data/', getConsuntiviUtente);
 routerConsuntivo.post('/consuntiviTraDate', getConsuntiviBetweenDates);
+routerConsuntivo.post('/modifyConsuntiviUtente', modifyConsuntiviUtente);
 
 function addMeseConsuntivo(req, res){
 	consuntivoService.addMeseConsuntivo(req.body).then(function(){
@@ -27,6 +28,7 @@ function getMeseConsuntivoUtente(req, res){
 	
 };
 
+//CRUD - CREATE single
 function addConsuntivo(req, res){
 	consuntivoService.addConsuntivo(req.body).then(function(){
 		 res.sendStatus(200);
@@ -54,13 +56,24 @@ function getConsuntiviBetweenDates(req, res){
 	
 };
 
+//CRUD - READ multiple
 function getConsuntiviUtente(req, res){
-	consuntivoService.getConsuntiviUtente(req.params.id_user, req.params.month, req.params.year).then(function(consuntivo){
-		 res.send(consuntivo);
+	consuntivoService.getConsuntiviUtente(req.params.id_user, req.params.month, req.params.year).then(function(consuntivi){
+		 res.send(consuntivi);
 	}).catch(function (err) {
             res.status(400).send(err);
 	});
 	
+};
+
+//CRUD - CREATE/UPDATE  multiple
+function modifyConsuntiviUtente(req, res){
+	consuntivoService.addConsuntiviUtente(req).then(function(msg){
+		console.log("consuntivo.controller.modifyConsuntiviUtente: ok");
+		res.send(msg);
+	}).catch(function (err) {
+            res.status(400).send(err);
+	});	
 };
 
 module.exports = routerConsuntivo;

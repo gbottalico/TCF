@@ -12,7 +12,7 @@
     "localRoot": "${workspaceRoot}",
     "remoteRoot": null
 },
-{ //da utilizzare da Chrome
+{ //da utilizzare da Chromeniodemon
     "type": "chrome",
     "request": "launch",
     "name": "Launch Chrome against localhost",

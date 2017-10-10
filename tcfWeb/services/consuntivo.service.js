@@ -3,10 +3,12 @@ var _ = require('lodash');
 var Q = require('q');
 var dateFormat = require('dateformat');
 
+
 var serviceConsuntivo = {};
 
 const MeseConsuntivo = require('../models/meseConsuntivo.js');
 const Consuntivo = require('../models/consuntivo.js');
+
 
 //serviceConsuntivo.addMeseConsuntivo = addMeseConsuntivo;
 serviceConsuntivo.getMeseConsuntivoCliente = getMeseConsuntivoCliente;
@@ -14,6 +16,7 @@ serviceConsuntivo.addConsuntivo = addConsuntivo;
 serviceConsuntivo.getConsuntivoCliente = getConsuntivoCliente;
 serviceConsuntivo.getConsuntiviBetweenDates = getConsuntiviBetweenDates;
 serviceConsuntivo.getConsuntiviUtente = getConsuntiviUtente;
+serviceConsuntivo.addConsuntiviUtente = addConsuntiviUtente;
 
 module.exports = serviceConsuntivo;
 /*
@@ -133,7 +136,7 @@ function getConsuntiviUtente(id_user, month, year) {
     consuntivo.getConsuntiviUtente({ id_user: id_user, month: month, year: year}, function (err, consuntiviUtente) {
         if (err) {
             deferred.reject(err.name + ': ' + err.message);
-        } else {
+        } else {            
             deferred.resolve(consuntiviUtente);
         }
 
@@ -141,3 +144,21 @@ function getConsuntiviUtente(id_user, month, year) {
 
     return deferred.promise;
 }
+
+//OK
+function addConsuntiviUtente(consuntiviUtente) {
+    var deferred = Q.defer();
+    console.log("addConsuntivi");
+    let consuntivo = new Consuntivo();
+    consuntivo.addConsuntiviUtente(consuntiviUtente, function (err, doc) {
+        if (err) {
+            deferred.reject(err.name + ': ' + err.message);
+        } else {            
+            deferred.resolve({msg: 'ConsuntiviUtente add successfully'});
+        }
+
+    });
+
+    return deferred.promise;
+}
+
