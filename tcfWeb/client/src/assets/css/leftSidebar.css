@@ -37,6 +37,8 @@
 }
 .navigation div {
 	padding: 15px;
+	outline: 0;
+	border: none;
 }
 .navigation div i {
 	float: right;
@@ -48,7 +50,7 @@
 }
 
 .navigation.active a{
-	color: #666;
+	color: inherit;
 }
 .navigation.active div i {
 	transform: rotate(180deg);
@@ -61,12 +63,24 @@
 	opacity: 1;
 }
 
+.subSection {
+	padding-left: 5px;
+}
+
 .subSection li {
 	padding: 15px;
+	/*eliminazione bordo arancio al click*/
+	outline: 0;
 }
 .subSection li:hover {
 	color: #b10022;
 }
+
+.subSection li a:hover {
+	color: #b10022;
+}
+
 .navigation.active .subSection .active {
 	color: #b10022;
 }
+
