@@ -66,4 +66,8 @@ $('.salvaCliente').on('click', function () {
 	$('.chiudi').hide();
 	$('.aggiungi').fadeIn().show();
 	$('.aggiungiUtenteContainer').slideToggle();
+	if ($('.toggleRight.userListRemote').hasClass('deactive')) {
+		$('.toggleRight.userListRemote').removeClass('deactive').addClass('active');
+		$('.listaUtenti ul').slideToggle();
+	} 
 });
