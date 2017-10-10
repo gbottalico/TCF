@@ -93,16 +93,10 @@ export class LeftsideBarComponent implements OnInit {
         );
     }
 
-    select(event, item){
-        this.selectedMenu = (this.selectedMenu === item ? null : item);
-        var target = event.currentTarget;
-        var menuElement = target.closest( "li" );
-        //$(xxx).fadeIn().show();
-        if(this.selectedMenu){
-            $(menuElement).children("ul").slideDown(500);
-        }else{
-            $(menuElement).children("ul").slideUp(500);
-        }
+    selectMenu(event, item, children, flag) {
+        
+        var target = event.target || event.srcElement || event.currentTarget;
+        var menuElement = target.closest("li");
 
         /*Se non si fa redirect, non si cambia il focus sulla voce di sottomenu*/
         if (this.selectedMenu != item && this.selectedMenu != null)
