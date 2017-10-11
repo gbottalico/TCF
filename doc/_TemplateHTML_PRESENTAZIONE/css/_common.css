@@ -260,3 +260,9 @@ input::-ms-clear {
 .noPaddingRight {
     padding-right: 0 !important
 }
+.leftGeneric {
+    float: left;
+}
+.rightGeneric {
+    float: right;
+}

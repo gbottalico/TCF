@@ -35,6 +35,7 @@
         <link rel="stylesheet" href="css/userSelected.css">
         <link rel="stylesheet" href="css/riassuntoAnni.css">
         <link rel="stylesheet" href="css/riassuntoMesi.css">
+        <link rel="stylesheet" href="css/tabellaTemporanea.css">
         <link rel="stylesheet" href="css/addMese.css">
         <link rel="stylesheet" href="css/gestioneClienti.css">
         <link rel="stylesheet" href="css/gestioneUtenti.css">
@@ -384,6 +385,772 @@
                         </ul>
                     </section>
 
+                    <section class="attivitaTable">
+
+                        <section class="sectionBtnTable">
+                            <button class="btn btnPrimary addAttivitaTable">Aggiungi attivita</button>
+                            <button class="btn btnPrimary backToMounth rightGeneric">Indietro</button>
+                        </section>
+
+                        <section class="tableReal">
+                            <div class="navigazioneAttivita">
+                                <ul>
+                                    <li class="clienteCell">Cliente</li>
+                                    <li class="ambitoCell">Ambito</li>
+                                    <li class="macroAreaCell">Macro Area</li>
+                                    <li class="attivitaCell">Attività</li>
+                                    <li class="deliverableCell">Deliverable</li>
+                                    <li class="noteCell">Note</li>
+                                </ul>
+                            </div>
+                            <div class="attivitaSelezionata">
+                                <ul>
+                                    <li>
+                                        <div class="attivitaName">
+                                            <ul>
+                                                <li class="clienteCell"><p>ITAS</p></li>
+                                                <li class="ambitoCell"><p>Danni</p></li>
+                                                <li class="macroAreaCell"><p>Progetti</p></li>
+                                                <li class="attivitaCell"><p>NFC - Marine e Multinational</p></li>
+                                                <li class="deliverableCell"><p>Governance</p></li>
+                                                <li class="noteCell"><p> - </li>
+                                            </ul>
+                                        </div>
+                                        <div class="actionAttivitaName">
+                                            <div>
+                                                <i class="fa fa-pencil-square-o modifica" aria-hidden="true"></i>
+                                                <i class="fa fa-trash-o elimina" aria-hidden="true"></i>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="attivitaName">
+                                            <ul>
+                                                <li class="clienteCell"><p>ITAS</p></li>
+                                                <li class="ambitoCell"><p>Danni</p></li>
+                                                <li class="macroAreaCell"><p>Progetti</p></li>
+                                                <li class="attivitaCell"><p>NFC - Marine e Multinational</p></li>
+                                                <li class="deliverableCell"><p>Test Funzionale</p></li>
+                                                <li class="noteCell"><p> - </p></li>
+                                            </ul>
+                                        </div>
+                                        <div class="actionAttivitaName">
+                                            <div>
+                                                <i class="fa fa-pencil-square-o modifica" aria-hidden="true"></i>
+                                                <i class="fa fa-trash-o elimina" aria-hidden="true"></i>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="attivitaName">
+                                            <ul>
+                                                <li class="clienteCell"><p>ITAS</p></li>
+                                                <li class="ambitoCell"><p>Danni</p></li>
+                                                <li class="macroAreaCell"><p>Progetti</p></li>
+                                                <li class="attivitaCell"><p>NFC - Pagina di Consultazione</p></li>
+                                                <li class="deliverableCell"><p>Supporto UAT</p></li>
+                                                <li class="noteCell"><p> - </p></li>
+                                            </ul>
+                                        </div>
+                                        <div class="actionAttivitaName">
+                                            <div>
+                                                <i class="fa fa-pencil-square-o modifica" aria-hidden="true"></i>
+                                                <i class="fa fa-trash-o elimina" aria-hidden="true"></i>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="attivitaName">
+                                            <ul>
+                                                <li class="clienteCell"><p>ITAS</p></li>
+                                                <li class="ambitoCell"><p>Danni</p></li>
+                                                <li class="macroAreaCell"><p>Progetti</p></li>
+                                                <li class="attivitaCell"><p>NFC - Pagina di Emissione</p></li>
+                                                <li class="deliverableCell"><p>Supporto UAT</p></li>
+                                                <li class="noteCell"><p> - </p></li>
+                                            </ul>
+                                        </div>
+                                        <div class="actionAttivitaName">
+                                            <div>
+                                                <i class="fa fa-pencil-square-o modifica" aria-hidden="true"></i>
+                                                <i class="fa fa-trash-o elimina" aria-hidden="true"></i>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="attivitaName">
+                                            <ul>
+                                                <li class="clienteCell"><p>ITAS</p></li>
+                                                <li class="ambitoCell"><p>Danni</p></li>
+                                                <li class="macroAreaCell"><p>Progetti</p></li>
+                                                <li class="attivitaCell"><p>NFC - Pagina di Emissione - GAP</p></li>
+                                                <li class="deliverableCell"><p>Supporto UAT</p></li>
+                                                <li class="noteCell"><p> - </p></li>
+                                            </ul>
+                                        </div>
+                                        <div class="actionAttivitaName">
+                                            <div>
+                                                <i class="fa fa-pencil-square-o modifica" aria-hidden="true"></i>
+                                                <i class="fa fa-trash-o elimina" aria-hidden="true"></i>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="attivitaName">
+                                            <ul>
+                                                <li class="clienteCell"><p>ITAS</p></li>
+                                                <li class="ambitoCell"><p>Danni</p></li>
+                                                <li class="macroAreaCell"><p>Progetti</p></li>
+                                                <li class="attivitaCell"><p>NFC - Post-Vendita - Appendici</p></li>
+                                                <li class="deliverableCell"><p>Supporto UAT</p></li>
+                                                <li class="noteCell"><p> - </p></li>
+                                            </ul>
+                                        </div>
+                                        <div class="actionAttivitaName">
+                                            <div>
+                                                <i class="fa fa-pencil-square-o modifica" aria-hidden="true"></i>
+                                                <i class="fa fa-trash-o elimina" aria-hidden="true"></i>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="tabellaConsultivazioneAttivita">
+                                <table>
+                                    <thead>
+                                        <th>1</th>
+                                        <th>2</th>
+                                        <th>3</th>
+                                        <th>4</th>
+                                        <th>5</th>
+                                        <th>6</th>
+                                        <th>7</th>
+                                        <th>8</th>
+                                        <th>9</th>
+                                        <th>10</th>
+                                        <th>11</th>
+                                        <th>12</th>
+                                        <th>13</th>
+                                        <th>14</th>
+                                        <th>15</th>
+                                        <th>16</th>
+                                        <th>17</th>
+                                        <th>18</th>
+                                        <th>19</th>
+                                        <th>20</th>
+                                        <th>21</th>
+                                        <th>22</th>
+                                        <th>23</th>
+                                        <th>24</th>
+                                        <th>25</th>
+                                        <th>26</th>
+                                        <th>27</th>
+                                        <th>28</th>
+                                        <th>29</th>
+                                        <th>30</th>
+                                        <th>31</th>
+                                        <th>Tot</th>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <th>
+                                                <input type="text" placeholder="0" class="elementList ore" maxlength="4" pattern="[0-9]" onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));">
+                                            </th>
+                                            <th>
+                                                <input type="text" placeholder="0" class="elementList ore" maxlength="4" pattern="[0-9]" onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));">
+                                            </th>
+                                            <th>
+                                                <input type="text" placeholder="0" class="elementList ore" maxlength="4" pattern="[0-9]" onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));">
+                                            </th>
+                                            <th>
+                                                <input type="text" placeholder="0" class="elementList ore" maxlength="4" pattern="[0-9]" onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));">
+                                            </th>
+                                            <th>
+                                                <input type="text" placeholder="0" class="elementList ore" maxlength="4" pattern="[0-9]" onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));">
+                                            </th>
+                                            <th>
+                                                <input type="text" placeholder="0" class="elementList ore" maxlength="4" pattern="[0-9]" onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));">
+                                            </th>
+                                            <th>
+                                                <input type="text" placeholder="0" class="elementList ore" maxlength="4" pattern="[0-9]" onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));">
+                                            </th>
+                                            <th>
+                                                <input type="text" placeholder="0" class="elementList ore" maxlength="4" pattern="[0-9]" onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));">
+                                            </th>
+                                            <th>
+                                                <input type="text" placeholder="0" class="elementList ore" maxlength="4" pattern="[0-9]" onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));">
+                                            </th>
+                                            <th>
+                                                <input type="text" placeholder="0" class="elementList ore" maxlength="4" pattern="[0-9]" onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));">
+                                            </th>
+                                            <th>
+                                                <input type="text" placeholder="0" class="elementList ore" maxlength="4" pattern="[0-9]" onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));">
+                                            </th>
+                                            <th>
+                                                <input type="text" placeholder="0" class="elementList ore" maxlength="4" pattern="[0-9]" onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));">
+                                            </th>
+                                            <th>
+                                                <input type="text" placeholder="0" class="elementList ore" maxlength="4" pattern="[0-9]" onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));">
+                                            </th>
+                                            <th>
+                                                <input type="text" placeholder="0" class="elementList ore" maxlength="4" pattern="[0-9]" onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));">
+                                            </th>
+                                            <th>
+                                                <input type="text" placeholder="0" class="elementList ore" maxlength="4" pattern="[0-9]" onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));">
+                                            </th>
+                                            <th>
+                                                <input type="text" placeholder="0" class="elementList ore" maxlength="4" pattern="[0-9]" onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));">
+                                            </th>
+                                            <th>
+                                                <input type="text" placeholder="0" class="elementList ore" maxlength="4" pattern="[0-9]" onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));">
+                                            </th>
+                                            <th>
+                                                <input type="text" placeholder="0" class="elementList ore" maxlength="4" pattern="[0-9]" onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));">
+                                            </th>
+                                            <th>
+                                                <input type="text" placeholder="0" class="elementList ore" maxlength="4" pattern="[0-9]" onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));">
+                                            </th>
+                                            <th>
+                                                <input type="text" placeholder="0" class="elementList ore" maxlength="4" pattern="[0-9]" onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));">
+                                            </th>
+                                            <th>
+                                                <input type="text" placeholder="0" class="elementList ore" maxlength="4" pattern="[0-9]" onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));">
+                                            </th>
+                                            <th>
+                                                <input type="text" placeholder="0" class="elementList ore" maxlength="4" pattern="[0-9]" onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));">
+                                            </th>
+                                            <th>
+                                                <input type="text" placeholder="0" class="elementList ore" maxlength="4" pattern="[0-9]" onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));">
+                                            </th>
+                                            <th>
+                                                <input type="text" placeholder="0" class="elementList ore" maxlength="4" pattern="[0-9]" onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));">
+                                            </th>
+                                            <th>
+                                                <input type="text" placeholder="0" class="elementList ore" maxlength="4" pattern="[0-9]" onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));">
+                                            </th>
+                                            <th>
+                                                <input type="text" placeholder="0" class="elementList ore" maxlength="4" pattern="[0-9]" onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));">
+                                            </th>
+                                            <th>
+                                                <input type="text" placeholder="0" class="elementList ore" maxlength="4" pattern="[0-9]" onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));">
+                                            </th>
+                                            <th>
+                                                <input type="text" placeholder="0" class="elementList ore" maxlength="4" pattern="[0-9]" onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));">
+                                            </th>
+                                            <th>
+                                                <input type="text" placeholder="0" class="elementList ore" maxlength="4" pattern="[0-9]" onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));">
+                                            </th>
+                                            <th>
+                                                <input type="text" placeholder="0" class="elementList ore" maxlength="4" pattern="[0-9]" onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));">
+                                            </th>
+                                            <th>
+                                                <input type="text" placeholder="0" class="elementList ore" maxlength="4" pattern="[0-9]" onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));">
+                                            </th>
+                                            <th>
+                                                <p>0</p>
+                                            </th>
+                                        </tr>
+                                        <tr>
+                                            <th>
+                                                <input type="text" placeholder="0" class="elementList ore" maxlength="4" pattern="[0-9]" onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));">
+                                            </th>
+                                            <th>
+                                                <input type="text" placeholder="0" class="elementList ore" maxlength="4" pattern="[0-9]" onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));">
+                                            </th>
+                                            <th>
+                                                <input type="text" placeholder="0" class="elementList ore" maxlength="4" pattern="[0-9]" onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));">
+                                            </th>
+                                            <th>
+                                                <input type="text" placeholder="0" class="elementList ore" maxlength="4" pattern="[0-9]" onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));">
+                                            </th>
+                                            <th>
+                                                <input type="text" placeholder="0" class="elementList ore" maxlength="4" pattern="[0-9]" onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));">
+                                            </th>
+                                            <th>
+                                                <input type="text" placeholder="0" class="elementList ore" maxlength="4" pattern="[0-9]" onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));">
+                                            </th>
+                                            <th>
+                                                <input type="text" placeholder="0" class="elementList ore" maxlength="4" pattern="[0-9]" onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));">
+                                            </th>
+                                            <th>
+                                                <input type="text" placeholder="0" class="elementList ore" maxlength="4" pattern="[0-9]" onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));">
+                                            </th>
+                                            <th>
+                                                <input type="text" placeholder="0" class="elementList ore" maxlength="4" pattern="[0-9]" onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));">
+                                            </th>
+                                            <th>
+                                                <input type="text" placeholder="0" class="elementList ore" maxlength="4" pattern="[0-9]" onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));">
+                                            </th>
+                                            <th>
+                                                <input type="text" placeholder="0" class="elementList ore" maxlength="4" pattern="[0-9]" onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));">
+                                            </th>
+                                            <th>
+                                                <input type="text" placeholder="0" class="elementList ore" maxlength="4" pattern="[0-9]" onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));">
+                                            </th>
+                                            <th>
+                                                <input type="text" placeholder="0" class="elementList ore" maxlength="4" pattern="[0-9]" onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));">
+                                            </th>
+                                            <th>
+                                                <input type="text" placeholder="0" class="elementList ore" maxlength="4" pattern="[0-9]" onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));">
+                                            </th>
+                                            <th>
+                                                <input type="text" placeholder="0" class="elementList ore" maxlength="4" pattern="[0-9]" onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));">
+                                            </th>
+                                            <th>
+                                                <input type="text" placeholder="0" class="elementList ore" maxlength="4" pattern="[0-9]" onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));">
+                                            </th>
+                                            <th>
+                                                <input type="text" placeholder="0" class="elementList ore" maxlength="4" pattern="[0-9]" onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));">
+                                            </th>
+                                            <th>
+                                                <input type="text" placeholder="0" class="elementList ore" maxlength="4" pattern="[0-9]" onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));">
+                                            </th>
+                                            <th>
+                                                <input type="text" placeholder="0" class="elementList ore" maxlength="4" pattern="[0-9]" onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));">
+                                            </th>
+                                            <th>
+                                                <input type="text" placeholder="0" class="elementList ore" maxlength="4" pattern="[0-9]" onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));">
+                                            </th>
+                                            <th>
+                                                <input type="text" placeholder="0" class="elementList ore" maxlength="4" pattern="[0-9]" onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));">
+                                            </th>
+                                            <th>
+                                                <input type="text" placeholder="0" class="elementList ore" maxlength="4" pattern="[0-9]" onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));">
+                                            </th>
+                                            <th>
+                                                <input type="text" placeholder="0" class="elementList ore" maxlength="4" pattern="[0-9]" onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));">
+                                            </th>
+                                            <th>
+                                                <input type="text" placeholder="0" class="elementList ore" maxlength="4" pattern="[0-9]" onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));">
+                                            </th>
+                                            <th>
+                                                <input type="text" placeholder="0" class="elementList ore" maxlength="4" pattern="[0-9]" onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));">
+                                            </th>
+                                            <th>
+                                                <input type="text" placeholder="0" class="elementList ore" maxlength="4" pattern="[0-9]" onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));">
+                                            </th>
+                                            <th>
+                                                <input type="text" placeholder="0" class="elementList ore" maxlength="4" pattern="[0-9]" onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));">
+                                            </th>
+                                            <th>
+                                                <input type="text" placeholder="0" class="elementList ore" maxlength="4" pattern="[0-9]" onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));">
+                                            </th>
+                                            <th>
+                                                <input type="text" placeholder="0" class="elementList ore" maxlength="4" pattern="[0-9]" onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));">
+                                            </th>
+                                            <th>
+                                                <input type="text" placeholder="0" class="elementList ore" maxlength="4" pattern="[0-9]" onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));">
+                                            </th>
+                                            <th>
+                                                <input type="text" placeholder="0" class="elementList ore" maxlength="4" pattern="[0-9]" onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));">
+                                            </th>
+                                            <th>
+                                                <p>0</p>
+                                            </th>
+                                        </tr>
+                                        <tr>
+                                            <th>
+                                                <input type="text" placeholder="0" class="elementList ore" maxlength="4" pattern="[0-9]" onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));">
+                                            </th>
+                                            <th>
+                                                <input type="text" placeholder="0" class="elementList ore" maxlength="4" pattern="[0-9]" onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));">
+                                            </th>
+                                            <th>
+                                                <input type="text" placeholder="0" class="elementList ore" maxlength="4" pattern="[0-9]" onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));">
+                                            </th>
+                                            <th>
+                                                <input type="text" placeholder="0" class="elementList ore" maxlength="4" pattern="[0-9]" onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));">
+                                            </th>
+                                            <th>
+                                                <input type="text" placeholder="0" class="elementList ore" maxlength="4" pattern="[0-9]" onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));">
+                                            </th>
+                                            <th>
+                                                <input type="text" placeholder="0" class="elementList ore" maxlength="4" pattern="[0-9]" onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));">
+                                            </th>
+                                            <th>
+                                                <input type="text" placeholder="0" class="elementList ore" maxlength="4" pattern="[0-9]" onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));">
+                                            </th>
+                                            <th>
+                                                <input type="text" placeholder="0" class="elementList ore" maxlength="4" pattern="[0-9]" onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));">
+                                            </th>
+                                            <th>
+                                                <input type="text" placeholder="0" class="elementList ore" maxlength="4" pattern="[0-9]" onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));">
+                                            </th>
+                                            <th>
+                                                <input type="text" placeholder="0" class="elementList ore" maxlength="4" pattern="[0-9]" onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));">
+                                            </th>
+                                            <th>
+                                                <input type="text" placeholder="0" class="elementList ore" maxlength="4" pattern="[0-9]" onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));">
+                                            </th>
+                                            <th>
+                                                <input type="text" placeholder="0" class="elementList ore" maxlength="4" pattern="[0-9]" onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));">
+                                            </th>
+                                            <th>
+                                                <input type="text" placeholder="0" class="elementList ore" maxlength="4" pattern="[0-9]" onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));">
+                                            </th>
+                                            <th>
+                                                <input type="text" placeholder="0" class="elementList ore" maxlength="4" pattern="[0-9]" onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));">
+                                            </th>
+                                            <th>
+                                                <input type="text" placeholder="0" class="elementList ore" maxlength="4" pattern="[0-9]" onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));">
+                                            </th>
+                                            <th>
+                                                <input type="text" placeholder="0" class="elementList ore" maxlength="4" pattern="[0-9]" onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));">
+                                            </th>
+                                            <th>
+                                                <input type="text" placeholder="0" class="elementList ore" maxlength="4" pattern="[0-9]" onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));">
+                                            </th>
+                                            <th>
+                                                <input type="text" placeholder="0" class="elementList ore" maxlength="4" pattern="[0-9]" onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));">
+                                            </th>
+                                            <th>
+                                                <input type="text" placeholder="0" class="elementList ore" maxlength="4" pattern="[0-9]" onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));">
+                                            </th>
+                                            <th>
+                                                <input type="text" placeholder="0" class="elementList ore" maxlength="4" pattern="[0-9]" onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));">
+                                            </th>
+                                            <th>
+                                                <input type="text" placeholder="0" class="elementList ore" maxlength="4" pattern="[0-9]" onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));">
+                                            </th>
+                                            <th>
+                                                <input type="text" placeholder="0" class="elementList ore" maxlength="4" pattern="[0-9]" onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));">
+                                            </th>
+                                            <th>
+                                                <input type="text" placeholder="0" class="elementList ore" maxlength="4" pattern="[0-9]" onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));">
+                                            </th>
+                                            <th>
+                                                <input type="text" placeholder="0" class="elementList ore" maxlength="4" pattern="[0-9]" onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));">
+                                            </th>
+                                            <th>
+                                                <input type="text" placeholder="0" class="elementList ore" maxlength="4" pattern="[0-9]" onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));">
+                                            </th>
+                                            <th>
+                                                <input type="text" placeholder="0" class="elementList ore" maxlength="4" pattern="[0-9]" onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));">
+                                            </th>
+                                            <th>
+                                                <input type="text" placeholder="0" class="elementList ore" maxlength="4" pattern="[0-9]" onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));">
+                                            </th>
+                                            <th>
+                                                <input type="text" placeholder="0" class="elementList ore" maxlength="4" pattern="[0-9]" onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));">
+                                            </th>
+                                            <th>
+                                                <input type="text" placeholder="0" class="elementList ore" maxlength="4" pattern="[0-9]" onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));">
+                                            </th>
+                                            <th>
+                                                <input type="text" placeholder="0" class="elementList ore" maxlength="4" pattern="[0-9]" onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));">
+                                            </th>
+                                            <th>
+                                                <input type="text" placeholder="0" class="elementList ore" maxlength="4" pattern="[0-9]" onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));">
+                                            </th>
+                                            <th>
+                                                <p>0</p>
+                                            </th>
+                                        </tr>
+                                        <tr>
+                                            <th>
+                                                <input type="text" placeholder="0" class="elementList ore" maxlength="4" pattern="[0-9]" onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));">
+                                            </th>
+                                            <th>
+                                                <input type="text" placeholder="0" class="elementList ore" maxlength="4" pattern="[0-9]" onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));">
+                                            </th>
+                                            <th>
+                                                <input type="text" placeholder="0" class="elementList ore" maxlength="4" pattern="[0-9]" onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));">
+                                            </th>
+                                            <th>
+                                                <input type="text" placeholder="0" class="elementList ore" maxlength="4" pattern="[0-9]" onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));">
+                                            </th>
+                                            <th>
+                                                <input type="text" placeholder="0" class="elementList ore" maxlength="4" pattern="[0-9]" onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));">
+                                            </th>
+                                            <th>
+                                                <input type="text" placeholder="0" class="elementList ore" maxlength="4" pattern="[0-9]" onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));">
+                                            </th>
+                                            <th>
+                                                <input type="text" placeholder="0" class="elementList ore" maxlength="4" pattern="[0-9]" onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));">
+                                            </th>
+                                            <th>
+                                                <input type="text" placeholder="0" class="elementList ore" maxlength="4" pattern="[0-9]" onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));">
+                                            </th>
+                                            <th>
+                                                <input type="text" placeholder="0" class="elementList ore" maxlength="4" pattern="[0-9]" onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));">
+                                            </th>
+                                            <th>
+                                                <input type="text" placeholder="0" class="elementList ore" maxlength="4" pattern="[0-9]" onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));">
+                                            </th>
+                                            <th>
+                                                <input type="text" placeholder="0" class="elementList ore" maxlength="4" pattern="[0-9]" onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));">
+                                            </th>
+                                            <th>
+                                                <input type="text" placeholder="0" class="elementList ore" maxlength="4" pattern="[0-9]" onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));">
+                                            </th>
+                                            <th>
+                                                <input type="text" placeholder="0" class="elementList ore" maxlength="4" pattern="[0-9]" onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));">
+                                            </th>
+                                            <th>
+                                                <input type="text" placeholder="0" class="elementList ore" maxlength="4" pattern="[0-9]" onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));">
+                                            </th>
+                                            <th>
+                                                <input type="text" placeholder="0" class="elementList ore" maxlength="4" pattern="[0-9]" onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));">
+                                            </th>
+                                            <th>
+                                                <input type="text" placeholder="0" class="elementList ore" maxlength="4" pattern="[0-9]" onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));">
+                                            </th>
+                                            <th>
+                                                <input type="text" placeholder="0" class="elementList ore" maxlength="4" pattern="[0-9]" onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));">
+                                            </th>
+                                            <th>
+                                                <input type="text" placeholder="0" class="elementList ore" maxlength="4" pattern="[0-9]" onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));">
+                                            </th>
+                                            <th>
+                                                <input type="text" placeholder="0" class="elementList ore" maxlength="4" pattern="[0-9]" onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));">
+                                            </th>
+                                            <th>
+                                                <input type="text" placeholder="0" class="elementList ore" maxlength="4" pattern="[0-9]" onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));">
+                                            </th>
+                                            <th>
+                                                <input type="text" placeholder="0" class="elementList ore" maxlength="4" pattern="[0-9]" onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));">
+                                            </th>
+                                            <th>
+                                                <input type="text" placeholder="0" class="elementList ore" maxlength="4" pattern="[0-9]" onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));">
+                                            </th>
+                                            <th>
+                                                <input type="text" placeholder="0" class="elementList ore" maxlength="4" pattern="[0-9]" onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));">
+                                            </th>
+                                            <th>
+                                                <input type="text" placeholder="0" class="elementList ore" maxlength="4" pattern="[0-9]" onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));">
+                                            </th>
+                                            <th>
+                                                <input type="text" placeholder="0" class="elementList ore" maxlength="4" pattern="[0-9]" onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));">
+                                            </th>
+                                            <th>
+                                                <input type="text" placeholder="0" class="elementList ore" maxlength="4" pattern="[0-9]" onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));">
+                                            </th>
+                                            <th>
+                                                <input type="text" placeholder="0" class="elementList ore" maxlength="4" pattern="[0-9]" onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));">
+                                            </th>
+                                            <th>
+                                                <input type="text" placeholder="0" class="elementList ore" maxlength="4" pattern="[0-9]" onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));">
+                                            </th>
+                                            <th>
+                                                <input type="text" placeholder="0" class="elementList ore" maxlength="4" pattern="[0-9]" onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));">
+                                            </th>
+                                            <th>
+                                                <input type="text" placeholder="0" class="elementList ore" maxlength="4" pattern="[0-9]" onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));">
+                                            </th>
+                                            <th>
+                                                <input type="text" placeholder="0" class="elementList ore" maxlength="4" pattern="[0-9]" onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));">
+                                            </th>
+                                            <th>
+                                                <p>0</p>
+                                            </th>
+                                        </tr>
+                                        <tr>
+                                            <th>
+                                                <input type="text" placeholder="0" class="elementList ore" maxlength="4" pattern="[0-9]" onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));">
+                                            </th>
+                                            <th>
+                                                <input type="text" placeholder="0" class="elementList ore" maxlength="4" pattern="[0-9]" onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));">
+                                            </th>
+                                            <th>
+                                                <input type="text" placeholder="0" class="elementList ore" maxlength="4" pattern="[0-9]" onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));">
+                                            </th>
+                                            <th>
+                                                <input type="text" placeholder="0" class="elementList ore" maxlength="4" pattern="[0-9]" onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));">
+                                            </th>
+                                            <th>
+                                                <input type="text" placeholder="0" class="elementList ore" maxlength="4" pattern="[0-9]" onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));">
+                                            </th>
+                                            <th>
+                                                <input type="text" placeholder="0" class="elementList ore" maxlength="4" pattern="[0-9]" onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));">
+                                            </th>
+                                            <th>
+                                                <input type="text" placeholder="0" class="elementList ore" maxlength="4" pattern="[0-9]" onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));">
+                                            </th>
+                                            <th>
+                                                <input type="text" placeholder="0" class="elementList ore" maxlength="4" pattern="[0-9]" onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));">
+                                            </th>
+                                            <th>
+                                                <input type="text" placeholder="0" class="elementList ore" maxlength="4" pattern="[0-9]" onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));">
+                                            </th>
+                                            <th>
+                                                <input type="text" placeholder="0" class="elementList ore" maxlength="4" pattern="[0-9]" onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));">
+                                            </th>
+                                            <th>
+                                                <input type="text" placeholder="0" class="elementList ore" maxlength="4" pattern="[0-9]" onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));">
+                                            </th>
+                                            <th>
+                                                <input type="text" placeholder="0" class="elementList ore" maxlength="4" pattern="[0-9]" onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));">
+                                            </th>
+                                            <th>
+                                                <input type="text" placeholder="0" class="elementList ore" maxlength="4" pattern="[0-9]" onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));">
+                                            </th>
+                                            <th>
+                                                <input type="text" placeholder="0" class="elementList ore" maxlength="4" pattern="[0-9]" onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));">
+                                            </th>
+                                            <th>
+                                                <input type="text" placeholder="0" class="elementList ore" maxlength="4" pattern="[0-9]" onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));">
+                                            </th>
+                                            <th>
+                                                <input type="text" placeholder="0" class="elementList ore" maxlength="4" pattern="[0-9]" onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));">
+                                            </th>
+                                            <th>
+                                                <input type="text" placeholder="0" class="elementList ore" maxlength="4" pattern="[0-9]" onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));">
+                                            </th>
+                                            <th>
+                                                <input type="text" placeholder="0" class="elementList ore" maxlength="4" pattern="[0-9]" onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));">
+                                            </th>
+                                            <th>
+                                                <input type="text" placeholder="0" class="elementList ore" maxlength="4" pattern="[0-9]" onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));">
+                                            </th>
+                                            <th>
+                                                <input type="text" placeholder="0" class="elementList ore" maxlength="4" pattern="[0-9]" onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));">
+                                            </th>
+                                            <th>
+                                                <input type="text" placeholder="0" class="elementList ore" maxlength="4" pattern="[0-9]" onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));">
+                                            </th>
+                                            <th>
+                                                <input type="text" placeholder="0" class="elementList ore" maxlength="4" pattern="[0-9]" onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));">
+                                            </th>
+                                            <th>
+                                                <input type="text" placeholder="0" class="elementList ore" maxlength="4" pattern="[0-9]" onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));">
+                                            </th>
+                                            <th>
+                                                <input type="text" placeholder="0" class="elementList ore" maxlength="4" pattern="[0-9]" onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));">
+                                            </th>
+                                            <th>
+                                                <input type="text" placeholder="0" class="elementList ore" maxlength="4" pattern="[0-9]" onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));">
+                                            </th>
+                                            <th>
+                                                <input type="text" placeholder="0" class="elementList ore" maxlength="4" pattern="[0-9]" onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));">
+                                            </th>
+                                            <th>
+                                                <input type="text" placeholder="0" class="elementList ore" maxlength="4" pattern="[0-9]" onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));">
+                                            </th>
+                                            <th>
+                                                <input type="text" placeholder="0" class="elementList ore" maxlength="4" pattern="[0-9]" onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));">
+                                            </th>
+                                            <th>
+                                                <input type="text" placeholder="0" class="elementList ore" maxlength="4" pattern="[0-9]" onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));">
+                                            </th>
+                                            <th>
+                                                <input type="text" placeholder="0" class="elementList ore" maxlength="4" pattern="[0-9]" onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));">
+                                            </th>
+                                            <th>
+                                                <input type="text" placeholder="0" class="elementList ore" maxlength="4" pattern="[0-9]" onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));">
+                                            </th>
+                                            <th>
+                                                <p>0</p>
+                                            </th>
+                                        </tr>
+                                        <tr>
+                                            <th>
+                                                <input type="text" placeholder="0" class="elementList ore" maxlength="4" pattern="[0-9]" onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));">
+                                            </th>
+                                            <th>
+                                                <input type="text" placeholder="0" class="elementList ore" maxlength="4" pattern="[0-9]" onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));">
+                                            </th>
+                                            <th>
+                                                <input type="text" placeholder="0" class="elementList ore" maxlength="4" pattern="[0-9]" onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));">
+                                            </th>
+                                            <th>
+                                                <input type="text" placeholder="0" class="elementList ore" maxlength="4" pattern="[0-9]" onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));">
+                                            </th>
+                                            <th>
+                                                <input type="text" placeholder="0" class="elementList ore" maxlength="4" pattern="[0-9]" onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));">
+                                            </th>
+                                            <th>
+                                                <input type="text" placeholder="0" class="elementList ore" maxlength="4" pattern="[0-9]" onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));">
+                                            </th>
+                                            <th>
+                                                <input type="text" placeholder="0" class="elementList ore" maxlength="4" pattern="[0-9]" onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));">
+                                            </th>
+                                            <th>
+                                                <input type="text" placeholder="0" class="elementList ore" maxlength="4" pattern="[0-9]" onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));">
+                                            </th>
+                                            <th>
+                                                <input type="text" placeholder="0" class="elementList ore" maxlength="4" pattern="[0-9]" onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));">
+                                            </th>
+                                            <th>
+                                                <input type="text" placeholder="0" class="elementList ore" maxlength="4" pattern="[0-9]" onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));">
+                                            </th>
+                                            <th>
+                                                <input type="text" placeholder="0" class="elementList ore" maxlength="4" pattern="[0-9]" onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));">
+                                            </th>
+                                            <th>
+                                                <input type="text" placeholder="0" class="elementList ore" maxlength="4" pattern="[0-9]" onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));">
+                                            </th>
+                                            <th>
+                                                <input type="text" placeholder="0" class="elementList ore" maxlength="4" pattern="[0-9]" onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));">
+                                            </th>
+                                            <th>
+                                                <input type="text" placeholder="0" class="elementList ore" maxlength="4" pattern="[0-9]" onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));">
+                                            </th>
+                                            <th>
+                                                <input type="text" placeholder="0" class="elementList ore" maxlength="4" pattern="[0-9]" onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));">
+                                            </th>
+                                            <th>
+                                                <input type="text" placeholder="0" class="elementList ore" maxlength="4" pattern="[0-9]" onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));">
+                                            </th>
+                                            <th>
+                                                <input type="text" placeholder="0" class="elementList ore" maxlength="4" pattern="[0-9]" onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));">
+                                            </th>
+                                            <th>
+                                                <input type="text" placeholder="0" class="elementList ore" maxlength="4" pattern="[0-9]" onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));">
+                                            </th>
+                                            <th>
+                                                <input type="text" placeholder="0" class="elementList ore" maxlength="4" pattern="[0-9]" onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));">
+                                            </th>
+                                            <th>
+                                                <input type="text" placeholder="0" class="elementList ore" maxlength="4" pattern="[0-9]" onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));">
+                                            </th>
+                                            <th>
+                                                <input type="text" placeholder="0" class="elementList ore" maxlength="4" pattern="[0-9]" onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));">
+                                            </th>
+                                            <th>
+                                                <input type="text" placeholder="0" class="elementList ore" maxlength="4" pattern="[0-9]" onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));">
+                                            </th>
+                                            <th>
+                                                <input type="text" placeholder="0" class="elementList ore" maxlength="4" pattern="[0-9]" onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));">
+                                            </th>
+                                            <th>
+                                                <input type="text" placeholder="0" class="elementList ore" maxlength="4" pattern="[0-9]" onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));">
+                                            </th>
+                                            <th>
+                                                <input type="text" placeholder="0" class="elementList ore" maxlength="4" pattern="[0-9]" onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));">
+                                            </th>
+                                            <th>
+                                                <input type="text" placeholder="0" class="elementList ore" maxlength="4" pattern="[0-9]" onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));">
+                                            </th>
+                                            <th>
+                                                <input type="text" placeholder="0" class="elementList ore" maxlength="4" pattern="[0-9]" onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));">
+                                            </th>
+                                            <th>
+                                                <input type="text" placeholder="0" class="elementList ore" maxlength="4" pattern="[0-9]" onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));">
+                                            </th>
+                                            <th>
+                                                <input type="text" placeholder="0" class="elementList ore" maxlength="4" pattern="[0-9]" onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));">
+                                            </th>
+                                            <th>
+                                                <input type="text" placeholder="0" class="elementList ore" maxlength="4" pattern="[0-9]" onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));">
+                                            </th>
+                                            <th>
+                                                <input type="text" placeholder="0" class="elementList ore" maxlength="4" pattern="[0-9]" onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));">
+                                            </th>
+                                            <th>
+                                                <p>0</p>
+                                            </th>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </section>
+
+                        <section class="sectionBtnTable">
+                            <button class="btn btnPrimary closeGestioneAttivita rightGeneric">Salva</button>
+                        </section>
+
+                    </section>
+
                 </section>
 
                 <section class="amministrazioneContainer">
@@ -408,6 +1175,11 @@
                                 <li>
                                     <div class="utente">
                                         <i class="fa fa-user" aria-hidden="true"></i> Fabio Verlato
+                                        <!--<i class="fa fa-user" aria-hidden="true"></i> fabio.verlato@finconsgroup.com
+                                        <i class="fa fa-user" aria-hidden="true"></i> ITAS, Zurich, DoBank, DAS, Cerved, Sky IT
+                                        <i class="fa fa-user" aria-hidden="true"></i> da 01/01/2016 a 01/01/2018
+                                        <i class="fa fa-user" aria-hidden="true"></i> fverlato
+                                        <i class="fa fa-user" aria-hidden="true"></i> Verona-->
                                     </div>
                                     <div class="actionUser">
                                         <div>

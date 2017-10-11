@@ -1,0 +1,146 @@
+.navigazioneAttivita {
+    position: absolute;
+    width: 600px;
+}
+.navigazioneAttivita ul {
+    list-style: none;
+    padding: 0;
+    font-size: 0.8rem;
+    text-align: center;
+    margin: 0;
+}
+.navigazioneAttivita ul li {
+    float: left;
+}
+.clienteCell {
+	width: 70px;
+}
+.ambitoCell {
+	width: 70px;
+}
+.macroAreaCell {
+	width: 70px;
+}
+.attivitaCell {
+	width: 130px;
+}
+.deliverableCell {
+	width: 90px;
+}
+.noteCell {
+	width: 130px;
+}
+.attivitaSelezionata {
+    position: relative;
+    width: 600px;
+    float: left;
+}
+.attivitaSelezionata ul {
+    list-style: none;
+    padding: 0;
+    font-size: 0.8rem;
+    margin-top: 30px;
+    margin-bottom: 0;
+    padding-right: 15px;
+}
+.attivitaSelezionata ul li {
+	height: 40px;
+	position: relative;
+}
+.attivitaSelezionata ul li .attivitaName {
+    position: absolute;
+    top: 50%;
+    transform: translate(0, -50%);
+    /*width: 155px;*/
+    line-height: 1;
+}
+.attivitaSelezionata ul li .actionAttivitaName div {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translate(0, -50%);
+}
+.attivitaSelezionata ul li .actionAttivitaName div i {
+    cursor: pointer;
+    user-select: none;
+}
+.attivitaSelezionata ul li .actionAttivitaName div i:hover {
+    opacity: 0.7;
+}
+.tabellaConsultivazioneAttivita {
+    position: relative;
+    overflow: auto;
+    width: calc(100% - 600px);
+}
+.tabellaConsultivazioneAttivita table {
+	border-collapse: collapse;
+    border-spacing: 0;
+    min-width: 875px;
+}
+.tabellaConsultivazioneAttivita table thead th {
+    font-size: 0.8rem;
+    text-align: center;
+    font-family: "Raleway-regular";
+    font-weight: normal;
+    border: 1px solid #666;
+    line-height: 2;
+    user-select: none;
+    margin: 0;
+    padding: 0;
+    padding-left: 5px;
+    padding-right: 5px;
+    height: 30px;
+}
+.tabellaConsultivazioneAttivita table tbody th {
+    user-select: none;
+    margin: 0;
+    padding: 0;
+    border-right: 1px solid #666;
+    border-left: 1px solid #666;
+    border-bottom: 1px solid #666;
+    line-height: 2;
+    height: 40px;
+}
+.tabellaConsultivazioneAttivita table tbody th .ore {
+    margin: 0;
+    padding: 0;
+    background: transparent;
+    width: 100%;
+    border: none;
+    text-align: center;
+    font-family: "Raleway-regular";
+    line-height: 2;
+    outline: none;
+}
+.tabellaConsultivazioneAttivita table tbody th p {
+    font-size: 0.8rem;
+    text-align: center;
+    font-family: "Raleway-regular";
+    font-weight: normal;
+    line-height: 2;
+    user-select: none;
+    margin: 0;
+    padding: 0;
+}
+
+.attivitaName ul {
+    width: 100%;
+    position: relative;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    height: 40px;
+}
+.attivitaName ul li {
+    float: left;
+    text-align: center;
+    line-height: 1;
+    letter-spacing: -0.2px;
+}
+.attivitaName ul li p {
+    margin: 0;
+    position: absolute;
+    width: 100%;
+    top: 50%;
+    transform: translate(0, -50%);
+}
