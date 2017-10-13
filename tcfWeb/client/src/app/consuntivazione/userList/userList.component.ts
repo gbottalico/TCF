@@ -1,7 +1,7 @@
 import { Component, OnInit, Output } from '@angular/core';
 import {User} from '../../model/user';
 import {UserService} from '../../service/user.service';
-import { Pipe, PipeTransform, EventEmitter } from '@angular/core';
+import { Pipe, PipeTransform, EventEmitter, Input, OnChanges } from '@angular/core';
 import * as $ from 'jquery';
 import 'jquery-ui';
 import 'jquery-easing';
@@ -28,18 +28,23 @@ export class SearchUser implements PipeTransform {
 })
 
 
-export class UserListComponent {
+export class UserListComponent implements OnChanges{
 
   users: User[];
-
+  @Input() userLogged : User;
+  @Input() maxUserLoggedProfile : string;
   @Output() userSelected = new EventEmitter();
 
   constructor(private userService : UserService) {
+  }
+
+  ngOnChanges(){
     this.getUsers();
   }
 
   selectUser(userParam){
-    this.userSelected.emit(userParam);
+      this.userSelected.emit(userParam);
+
   }
 
   deleteUser(userParam){
@@ -47,7 +52,40 @@ export class UserListComponent {
   }
 
   getUsers(){
-    this.userService.getUsers().subscribe( users => this.users = users);
+    switch(this.maxUserLoggedProfile){
+      case 'Amministratore di progetto':
+        this.userService.getUsersByClient(this.userLogged._id).subscribe( users => this.users = users);
+        break;
+      case 'Amministratore di sistema' :
+        this.userService.getUsers().subscribe( users => this.users = users);
+        break;
+    }
+  }
+
+  chooseClass(userParam : User){
+    var userClass;
+      switch(this.getMaxUserProfile(userParam)){
+        case 'AS':
+          userClass = "fa fa-user-md";
+          break;
+        case 'AP':
+          userClass = "fa fa-user-plus";
+          break;
+        case 'CS':
+          userClass = "fa fa-user";
+          break;
+      }
+    return userClass;  
+  }
+
+  getMaxUserProfile(userLogged : User) : string{
+    var profiles = Array<string>();
+    
+    for(let i=0; i<userLogged.clienti.length; i++)
+        profiles.push(userLogged.clienti[i].id_profilo);
+
+    return profiles.includes('AS') ? "AS" : profiles.includes('AP') ? "AP" : "CS";
+
   }
 
   }

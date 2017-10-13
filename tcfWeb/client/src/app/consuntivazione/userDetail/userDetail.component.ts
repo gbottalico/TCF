@@ -11,13 +11,20 @@ import 'jquery-easing';
   providers: []
 })
 
-export class UserDetailComponent{
+export class UserDetailComponent implements OnInit{
 
   @Input() userLogged: User;
   @Input() userSelected : User;
+  @Input() maxUserLoggedProfile : string;
   @Output() userChanged = new EventEmitter();
+  consuntivatore : boolean;
+
   monthSelected : Number;
   yearSelected : Number;
+
+  ngOnInit(){
+    this.consuntivatore = this.isConsuntivatore();
+  }
 
   selectMonth($monthParams){
     this.monthSelected = $monthParams.monthParam;
@@ -26,5 +33,9 @@ export class UserDetailComponent{
 
   changeUser(){
     this.userChanged.emit();
+  }
+
+  isConsuntivatore() : boolean {
+    return this.maxUserLoggedProfile == 'Consuntivatore' ? true : false;
   }
 }

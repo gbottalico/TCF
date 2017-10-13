@@ -8,6 +8,8 @@ routerUser.post('/user', addUser);
 routerUser.post('/userChangeEmail', changeUserEmail);
 routerUser.post('/userChangePwd', changeUserPwd);
 routerUser.get('/users', getAll);
+routerUser.get('/userByClient/:userLogged', getUsersByClient);
+routerUser.get('/getMaxProfile/:userLogged', getMaxProfile);
 
 
 function authenticate(req, res) {
@@ -71,7 +73,21 @@ function getAll(req, res){
 	
 };
 
+function getUsersByClient(req, res){
+	userService.getUsersByClient(req.params.userLogged).then(function(users){		 
+		 res.send(users);
+	}).catch(function (err) {
+		res.status(400).send(err);
+	});
+};
 
+function getMaxProfile(req, res){
+	userService.getMaxProfile(req.params.userLogged).then(function(profiles){		 
+		 res.send(profiles);
+	}).catch(function (err) {
+		res.status(400).send(err);
+	});
+};
 /*
 //retrieving users
 routerUser.get('/users', (req, res, next)=>{

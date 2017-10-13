@@ -17,7 +17,8 @@ serviceUser.addUser = addUser;
 serviceUser.changeUserEmail = changeUserEmail;
 serviceUser.changeUserPwd = changeUserPwd;
 serviceUser.getAll = getAll;
-//serviceUser.getAllByUser = getAllByUser;
+serviceUser.getUsersByClient = getUsersByClient;
+serviceUser.getMaxProfile = getMaxProfile;
 
 /*serviceUser.getById = getById;
 serviceUser.create = create;
@@ -27,153 +28,134 @@ serviceUser.delete = _delete;*/
 module.exports = serviceUser;
 
 function authenticate(username, password) {
-    console.log("richiesto username "+username)
+    console.log("richiesto username " + username)
     var deferred = Q.defer();
     var userSelected = {};
-    User.findById(username,(err, user)=>{
-        if (err){
-            deferred.reject(err.name + ': ' + err.message);   
-        }else{
-            if (user && bcrypt.compareSync(password, user.password)){
+    User.findById(username, (err, user) => {
+        if (err) {
+            deferred.reject(err.name + ': ' + err.message);
+        } else {
+            if (user && bcrypt.compareSync(password, user.password)) {
                 //aggiungo il token
                 userSelected = JSON.parse(JSON.stringify(user));
                 userSelected.token = jwt.sign({ sub: userSelected._id }, config.secret);
-                console.log (userSelected);
+                console.log(userSelected);
                 deferred.resolve(userSelected)
-            }else{
+            } else {
                 deferred.resolve();
             }
         }
     });
-   
+
     return deferred.promise;
 }
 
 function addUser(userParam) {
-    console.log("addUser "+userParam._id)
+    console.log("addUser " + userParam._id)
     var deferred = Q.defer();
     // set user object to userParam without the cleartext password
     var user = _.omit(userParam, 'password');
-    console.log (user);
+    console.log(user);
     // add hashed password to user object
     user.password = bcrypt.hashSync(userParam.password, 10);
 
     let newUser = new User(user);
     console.log(newUser);
-    var query = {'_id':newUser._id};
-    User.findOneAndUpdate(query, newUser, {upsert:true}, function(err, doc){
-        if (err){
+    var query = { '_id': newUser._id };
+    User.findOneAndUpdate(query, newUser, { upsert: true }, function (err, doc) {
+        if (err) {
             deferred.reject(err.name + ': ' + err.message);
-        }else{
-             deferred.resolve({msg: 'User add successfully'});
+        } else {
+            deferred.resolve({ msg: 'User add successfully' });
         }
     });
-     return deferred.promise;
+    return deferred.promise;
 }
 
 
 function getAll() {
     var deferred = Q.defer();
 
-    User.find({},function (err, users) {
-        if (err){
-          deferred.reject(err.name + ': ' + err.message);  
-      } else{
-        deferred.resolve(users);
-      }
-
+    User.find({}, function (err, users) {
+        if (err) {
+            deferred.reject(err.name + ': ' + err.message);
+        } else {
+            deferred.resolve(users);
+        }
     });
-
     return deferred.promise;
 }
 
-/*
-    userlogged = user.findbyid(username)
-    for cliente = userlogged.cliente
-        profilo =  profile.findbyid(cliente.id_profilo)
-        if(userlogged.isadmin OR profilo = 'AS')
-            //vedo tutti
-            for cliente.id_cliente
-
-            end for
-        else   
-            //vedo solo mio
-    end for    
-    */ 
-
-/*function getAllByUser(userParam){
-    var userlogged = {};
-    var profilo = {};
-    var cliente = {};
-    var userCliente = {};
-    userlogged = User.findById(userParam._id, (err, user) =>{
-        if (err){
-            deferred.reject(err.name + ': ' + err.message);   
-        }else{
-            for (let i = 0; i < userlogged.cliente; i++){ 
-                cliente = userlogged.cliente;
-                profilo = Profilo.findById(cliente.id_profilo, (err, user) =>{
-                    if (err){
-                        deferred.reject(err.name + ': ' + err.message);   
-                    }else{    
-                        if(userlogged.isAdmin || profilo == 'AS'){
-                            userCliente = UserCliente.find(userCliente => userCliente.id_cliente == cliente._id, (err, userCliente) =>{
-                                if (err){
-                                    deferred.reject(err.name + ': ' + err.message);   
-                                }else{ 
-                                    userCliente = UserCliente.find(userCliente => userCliente.id_profilo == profilo._id, (err, userCliente) =>{
-                                        if (err){
-                                            deferred.reject(err.name + ': ' + err.message);   
-                                        }else{
-                                        }
-                                    });
-                                }
-                            });
-                            //deferred.resolve(user);
-
-                        }else{
-                            // vedo solo me stesso    
-                        }
-                    }
-                });
-            }
+function getMaxProfile(userLogged){
+    var deferred = Q.defer();    
+    var logPrefix = 'user.service.getMaxProfile: ';
+    let utente = new User();
+    utente.getMaxProfile({ idUser : userLogged}, (err, profili) => {
+        if (err) {
+            deferred.reject(err.name + ': ' + err.message);
+        }
+        else {
+            console.log(logPrefix + "Profili trovati per "+userLogged+": ["+profili[0].profilo+"]");
+            deferred.resolve(profili);
         }
     });
-}*/
-    
-    
+    return deferred.promise;
+}
 
+function getUsersByClient(userLogged) {
+    var logPrefix = 'user.service.getUsersByClient: ';
+    var deferred = Q.defer();
+    let utente = new User();
+    var clienti = [];
+
+    utente.getUsersByClient({ idUser : userLogged}, (err, clienti) => {
+        if (err) {
+            deferred.reject(err.name + ': ' + err.message);
+        }
+        else {
+            if(clienti[0] != null)
+                User.find({"_id":{$ne : userLogged}, "clienti": {"$elemMatch":{"id_cliente":{"$in": clienti[0].clienti}}} }, 
+                    function(err, users){
+                        if(err)
+                            deferred.reject(err.name + ': ' + err.message);
+                        else
+                            deferred.resolve(users);
+                    });
+        }
+    });
+    return deferred.promise;
+}
 
 function changeUserEmail(username, newEmail) {
     var logPrefix = 'user.service.changeUserEmail: ';
 
-    console.log(logPrefix + "richiesto cambio email username " +username+ ", newEmail:"+newEmail);
-    
+    console.log(logPrefix + "richiesto cambio email username " + username + ", newEmail:" + newEmail);
+
     var deferred = Q.defer();
-    User.findById(username,(err, user)=>{
-        if (err){
+    User.findById(username, (err, user) => {
+        if (err) {
             console.log(logPrefix + "error findById");
-            deferred.reject(err.name + ': ' + err.message);   
-        }else{
-            if (user){
+            deferred.reject(err.name + ': ' + err.message);
+        } else {
+            if (user) {
                 console.log(logPrefix + "user found");
                 user.email = newEmail;
-                user.save(function(err){
-                    if(err){
+                user.save(function (err) {
+                    if (err) {
                         console.log(logPrefix + "user update email fail");
                         deferred.reject(err.name + ': ' + err.message);
-                    }else{
+                    } else {
                         console.log(logPrefix + "user update email ok");
-                        deferred.resolve({msg: 'User email changed successfully'});
+                        deferred.resolve({ msg: 'User email changed successfully' });
                     }
                 });
-            }else{
+            } else {
                 console.log(logPrefix + "user not found");
                 deferred.reject("user not found");
             }
         }
     });
-   
+
     return deferred.promise;
 }
 
@@ -181,36 +163,36 @@ function changeUserPwd(userLogged, oldPwd, newPwd) {
 
     var logPrefix = 'user.service.changeUserPwd: ';
     console.log(logPrefix + "richiesto cambio pwd username " + userLogged._id);
-    
+
     var deferred = Q.defer();
-    User.findById(userLogged._id,(err, user)=>{
-        if (err){
+    User.findById(userLogged._id, (err, user) => {
+        if (err) {
             console.log(logPrefix + "error findById");
-            deferred.reject(err.name + ': ' + err.message);   
-        }else{
-            if (user){
-                if(bcrypt.compareSync(oldPwd, user.password)){
+            deferred.reject(err.name + ': ' + err.message);
+        } else {
+            if (user) {
+                if (bcrypt.compareSync(oldPwd, user.password)) {
                     user.password = bcrypt.hashSync(newPwd, 10);
-                    user.save(function(err){
-                        if(err){
+                    user.save(function (err) {
+                        if (err) {
                             console.log(logPrefix + "user update pwd fail");
                             deferred.reject(err.name + ': ' + err.message);
-                        }else{
+                        } else {
                             console.log(logPrefix + "user update pwd ok");
-                            deferred.resolve({msg: 'User password changed successfully'});
+                            deferred.resolve({ msg: 'User password changed successfully' });
                         }
                     });
-                }else{
+                } else {
                     console.log(logPrefix + "oldPwd not correct");
                     deferred.reject("oldPwd not correct");
                 }
-            }else{
+            } else {
                 console.log(logPrefix + "user not found");
                 deferred.reject("user not found");
             }
         }
     });
-   
+
     return deferred.promise;
 }
 

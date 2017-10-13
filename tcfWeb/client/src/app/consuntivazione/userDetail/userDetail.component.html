@@ -1,5 +1,5 @@
 <section class="userDetail">
-    <user-info  [userSelected] = "this.userSelected" [isAdmin] = "this.userLogged.isAdmin" (userChanged)="changeUser($event)"></user-info>
+    <user-info  [userSelected] = "this.userSelected" [isConsuntivatore] = "this.consuntivatore" (userChanged)="changeUser($event)"></user-info>
     <month-list [userSelected] = "this.userSelected" (monthSelect)="selectMonth($event)"></month-list>
     <month-grid [userSelected] = "this.userSelected" [monthSelected]="this.monthSelected" [yearSelected]="this.yearSelected"
     *ngIf='this.monthSelected != null && this.yearSelected != null'></month-grid>

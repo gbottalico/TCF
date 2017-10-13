@@ -10,8 +10,8 @@ export class User{
 	data_fine_validita:Date;
 	clienti: [
 		{
-			id_cliente:  number;
-			id_profilo : number
+			id_cliente:  string;
+			id_profilo : string;
 		}
 	];
 	isAdmin: boolean

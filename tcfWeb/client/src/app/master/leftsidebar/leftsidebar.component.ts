@@ -16,11 +16,9 @@ export class LeftsideBarComponent implements OnInit {
     menuEntries: any;
     selectedMenu: any;
     @Output() menuSelected = new EventEmitter();
+    @Input() maxUserProfile : string;
 
-    constructor(
-        private systemService: SystemService
-    ) {
-
+    constructor(private systemService: SystemService) {
     }
 
 
@@ -123,9 +121,6 @@ export class LeftsideBarComponent implements OnInit {
             } else {
                 $(menuElement).children("ul").slideUp(500);
             }
-
-            
-
         }
         else { //sottomenu
             $(menuElement).addClass('active');
@@ -148,6 +143,13 @@ export class LeftsideBarComponent implements OnInit {
             this.selectedMenu = this.selectedMenu.split(" - ")[0];
 
         return this.selectedMenu === item;
+    }
+
+    isVisible(item){
+        if(this.maxUserProfile == 'Consuntivatore')
+            return item == 'Consuntivazione';
+        else
+            return true;
     }
 
 }
