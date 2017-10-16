@@ -4,13 +4,12 @@ var userService = require('../services/user.service');
 
 
 routerUser.post('/authenticate', authenticate);
-routerUser.post('/user', addUser);
+
 routerUser.post('/userChangeEmail', changeUserEmail);
 routerUser.post('/userChangePwd', changeUserPwd);
-routerUser.get('/users', getAll);
 routerUser.get('/userByClient/:userLogged', getUsersByClient);
 
-
+//SECURITY SECTION - START
 function authenticate(req, res) {
     userService.authenticate(req.body.username, req.body.password)
         .then(function (user) {
@@ -52,25 +51,8 @@ function changeUserPwd(req, res) {
 			res.status(400).send(err);
 		});
 };
+//SECURITY SECTION - END
 
-//add user
-function addUser(req, res){
-	userService.addUser(req.body).then(function(){
-		 res.sendStatus(200);
-	}).catch(function (err) {
-            res.status(400).send(err);
-        });
-	
-};
-
-function getAll(req, res){
-	userService.getAll().then(function(users){		 
-		 res.send(users);
-	}).catch(function (err) {
-            res.status(400).send(err);
-        });
-	
-};
 
 function getUsersByClient(req, res){
 	userService.getUsersByClient(req.params.userLogged).then(function(users){		 
@@ -105,15 +87,4 @@ routerUser.post('/user', (req, res, next)=>{
 	});
 });
 
-//delete user
-routerUser.delete('/user/:id', (req, res, next)=>{
-	User.remove({_id: req.params.id}, (err, result)=>{
-		if (err){
-			res.json(err);	
-		}else{
-			res.json(result)
-		}
-	})
-})
-*/
 module.exports = routerUser;

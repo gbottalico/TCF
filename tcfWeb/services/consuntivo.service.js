@@ -2,7 +2,11 @@ var config = require('config.json');
 var _ = require('lodash');
 var Q = require('q');
 var dateFormat = require('dateformat');
+const mongoose = require('mongoose');
+const Fawn = require("fawn");
 
+// intitialize Fawn
+Fawn.init(mongoose);
 
 var serviceConsuntivo = {};
 
@@ -16,7 +20,8 @@ serviceConsuntivo.addConsuntivo = addConsuntivo;
 serviceConsuntivo.getConsuntivoCliente = getConsuntivoCliente;
 serviceConsuntivo.getConsuntiviBetweenDates = getConsuntiviBetweenDates;
 serviceConsuntivo.getConsuntiviUtente = getConsuntiviUtente;
-serviceConsuntivo.addConsuntiviUtente = addConsuntiviUtente;
+serviceConsuntivo.insOrUpdConsuntiviUtente = insOrUpdConsuntiviUtente;
+serviceConsuntivo.delConsuntiviUtente =  delConsuntiviUtente;
 
 module.exports = serviceConsuntivo;
 /*
@@ -111,29 +116,51 @@ function getConsuntiviBetweenDates(start, end) {
 }
 
 
-function getConsuntiviUtente(id_user, month, year) {
-    var deferred = Q.defer();
+// function getConsuntiviUtente(id_user, month, year) {
+//     var deferred = Q.defer();
 
 
-    let consuntivo = new Consuntivo();
-    consuntivo.getConsuntiviUtente({ start: new Date(start).toISOString(), end: new Date(end).toISOString() }, function (err, consuntivo) {
-        if (err) {
-            deferred.reject(err.name + ': ' + err.message);
-        } else {
-            deferred.resolve(consuntivo);
-        }
+//     let consuntivo = new Consuntivo();
+//     consuntivo.getConsuntiviUtente({ start: new Date(start).toISOString(), end: new Date(end).toISOString() }, function (err, consuntivo) {
+//         if (err) {
+//             deferred.reject(err.name + ': ' + err.message);
+//         } else {
+//             deferred.resolve(consuntivo);
+//         }
 
-    });
+//     });
 
-    return deferred.promise;
-}
+//     return deferred.promise;
+// }
 
 //OK
 function getConsuntiviUtente(id_user, month, year) {
     var deferred = Q.defer();
     console.log("user: " + id_user + " month: " + month + "/" + year);
     let consuntivo = new Consuntivo();
-    consuntivo.getConsuntiviUtente({ id_user: id_user, month: month, year: year}, function (err, consuntiviUtente) {
+    
+    mongoose.set('debug', true);
+	var query = [
+		{
+			"$project":
+			{
+				doc: "$$ROOT",
+				year: { $cond: ["$data_consuntivo", { $year: "$data_consuntivo" }, -1] },
+				month: { $cond: ["$data_consuntivo", { $month: "$data_consuntivo" }, -1] },
+				day: { $cond: ["$data_consuntivo", { $dayOfMonth: "$data_consuntivo" }, -1] },
+				user: "$id_utente"
+			}
+		},
+		{
+			"$match": {
+				"month": new Number(month).valueOf(),
+				"year": new Number(year).valueOf(),
+				"user": id_user
+			}
+		}
+	];
+
+	return Consuntivo.aggregate(query).exec((err, consuntiviUtente)=> {
         if (err) {
             deferred.reject(err.name + ': ' + err.message);
         } else {            
@@ -146,19 +173,53 @@ function getConsuntiviUtente(id_user, month, year) {
 }
 
 //OK
-function addConsuntiviUtente(consuntiviUtente) {
-    var deferred = Q.defer();
-    console.log("addConsuntivi");
-    let consuntivo = new Consuntivo();
-    consuntivo.addConsuntiviUtente(consuntiviUtente, function (err, doc) {
-        if (err) {
-            deferred.reject(err.name + ': ' + err.message);
-        } else {            
-            deferred.resolve({msg: 'ConsuntiviUtente add successfully'});
-        }
+function insOrUpdConsuntiviUtente(consuntiviUtente) {
+    console.log("insOrUpdConsuntiviUtente");
 
-    });
+    var deferred = Q.defer();
+    var transaction = Fawn.Task();
+    var query;
+
+    for (var i = 0; i < consuntiviUtente.body.length; i++) {
+        if (consuntiviUtente.body[i]._id != null) {
+            transaction.update(Consuntivo, {_id: consuntiviUtente.body[i]._id}, consuntiviUtente.body[i]);
+        } else {
+            transaction.save('Consuntivo', consuntiviUtente.body[i]);
+        }
+    }
+
+    transaction.run().then(function(){
+            deferred.resolve({msg: 'ConsuntiviUtente add successfully'});
+        })
+        .catch(function(err){
+        // Everything has been rolled back.			
+        // log the error which caused the failure
+            console.log(err);
+            deferred.reject(err);
+        });
 
     return deferred.promise;
 }
+
+//OK
+function delConsuntiviUtente(id_user, 
+                             id_macro_area, 
+                             id_ambito, 
+                             id_attivita,
+                             id_tipo_deliverable) {
+    var deferred = Q.defer();
+    console.log("delConsuntivi");
+    let consuntivo = new Consuntivo();
+
+    consuntivo.remove({ "id_user": id_user, "id_macro_area": id_macro_area, "id_ambito": id_ambito, "id_tipo_deliverable": id_tipo_deliverable }, function(err) {
+        if (err) {
+            deferred.reject(err.name + ': ' + err.message);
+        } else {            
+            deferred.resolve("Deleted");
+        }
+
+    });
+     
+    return deferred.promise;
+l}
 

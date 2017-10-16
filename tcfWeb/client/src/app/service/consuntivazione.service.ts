@@ -23,6 +23,13 @@ export class ConsuntivazioneService {
   		.map(res => res.json());
   }
 
+  addConsuntivi(consuntivoParam : Consuntivo[]){
+  	var headers = new Headers();
+  	headers.append('Content-Type', 'application/json');
+  	return this.http.post('/tcf/api/consuntivoController/modifyConsuntiviUtente/', consuntivoParam, {headers:headers})
+  		.map(res => res.json());
+  }
+
   //add Consuntivo
   deleteConsuntivo(consuntivoParam : Consuntivo){
   	var headers = new Headers();
