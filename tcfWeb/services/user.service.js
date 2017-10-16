@@ -16,12 +16,9 @@ serviceUser.authenticate = authenticate;
 
 serviceUser.changeUserEmail = changeUserEmail;
 serviceUser.changeUserPwd = changeUserPwd;
-serviceUser.getAll = getAll;
-<<<<<<< HEAD
-=======
+
 serviceUser.getUsersByClient = getUsersByClient;
 serviceUser.getMaxProfile = getMaxProfile;
->>>>>>> c2d62fcefd190e218a9fa98dc0f340b3109e155f
 
 
 serviceUser.getById = getById;

@@ -7,7 +7,6 @@ routerUser.post('/authenticate', authenticate);
 
 routerUser.post('/userChangeEmail', changeUserEmail);
 routerUser.post('/userChangePwd', changeUserPwd);
-routerUser.get('/users', getAll);
 routerUser.get('/userByClient/:userLogged', getUsersByClient);
 routerUser.get('/getMaxProfile/:userLogged', getMaxProfile);
 
@@ -55,16 +54,6 @@ function changeUserPwd(req, res) {
 };
 //SECURITY SECTION - END
 
-
-//CRUD - READ multiple
-function getUsers(req, res){
-	userService.getAll().then(function(users){		 
-		 res.send(users);
-	}).catch(function (err) {
-            res.status(400).send(err);
-        });
-	
-};
 
 function getUsersByClient(req, res){
 	userService.getUsersByClient(req.params.userLogged).then(function(users){		 
