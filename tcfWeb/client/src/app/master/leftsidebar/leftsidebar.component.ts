@@ -3,6 +3,7 @@ import * as $ from 'jquery';
 import 'jquery-ui';
 import 'jquery-easing';
 import { SystemService } from '../../service/system.service';
+import { User } from '../../model/user';
 
 @Component({
     selector: "leftsidebar",
@@ -17,6 +18,7 @@ export class LeftsideBarComponent implements OnInit {
     selectedMenu: any;
     @Output() menuSelected = new EventEmitter();
     @Input() maxUserProfile : string;
+    @Input() userLogged : User;
 
     constructor(private systemService: SystemService) {
     }
@@ -146,7 +148,7 @@ export class LeftsideBarComponent implements OnInit {
     }
 
     isVisible(item){
-        if(this.maxUserProfile == 'Consuntivatore')
+        if(this.maxUserProfile == 'Consuntivatore' && !this.userLogged.isAdmin)
             return item == 'Consuntivazione';
         else
             return true;

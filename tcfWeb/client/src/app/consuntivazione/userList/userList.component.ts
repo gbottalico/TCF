@@ -52,14 +52,17 @@ export class UserListComponent implements OnChanges{
   }
 
   getUsers(){
-    switch(this.maxUserLoggedProfile){
-      case 'Amministratore di progetto':
-        this.userService.getUsersByClient(this.userLogged._id).subscribe( users => this.users = users);
-        break;
-      case 'Amministratore di sistema' :
-        this.userService.getUsers().subscribe( users => this.users = users);
-        break;
+    if(!this.userLogged.isAdmin){
+      switch(this.maxUserLoggedProfile){
+        case 'Amministratore di progetto':
+          this.userService.getUsersByClient(this.userLogged._id).subscribe( users => this.users = users);
+          break;
+        case 'Amministratore di sistema':
+          this.userService.getUsers().subscribe( users => this.users = users);
+          break;
+      }
     }
+    else this.userService.getUsers().subscribe( users => this.users = users);
   }
 
   chooseClass(userParam : User){

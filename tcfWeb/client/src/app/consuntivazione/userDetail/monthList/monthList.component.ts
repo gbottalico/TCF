@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, EventEmitter, Output, OnChanges } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output, OnChanges} from '@angular/core';
 import { User } from '../../../model/user';
 import * as $ from 'jquery';
 import 'jquery-ui';
@@ -11,27 +11,36 @@ import 'jquery-easing';
   providers: []
 })
 
-export class MonthListComponent implements OnChanges{
-  @Input() userSelected : User;  
+export class MonthListComponent implements OnChanges, OnInit{
+  @Input() userSelected : User;
+  @Input() backToMonthEvent : boolean;
   @Output() monthSelect = new EventEmitter();
+  todayYear = (new Date()).getFullYear();
   years : number[] = new Array<number>();
   months = [ "Gennaio", "Febbraio", "Marzo", "Aprile", "Maggio", "Giugno",
                  "Luglio", "Agosto", "Settembre", "Ottobre", "Novembre", "Dicembre" ];
   diffYears : number; 
     
-  ngOnChanges(){
+  ngOnInit(){
     /*Mi calcolo la differenza tra l'anno da sistema e l'anno di assunzione*/
     this.years.pop();
-    var today = (new Date()).getFullYear();
     var assunzione = (new Date(this.userSelected.data_inizio_validita)).getFullYear();
-    this.diffYears = today - assunzione;
+    this.diffYears = this.todayYear - assunzione;
 
     for(let i=0; i<=this.diffYears; i++)
-      this.years.push(today - i);
+      this.years.push(this.todayYear - i);
+    
+  }
   
-      $('.date').val(today);
-      $('.previusYear').hide();
+  ngOnChanges(){
+    $('.date').val(this.todayYear);
+    $('.previusYear').hide();
+
+    if(this.backToMonthEvent){
+      this.openMonths();
+      $('.riassuntoMesiSection p').text('');
     }
+  }
 
   /*Gestione click arrow anno*/
   changeDate(){
@@ -42,6 +51,9 @@ export class MonthListComponent implements OnChanges{
   /*Gestione selezione mese da consuntivare per far appare la griglia*/
   selectMonth(monthParam){
     var year = $('.date').val();
+    this.openMonths();
+    $('.riassuntoMesiSection p').text(this.months[monthParam-1]);
+    this.backToMonthEvent = false;
     this.monthSelect.emit({monthParam, year}); 
   }
 
@@ -50,6 +62,10 @@ export class MonthListComponent implements OnChanges{
     $('.date').val(yearParam);
     $('.previusYear').slideToggle();
     $('i').toggleClass('active');
+    $('.riassuntoMesiSection p').text('');
+    if ($('.toggleRight').hasClass('active')) {
+      $('.toggleRight').removeClass('active').addClass('deactive');
+    }
   }
 
   /*Gestione click arrow per aprire sezione mesi consuntivabili*/

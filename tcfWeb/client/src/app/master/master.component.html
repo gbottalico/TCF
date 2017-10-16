@@ -2,7 +2,7 @@
 <subheader *ngIf="this.userLogged" [userLogged]="this.userLogged" [menuSelected]="this.menuSelected" [maxUserProfile] = "this.maxUserProfile"></subheader>
 <section class="generalIndexContainer" *ngIf="this.userLogged">
   <toggle></toggle>
-  <leftsidebar (menuSelected)="selectMenu($event)" [maxUserProfile] = "this.maxUserProfile"></leftsidebar>
+  <leftsidebar (menuSelected)="selectMenu($event)" [maxUserProfile] = "this.maxUserProfile" [userLogged]="this.userLogged"></leftsidebar>
 </section>
 
 <rightsidebar>

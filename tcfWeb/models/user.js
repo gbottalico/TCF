@@ -97,29 +97,4 @@ UserSchema.methods.getUsersByClient = function getUsersByClient(params, callback
 	
 		return User.aggregate(query).exec(callback);
 }
-
-UserSchema.methods.getMaxProfile = function getMaxProfile(params, callback) {
-	
-		mongoose.set('debug', true);
-		var query = [
-			{				
-				"$project":
-				{
-					profilo: '$clienti.id_profilo',
-				}
-			},
-			{
-				"$match":{
-					"_id": params.idUser
-				}
-			},{
-				"$project":{
-					_id:false
-				}
-			}			
-		];
-	
-		return User.aggregate(query).exec(callback);
-}
-
 const User = module.exports = mongoose.model('User', UserSchema); 

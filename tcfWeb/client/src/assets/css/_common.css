@@ -180,3 +180,10 @@ body {
 input::-ms-clear {
     display: none;
 }
+
+.leftGeneric {
+    float: left;
+}
+.rightGeneric {
+    float: right;
+}

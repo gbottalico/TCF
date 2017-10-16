@@ -8,7 +8,6 @@ routerUser.post('/authenticate', authenticate);
 routerUser.post('/userChangeEmail', changeUserEmail);
 routerUser.post('/userChangePwd', changeUserPwd);
 routerUser.get('/userByClient/:userLogged', getUsersByClient);
-routerUser.get('/getMaxProfile/:userLogged', getMaxProfile);
 
 //SECURITY SECTION - START
 function authenticate(req, res) {
@@ -63,12 +62,29 @@ function getUsersByClient(req, res){
 	});
 };
 
-function getMaxProfile(req, res){
-	userService.getMaxProfile(req.params.userLogged).then(function(profiles){		 
-		 res.send(profiles);
-	}).catch(function (err) {
-		res.status(400).send(err);
+/*
+//retrieving users
+routerUser.get('/users', (req, res, next)=>{
+	User.(findfunction(err, users){
+		res.json(users);
 	});
-};
+});
+
+//add user
+routerUser.post('/user', (req, res, next)=>{
+	let newUser = new User({
+		first_name : req.body.first_name,
+		last_name : req.body.last_name,
+		mail: req.body.mail
+	});
+	newUser.save((err, user)=>{
+		if (err){
+			res.json({msg: 'Failed to add User : '+err});	
+		}else{
+			res.json({msg: 'User add successfully'})
+		}
+		
+	});
+});
 
 module.exports = routerUser;

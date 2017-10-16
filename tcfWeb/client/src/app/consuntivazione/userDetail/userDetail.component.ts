@@ -18,7 +18,7 @@ export class UserDetailComponent implements OnInit{
   @Input() maxUserLoggedProfile : string;
   @Output() userChanged = new EventEmitter();
   consuntivatore : boolean;
-
+  backToMonthEvent : boolean = false;
   monthSelected : Number;
   yearSelected : Number;
 
@@ -29,6 +29,13 @@ export class UserDetailComponent implements OnInit{
   selectMonth($monthParams){
     this.monthSelected = $monthParams.monthParam;
     this.yearSelected = $monthParams.year;
+    this.backToMonthEvent = false;
+  }
+
+  backToMonth($event){
+    this.monthSelected = null;
+    this.yearSelected = null;
+    this.backToMonthEvent = true;
   }
 
   changeUser(){

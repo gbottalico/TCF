@@ -7,6 +7,8 @@ import { NgModule } from '@angular/core';
 import { MonthGridComponent} from './monthGrid.component';
 import { Ng2SmartTableModule } from 'ng2-smart-table';
 import { ConsuntivazioneService } from '../../../service/consuntivazione.service';
+import { CustomRenderComponent} from './customRender/customRender.component';
+import { CustomEditorComponent} from './customEditor/customEditor.component';
 
 
 //import { CustomHttpProvider } from '../../../helpers/custom-http';
@@ -15,7 +17,9 @@ import { ConsuntivazioneService } from '../../../service/consuntivazione.service
 
 @NgModule({
   declarations: [
-    MonthGridComponent
+    MonthGridComponent,
+    CustomRenderComponent,
+    CustomEditorComponent
   ],
   imports: [
     BrowserModule,
@@ -29,6 +33,7 @@ import { ConsuntivazioneService } from '../../../service/consuntivazione.service
     ConsuntivazioneService
     ],
   exports: [MonthGridComponent],
-  bootstrap: [MonthGridComponent]
+  bootstrap: [MonthGridComponent],
+  entryComponents: [CustomRenderComponent, CustomEditorComponent]
 })
 export class MonthGridModule { }
