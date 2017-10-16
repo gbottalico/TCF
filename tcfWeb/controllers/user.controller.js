@@ -4,12 +4,15 @@ var userService = require('../services/user.service');
 
 
 routerUser.post('/authenticate', authenticate);
-routerUser.post('/user', addUser);
+
 routerUser.post('/userChangeEmail', changeUserEmail);
 routerUser.post('/userChangePwd', changeUserPwd);
-routerUser.get('/users', getAll);
+routerUser.get('/users', getUsers);
+routerUser.get('/user/:id', getUser);
+routerUser.post('/user', InsOrUpdUser);
+routerUser.delete('/user/:id', delUser);
 
-
+//SECURITY SECTION - START
 function authenticate(req, res) {
     userService.authenticate(req.body.username, req.body.password)
         .then(function (user) {
@@ -51,10 +54,12 @@ function changeUserPwd(req, res) {
 			res.status(400).send(err);
 		});
 };
+//SECURITY SECTION - END
 
-//add user
-function addUser(req, res){
-	userService.addUser(req.body).then(function(){
+
+//CRUD - CREATE
+function InsOrUpdUser(req, res){
+	userService.insOrUpdUser(req.body).then(function(){
 		 res.sendStatus(200);
 	}).catch(function (err) {
             res.status(400).send(err);
@@ -62,7 +67,8 @@ function addUser(req, res){
 	
 };
 
-function getAll(req, res){
+//CRUD - READ multiple
+function getUsers(req, res){
 	userService.getAll().then(function(users){		 
 		 res.send(users);
 	}).catch(function (err) {
@@ -71,41 +77,24 @@ function getAll(req, res){
 	
 };
 
+//CRUD - READ
+function getUser(req, res){
+	userService.getById(req.params.id).then(function(user){		 
+		console.log(user);
+		res.send(user);
+   }).catch(function (err) {
+		   res.status(400).send(err);
+	   });	
+};
 
-/*
-//retrieving users
-routerUser.get('/users', (req, res, next)=>{
-	User.(findfunction(err, users){
-		res.json(users);
-	});
-});
+//CRUD - DELETE
+function delUser(req, res){
+	userService.delUser(req.params.id).then(function(result){		 
+		console.log(result);
+		res.send(result);
+   }).catch(function (err) {
+		   res.status(400).send(err);
+	   });	
+};
 
-//add user
-routerUser.post('/user', (req, res, next)=>{
-	let newUser = new User({
-		first_name : req.body.first_name,
-		last_name : req.body.last_name,
-		mail: req.body.mail
-	});
-	newUser.save((err, user)=>{
-		if (err){
-			res.json({msg: 'Failed to add User : '+err});	
-		}else{
-			res.json({msg: 'User add successfully'})
-		}
-		
-	});
-});
-
-//delete user
-routerUser.delete('/user/:id', (req, res, next)=>{
-	User.remove({_id: req.params.id}, (err, result)=>{
-		if (err){
-			res.json(err);	
-		}else{
-			res.json(result)
-		}
-	})
-})
-*/
 module.exports = routerUser;
