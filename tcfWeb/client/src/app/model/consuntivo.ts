@@ -1,7 +1,7 @@
 export class Consuntivo{
 	data_consuntivo: 		Date;
-	id_cliente: 			string;
-	nome_cliente: 			string;
+	id_utente: 				string;
+	nome_utente: 			string;
 	id_ambito: 				number;
 	nome_ambito: 			string;
 	id_macro_area: 			string;
