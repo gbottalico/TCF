@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
-const Transaction = require('mongoose-transactions');
+
+
 
 
 const ConsuntivoSchema = mongoose.Schema({
@@ -123,57 +124,7 @@ ConsuntivoSchema.methods.getRowsForExcel = function getRowsForExcel(params, call
 
 }
 
-//CRUD - READ
-ConsuntivoSchema.methods.getConsuntiviUtente = function getConsuntiviUtente(params, callback) {
 
-	console.log("user: " + params.id_user + " month: " + params.month + "/" + params.year);
-	mongoose.set('debug', true);
-	var query = [
-		{
-			"$project":
-			{
-				doc: "$$ROOT",
-				year: { $cond: ["$data_consuntivo", { $year: "$data_consuntivo" }, -1] },
-				month: { $cond: ["$data_consuntivo", { $month: "$data_consuntivo" }, -1] },
-				day: { $cond: ["$data_consuntivo", { $dayOfMonth: "$data_consuntivo" }, -1] },
-				user: "$id_utente"
-			}
-		},
-		{
-			"$match": {
-				"month": new Number(params.month).valueOf(),
-				"year": new Number(params.year).valueOf(),
-				"user": params.id_user
-			}
-		}
-	];
-
-	return Consuntivo.aggregate(query).exec(callback);
-}
-
-ConsuntivoSchema.methods.addConsuntiviUtente = function addConsuntiviUtente(consuntiviUtente, callback) {
-	try {
-		console.log("addConsuntiviUtente ");
-
-		var transaction = new Transaction();
-		var query;
-
-		for (var i = 0; i < consuntiviUtente.body.length; i++) {
-			if (consuntiviUtente.body[i]._id != null) {
-				transaction.update('Consuntivo', consuntiviUtente.body[i]._id, consuntiviUtente.body[i]);
-			} else {
-				transaction.insert('Consuntivo', consuntiviUtente.body[i]);
-			}
-		}
-
-		transaction.run(callback);
-
-	} catch (error) {
-		console.error(error)
-		const rollbackObj = transaction.rollback().catch(console.error) 
-		transaction.clean(callback);	
-	}
-}
 
 
 const Consuntivo = module.exports = mongoose.model('Consuntivo', ConsuntivoSchema); 

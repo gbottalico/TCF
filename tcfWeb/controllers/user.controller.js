@@ -4,12 +4,13 @@ var userService = require('../services/user.service');
 
 
 routerUser.post('/authenticate', authenticate);
-routerUser.post('/user', addUser);
+
 routerUser.post('/userChangeEmail', changeUserEmail);
 routerUser.post('/userChangePwd', changeUserPwd);
-routerUser.get('/users', getAll);
+routerUser.get('/userByClient/:userLogged', getUsersByClient);
+routerUser.get('/getMaxProfile/:userLogged', getMaxProfile);
 
-
+//SECURITY SECTION - START
 function authenticate(req, res) {
     userService.authenticate(req.body.username, req.body.password)
         .then(function (user) {
@@ -51,61 +52,23 @@ function changeUserPwd(req, res) {
 			res.status(400).send(err);
 		});
 };
+//SECURITY SECTION - END
 
-//add user
-function addUser(req, res){
-	userService.addUser(req.body).then(function(){
-		 res.sendStatus(200);
-	}).catch(function (err) {
-            res.status(400).send(err);
-        });
-	
-};
 
-function getAll(req, res){
-	userService.getAll().then(function(users){		 
+function getUsersByClient(req, res){
+	userService.getUsersByClient(req.params.userLogged).then(function(users){		 
 		 res.send(users);
 	}).catch(function (err) {
-            res.status(400).send(err);
-        });
-	
+		res.status(400).send(err);
+	});
 };
 
-
-/*
-//retrieving users
-routerUser.get('/users', (req, res, next)=>{
-	User.(findfunction(err, users){
-		res.json(users);
+function getMaxProfile(req, res){
+	userService.getMaxProfile(req.params.userLogged).then(function(profiles){		 
+		 res.send(profiles);
+	}).catch(function (err) {
+		res.status(400).send(err);
 	});
-});
+};
 
-//add user
-routerUser.post('/user', (req, res, next)=>{
-	let newUser = new User({
-		first_name : req.body.first_name,
-		last_name : req.body.last_name,
-		mail: req.body.mail
-	});
-	newUser.save((err, user)=>{
-		if (err){
-			res.json({msg: 'Failed to add User : '+err});	
-		}else{
-			res.json({msg: 'User add successfully'})
-		}
-		
-	});
-});
-
-//delete user
-routerUser.delete('/user/:id', (req, res, next)=>{
-	User.remove({_id: req.params.id}, (err, result)=>{
-		if (err){
-			res.json(err);	
-		}else{
-			res.json(result)
-		}
-	})
-})
-*/
 module.exports = routerUser;
