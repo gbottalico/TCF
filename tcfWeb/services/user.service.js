@@ -18,7 +18,6 @@ serviceUser.changeUserEmail = changeUserEmail;
 serviceUser.changeUserPwd = changeUserPwd;
 serviceUser.getAll = getAll;
 serviceUser.getUsersByClient = getUsersByClient;
-serviceUser.getMaxProfile = getMaxProfile;
 
 /*serviceUser.getById = getById;
 serviceUser.create = create;
@@ -81,22 +80,6 @@ function getAll() {
             deferred.reject(err.name + ': ' + err.message);
         } else {
             deferred.resolve(users);
-        }
-    });
-    return deferred.promise;
-}
-
-function getMaxProfile(userLogged){
-    var deferred = Q.defer();    
-    var logPrefix = 'user.service.getMaxProfile: ';
-    let utente = new User();
-    utente.getMaxProfile({ idUser : userLogged}, (err, profili) => {
-        if (err) {
-            deferred.reject(err.name + ': ' + err.message);
-        }
-        else {
-            console.log(logPrefix + "Profili trovati per "+userLogged+": ["+profili[0].profilo+"]");
-            deferred.resolve(profili);
         }
     });
     return deferred.promise;

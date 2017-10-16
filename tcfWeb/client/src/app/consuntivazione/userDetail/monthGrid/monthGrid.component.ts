@@ -1,4 +1,4 @@
-import { Component, OnChanges, Input, OnInit, AfterViewChecked } from '@angular/core';
+import { Component, OnChanges, Input, OnInit, AfterViewChecked, EventEmitter, Output } from '@angular/core';
 import { Ng2SmartTableModule, LocalDataSource } from 'ng2-smart-table';
 import { Consuntivo } from '../../../model/consuntivo';
 import { User } from '../../../model/user';
@@ -23,7 +23,8 @@ export class MonthGridComponent implements OnInit, OnChanges {
   yearSelected: number = 2017;
   @Input()
   userSelected: User;
-
+  @Output() backToMonthEvent = new EventEmitter();
+  
   settings: any = {};
   userDays: [Consuntivo];
 
@@ -249,6 +250,12 @@ export class MonthGridComponent implements OnInit, OnChanges {
 
   }
 
+  /*Gestione pulsante "Indietro" sopra la griglia"*/
+  backToMonth(){
+    $('.attivitaTable').hide();
+    this.backToMonthEvent.emit(); 
+  }
+
   //TEST ___________________________________________________________________________________________
 
   private getTestBasicTable(): any[] {
@@ -364,5 +371,6 @@ export class MonthGridComponent implements OnInit, OnChanges {
   //    this.source.load(this.data);
 
   // }
+
 
 }

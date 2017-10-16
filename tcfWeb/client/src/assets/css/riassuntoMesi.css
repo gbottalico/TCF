@@ -19,6 +19,16 @@
     font-size: 0.8rem;
     font-weight: normal;
 }
+
+.riassuntoMesiSection p {
+    position: absolute;
+    margin: 0;
+    font-size: 0.8rem;
+    top: 50%;
+    transform: translate(0, -50%);
+    right: 30px;
+}
+
 .riassuntoMesiSection .toggleRight {
     right: 10px;
     transition: all 0.4s ease-in;
