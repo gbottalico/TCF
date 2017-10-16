@@ -40,7 +40,7 @@ export class LoginComponent implements OnInit {
         // centro il pannellino di login mettendo la rightSidebar a 100%, 
         // in onDestroy la riporto alla dimensione precedente
         this.saveWidth = $('.rightSidebar').css("width");
-        $('.rightSidebar').css("width","100%");
+        //$('.rightSidebar').css("width","100%");
 
         var staticPanel = $('.loginStatic');
         var slidingPanel = $('.loginSliding');
@@ -97,6 +97,6 @@ export class LoginComponent implements OnInit {
     }
 
     ngOnDestroy(){
-        $('.rightSidebar').css("width",this.saveWidth);
+        //$('.rightSidebar').css("width",this.saveWidth);
     }
 }
