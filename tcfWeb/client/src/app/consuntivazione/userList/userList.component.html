@@ -1,17 +1,32 @@
     
 <section class="selectUser">
+    <div class="defaultUser">
+            <h1>Utente loggato:</h1>
+    </div>
+    <div class="defaultUserSelectedSection selectUserBtn" (click)="selectUser(this.userLogged)">
+            <div class='defaultUserSelectedIcon'>
+                <i class="fa fa-user" aria-hidden="true"></i>
+            </div>
+            <h3>{{this.userLogged.nome}} {{this.userLogged.cognome}}</h3>
+            <div class="infoalternative">
+                <ul>
+                    <li class = "list-comma" *ngFor="let clienti of userLogged.clienti; let i = index">{{clienti.id_cliente}}</li>
+                </ul>
+            </div>
+    </div>
     <div class="searchUser">
         <h1>Seleziona l'utente:</h1>
-        <input placeholder="Filtra lista utenti" id="search" class="input" type="text" [(ngModel)]="query">
+        <input placeholder="Filtra per nome" id="search" class="input" [(ngModel)]="query">
     </div>
     <ul>
         <li *ngFor="let user of users | search:'nome,cognome':query">
-            <div class="user" >
-                <i class="fa fa-user" aria-hidden="true"></i>
+            <div class='user selectUserBtn' (click)="selectUser(user)">
+                <i [ngClass]='chooseClass(user)' aria-hidden="true"></i>
                 <h3>{{user.nome}} {{user.cognome}}</h3> 
                 <div class="infoalternative">
-                    <button class="btn btnPrimary selectUserBtn" (click)="selectUser(user)">Seleziona</button>
-                    <!--<button type="button" class="btn btnTertiary delete" (click)="deleteUser(user)">Elimina</button>-->
+                    <ul>
+                        <li class = "list-comma" *ngFor="let clienti of user.clienti; let i = index">{{clienti.id_cliente}}</li>
+                    </ul>
                 </div>
             </div>
         </li>                

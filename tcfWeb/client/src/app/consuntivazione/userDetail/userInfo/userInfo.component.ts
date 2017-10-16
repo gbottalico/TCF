@@ -11,7 +11,7 @@ import { User } from '../../../model/user';
 export class UserInfoComponent{
 
  @Input() userSelected: User;
- @Input() isAdmin : boolean;
+ @Input() isConsuntivatore : boolean;
  @Output() userChanged = new EventEmitter();
 
   changeUser(){

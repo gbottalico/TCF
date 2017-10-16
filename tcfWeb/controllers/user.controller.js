@@ -7,10 +7,9 @@ routerUser.post('/authenticate', authenticate);
 
 routerUser.post('/userChangeEmail', changeUserEmail);
 routerUser.post('/userChangePwd', changeUserPwd);
-routerUser.get('/users', getUsers);
-routerUser.get('/user/:id', getUser);
-routerUser.post('/user', InsOrUpdUser);
-routerUser.delete('/user/:id', delUser);
+routerUser.get('/users', getAll);
+routerUser.get('/userByClient/:userLogged', getUsersByClient);
+routerUser.get('/getMaxProfile/:userLogged', getMaxProfile);
 
 //SECURITY SECTION - START
 function authenticate(req, res) {
@@ -57,16 +56,6 @@ function changeUserPwd(req, res) {
 //SECURITY SECTION - END
 
 
-//CRUD - CREATE
-function InsOrUpdUser(req, res){
-	userService.insOrUpdUser(req.body).then(function(){
-		 res.sendStatus(200);
-	}).catch(function (err) {
-            res.status(400).send(err);
-        });
-	
-};
-
 //CRUD - READ multiple
 function getUsers(req, res){
 	userService.getAll().then(function(users){		 
@@ -77,24 +66,20 @@ function getUsers(req, res){
 	
 };
 
-//CRUD - READ
-function getUser(req, res){
-	userService.getById(req.params.id).then(function(user){		 
-		console.log(user);
-		res.send(user);
-   }).catch(function (err) {
-		   res.status(400).send(err);
-	   });	
+function getUsersByClient(req, res){
+	userService.getUsersByClient(req.params.userLogged).then(function(users){		 
+		 res.send(users);
+	}).catch(function (err) {
+		res.status(400).send(err);
+	});
 };
 
-//CRUD - DELETE
-function delUser(req, res){
-	userService.delUser(req.params.id).then(function(result){		 
-		console.log(result);
-		res.send(result);
-   }).catch(function (err) {
-		   res.status(400).send(err);
-	   });	
+function getMaxProfile(req, res){
+	userService.getMaxProfile(req.params.userLogged).then(function(profiles){		 
+		 res.send(profiles);
+	}).catch(function (err) {
+		res.status(400).send(err);
+	});
 };
 
 module.exports = routerUser;

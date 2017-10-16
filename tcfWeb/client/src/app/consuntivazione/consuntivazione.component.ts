@@ -13,25 +13,27 @@ import { AuthenticationService } from '../service/authentication.service';
 })
 
 export class ConsuntivazioneComponent implements OnInit{
-
+  
+  readonly adminSystem:string = "Amministratore di sistema";
+  readonly adminProject:string = "Amministratore di progetto";
+  readonly reporter:string = "Consuntivatore";
 
   userSelected : User;
-  userLogged : User;
-  isAdmin : boolean = false;
+  userLogged : User;  
   selected : boolean = false;
   userList;
   userDetail;
+  maxUserLoggedProfile;
 
   constructor(private authenticationService : AuthenticationService){
     this.authenticationService.user$.subscribe(user => { this.userLogged = user; });
-    this.isAdmin = this.userLogged.isAdmin;
-    
+    this.maxUserLoggedProfile = this.getMaxUserProfile(this.userLogged);    
   }
 
   ngOnInit(){
     this.userList = $('.selectUser');
     this.userDetail = $('.userDetail');
-    if(!this.isAdmin){
+    if(this.maxUserLoggedProfile == 'Consuntivatore'){
       this.userSelected = this.userLogged;
       this.userList.hide();
       this.userDetail.show();
@@ -44,7 +46,6 @@ export class ConsuntivazioneComponent implements OnInit{
 
   selectUser(userParam){
     this.userSelected = userParam;
-    this.isAdmin = this.userLogged.isAdmin;
     this.selected = true;
     this.userList.slideUp().fadeOut().hide('slow');
     this.userDetail.fadeIn().show('slow');
@@ -52,10 +53,19 @@ export class ConsuntivazioneComponent implements OnInit{
 
   changeUser(){
     this.userSelected = null;
-    this.isAdmin = true;
     this.selected = false;    
     this.userDetail.slideDown().fadeOut().hide('slow');
     this.userList.fadeIn().show('slow');
+  }
+
+  getMaxUserProfile(userLogged : User) : string{
+    var profiles = Array<string>();
+    
+    for(let i=0; i<userLogged.clienti.length; i++)
+        profiles.push(userLogged.clienti[i].id_profilo);
+
+    return profiles.includes('AS') ? this.adminSystem : profiles.includes('AP') ? this.adminProject : this.reporter;
+
   }
 
 }

@@ -43,4 +43,14 @@ export class UserService {
   	return this.http.post('/tcf/api/userController/userChangePwd', bodyparams, {headers:headers})
   		.map(res => res.json());
   }
+
+  getUsersByClient(userLogged){
+  	return this.http.get('/tcf/api/userController/userByClient/' + userLogged + "/")
+    .map(res => res.json()); 
+  }
+
+  getMaxProfile(userLogged){
+  	return this.http.get('/tcf/api/userController/getMaxProfile/' + userLogged + "/")
+    .map(res => res.json()); 
+  }
 }

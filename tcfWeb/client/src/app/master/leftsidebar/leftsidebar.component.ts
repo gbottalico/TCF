@@ -16,11 +16,9 @@ export class LeftsideBarComponent implements OnInit {
     menuEntries: any;
     selectedMenu: any;
     @Output() menuSelected = new EventEmitter();
+    @Input() maxUserProfile : string;
 
-    constructor(
-        private systemService: SystemService
-    ) {
-
+    constructor(private systemService: SystemService) {
     }
 
 
@@ -97,31 +95,32 @@ export class LeftsideBarComponent implements OnInit {
         
         var target = event.target || event.srcElement || event.currentTarget;
         var menuElement = target.closest("li");
-
+        var menu = this.selectedMenu != null ? this.selectedMenu.indexOf(" - ") == -1 ? this.selectedMenu : this.selectedMenu.split(" - ")[0] : null;
+        var menuPassed = item.indexOf(" - ") == -1 ? item : item.split(" - ")[0];
+        
         /*Se non si fa redirect, non si cambia il focus sulla voce di sottomenu*/
         if (this.selectedMenu != item && this.selectedMenu != null)
             $(".subSection").children("li").removeClass('active').addClass('deactive');
+        
+        /*Se non cambio voce di menu, non cambio il focus*/
+        if (menu != menuPassed && menu != null){
+            $(".navigation").each(function (index) {
+                //$('.navigation').removeClass('active').addClass('deactive');
+                $(this).children("ul").slideUp(500);
+            });
+        }
+            
 
         this.selectedMenu = item;
 
 
         if (flag) { // menu padre
-            $(this).addClass('active');
-
+            //$(this).addClass('active');
             if (this.selectedMenu) {
                 $(menuElement).children("ul").slideDown(500);
             } else {
                 $(menuElement).children("ul").slideUp(500);
             }
-
-            $(".navigation").each(function (index) {
-                if ($(this).hasClass('active')) {
-                    if (this.id != target.id) {
-                        $(this).children("ul").slideUp(500);
-                    }
-                }
-            });
-
         }
         else { //sottomenu
             $(menuElement).addClass('active');
@@ -144,6 +143,13 @@ export class LeftsideBarComponent implements OnInit {
             this.selectedMenu = this.selectedMenu.split(" - ")[0];
 
         return this.selectedMenu === item;
+    }
+
+    isVisible(item){
+        if(this.maxUserProfile == 'Consuntivatore')
+            return item == 'Consuntivazione';
+        else
+            return true;
     }
 
 }
