@@ -2,6 +2,7 @@ var config = require('config.json');
 var _ = require('lodash');
 var jwt = require('jsonwebtoken');
 var bcrypt = require('bcryptjs');
+
 var Q = require('q');
 
 
@@ -18,7 +19,6 @@ serviceUser.changeUserEmail = changeUserEmail;
 serviceUser.changeUserPwd = changeUserPwd;
 
 serviceUser.getUsersByClient = getUsersByClient;
-
 
 serviceUser.getById = getById;
 serviceUser.insOrUpdUser = insOrUpdUser;
@@ -213,20 +213,7 @@ function insOrUpdUser(userParam) {
      return deferred.promise;
 }
 
-function getAll() {
-    var deferred = Q.defer();
 
-    User.find({},function (err, users) {
-        if (err){
-          deferred.reject(err.name + ': ' + err.message);  
-      } else{
-        deferred.resolve(users);
-      }
-
-    });
-
-    return deferred.promise;
-}
 function getById(_id) {
     var deferred = Q.defer();
 
