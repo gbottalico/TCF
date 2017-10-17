@@ -85,6 +85,6 @@ routerUser.post('/user', (req, res, next)=>{
 		}
 		
 	});
-});
+});*/
 
 module.exports = routerUser;

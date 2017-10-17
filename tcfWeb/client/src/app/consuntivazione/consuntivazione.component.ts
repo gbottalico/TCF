@@ -46,14 +46,12 @@ export class ConsuntivazioneComponent implements OnInit{
 
   selectUser(userParam){
     this.userSelected = userParam;
-    this.selected = true;
     this.userList.slideUp().fadeOut().hide('slow');
     this.userDetail.fadeIn().show('slow');
   }
 
   changeUser(){
-    this.userSelected = null;
-    this.selected = false;    
+    this.userSelected = null;  
     this.userDetail.slideDown().fadeOut().hide('slow');
     this.userList.fadeIn().show('slow');
   }

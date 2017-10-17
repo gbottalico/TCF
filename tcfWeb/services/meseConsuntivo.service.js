@@ -67,13 +67,13 @@ function getByYear(id_user, year) {
     var deferred = Q.defer();
     console.log("utente: " + id_user + " getMesiConsuntiviUtente: " + year);
     
+
     MeseConsuntivo.find({id_utente: id_user, anno_consuntivo: year }, function (err, mesiConsuntivi) {
         if (err) {
             deferred.reject(err.name + ': ' + err.message);
         } else {
             deferred.resolve(mesiConsuntivi);
         }
-
     });
 
     return deferred.promise;

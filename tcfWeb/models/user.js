@@ -61,6 +61,7 @@ UserSchema.methods.getUsersByClient = function getUsersByClient(params, callback
 			{				
 				"$project":
 				{
+					isAdmin : "$isAdmin",
 					clienti: {
 						$filter: {
 							input: '$clienti',
@@ -80,16 +81,19 @@ UserSchema.methods.getUsersByClient = function getUsersByClient(params, callback
 			},
 			{
 				$project:{
-					id_cliente: '$clienti.id_cliente'
+					isAdmin: '$isAdmin',
+					id_cliente: '$clienti.id_cliente',
 				}	
 			},
 			{
 				$group : {
 					_id : "$_id",
+					isAdmin : {
+						$last : '$isAdmin',
+					},
 					clienti : {
 						$push : 
 							'$id_cliente'
-						
 					}
 				}
 			}

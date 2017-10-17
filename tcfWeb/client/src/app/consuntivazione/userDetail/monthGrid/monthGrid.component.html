@@ -3,9 +3,10 @@
         <button class="btn btnPrimary addAttivitaTable">Aggiungi attivita</button>
         <button class="btn btnPrimary backToMounth rightGeneric" (click)="backToMonth()">Indietro</button>
     </section>
-<ng2-smart-table [settings]="this.settings" [source]="this.source" 
-    (createConfirm)="createRow($event)" (deleteConfirm)="deleteRow($event)" (editConfirm) = "modifyRow($event)"
-></ng2-smart-table>
+    
+    <ng2-smart-table [settings]="this.settings" [source]="this.source" 
+        (createConfirm)="createRow($event)" (deleteConfirm)="deleteRow($event)" (editConfirm) = "modifyRow($event)"
+    ></ng2-smart-table>
 
     <div>
 

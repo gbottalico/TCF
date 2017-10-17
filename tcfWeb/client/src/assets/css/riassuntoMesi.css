@@ -75,6 +75,12 @@
 .riassuntoMesi ul li .mese .fa-calendar-minus-o {
     color: orange;
 }
+.riassuntoMesi ul li .mese .fa-calendar-plus-o {
+    color: blue;
+}
+.riassuntoMesi ul li .mese .fa-calendar-o {
+    color: grey;
+}
 .riassuntoMesi ul li .statoMese {
     padding: 10px 15px;
     width: 50%;

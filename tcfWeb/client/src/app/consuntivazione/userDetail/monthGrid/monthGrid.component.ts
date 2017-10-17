@@ -55,7 +55,6 @@ export class MonthGridComponent implements OnInit, OnChanges {
   }
 
   ngOnInit() {
-    alert('ngOnInit');
 
     this.beforeOnInit = false;
 
@@ -158,7 +157,6 @@ export class MonthGridComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges() {
-    alert('ngOnChanges');
 
     if (this.beforeOnInit) {
       this.nDays = this.daysInMonth(this.monthSelected, this.yearSelected);

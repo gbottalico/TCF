@@ -4,4 +4,5 @@ export class MeseConsuntivo{
 	user: string;
 	anno_consuntivo: string;
 	mese_consuntivo: string;
+	nome_stato: string;
 };

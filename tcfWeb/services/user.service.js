@@ -98,13 +98,23 @@ function getUsersByClient(userLogged) {
         }
         else {
             if(clienti[0] != null)
-                User.find({"_id":{$ne : userLogged}, "clienti": {"$elemMatch":{"id_cliente":{"$in": clienti[0].clienti}}} }, 
-                    function(err, users){
-                        if(err)
+                if(clienti[0].isAdmin == true){
+                    User.find({}, function (err, users) {
+                        if (err) {
                             deferred.reject(err.name + ': ' + err.message);
-                        else
+                        } else {
                             deferred.resolve(users);
-                    });
+                        }
+                    });       
+                }
+                else
+                    User.find({"_id":{$ne : userLogged}, "clienti": {"$elemMatch":{"id_cliente":{"$in": clienti[0].clienti}}} }, 
+                        function(err, users){
+                            if(err)
+                                deferred.reject(err.name + ': ' + err.message);
+                            else
+                                deferred.resolve(users);
+                        });
         }
     });
     return deferred.promise;
