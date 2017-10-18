@@ -25,7 +25,10 @@ export class MonthGridComponent implements OnInit, OnChanges {
   yearSelected: number = 2017;
   @Input()
   userSelected: User;
-  @Output() backToMonthEvent = new EventEmitter();
+  @Output() 
+  backToMonthEvent = new EventEmitter();
+  @Input()
+  yearSelection : boolean;
   
   settings: any = {};
   userDays: [Consuntivo];
@@ -161,9 +164,11 @@ export class MonthGridComponent implements OnInit, OnChanges {
     if (this.beforeOnInit) {
       this.nDays = this.daysInMonth(this.monthSelected, this.yearSelected);
     }
-
     //this.data = this.getTestBasicTable();
-
+    if(this.yearSelection)
+      $('.attivitaTable').hide();
+    else if(!$('.attivitaTable').is(":visible"))
+      $('.attivitaTable').show();
 
     //var userDays = this.getSomeTestLocalData();
     this.consuntivazioneService

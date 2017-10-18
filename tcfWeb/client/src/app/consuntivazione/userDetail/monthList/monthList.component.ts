@@ -17,7 +17,7 @@ export class MonthListComponent implements OnChanges, OnInit{
   @Input() userSelected : User;
   @Input() backToMonthEvent : boolean;
   @Output() monthSelect = new EventEmitter();
-
+  @Output() yearSelect = new EventEmitter();
   todayYear = (new Date()).getFullYear();
   years : number[] = new Array<number>();
   months = [ "Gennaio", "Febbraio", "Marzo", "Aprile", "Maggio", "Giugno",
@@ -25,6 +25,7 @@ export class MonthListComponent implements OnChanges, OnInit{
   monthsOfUser: MeseConsuntivo[];
   diffYears : number; 
   assunzione;
+
 
   constructor(private meseConsuntivoService : MeseConsuntivoService) {
     /*Mi calcolo la differenza tra l'anno attuale e l'anno di assunzione*/
@@ -44,7 +45,7 @@ export class MonthListComponent implements OnChanges, OnInit{
         this.years.push(this.todayYear - i);
 
       $('.date').val(this.todayYear);
-      $('.previusYear').hide();
+      $('.allList').hide();
 
       this.meseConsuntivoService.getMesiConsuntiviUtente(this.userSelected._id, $('.date').val()).subscribe(months => this.monthsOfUser = months);  
 
@@ -59,7 +60,7 @@ export class MonthListComponent implements OnChanges, OnInit{
 
   /*Gestione click arrow anno*/
   changeDate(){
-    $('.previusYear').slideToggle();
+    $('.allList').slideToggle();
     $('i').toggleClass('active');
   }
 
@@ -75,10 +76,12 @@ export class MonthListComponent implements OnChanges, OnInit{
   /*Gestione click dell'anno nella combobox*/
   changeYear(yearParam){
     $('.date').val(yearParam);
-    $('.previusYear').slideToggle();
+    $('.allList').slideToggle();
     $('i').toggleClass('active');
     $('.riassuntoMesiSection p').text('');
-    this.meseConsuntivoService.getMesiConsuntiviUtente(this.userSelected._id, $('.date').val()).subscribe(months => this.monthsOfUser = months);  
+    this.meseConsuntivoService.getMesiConsuntiviUtente(this.userSelected._id, yearParam).subscribe(months => this.monthsOfUser = months);  
+    this.openMonths();
+    this.yearSelect.emit();
   }
 
   /*Gestione click arrow per aprire sezione mesi consuntivabili*/
@@ -93,27 +96,29 @@ export class MonthListComponent implements OnChanges, OnInit{
 
   /*Gestione icona stato del mese*/
   monthStatus(monthParam){
-    var userClass;
+    var userClass : String = "";
     var monthType : String = "";
     var consuntivo : MeseConsuntivo;
 
-    consuntivo = this.monthsOfUser.find(mese => mese.mese_consuntivo == monthParam);
-    if(consuntivo != null){
-      switch(consuntivo.nome_stato){
-        case 'Da Verificare':              
-          userClass = "fa fa-calendar-minus-o";
-          break;
-        case 'Chiuso':
-          userClass = "fa fa-calendar-check-o";
-          break;
-        case 'Aperto':
-          userClass = "fa fa-calendar-plus-o";
-          break;
+    if(this.monthsOfUser != null){
+      consuntivo = this.monthsOfUser.find(mese => mese.mese_consuntivo == monthParam);
+      if(consuntivo != null){
+        switch(consuntivo.nome_stato){
+          case 'Da Verificare':              
+            userClass = "fa fa-calendar-minus-o";
+            break;
+          case 'Chiuso':
+            userClass = "fa fa-calendar-check-o";
+            break;
+          case 'Aperto':
+            userClass = "fa fa-calendar-plus-o";
+            break;
+        }
+        monthType = consuntivo.nome_stato;
+      } else {
+        userClass = "fa fa-calendar-o";
+        monthType = "Non disponibile";
       }
-      monthType = consuntivo.nome_stato;
-    } else {
-      userClass = "fa fa-calendar-o";
-      monthType = "Non disponibile";
     }
     return userClass;  
   }
@@ -124,7 +129,8 @@ export class MonthListComponent implements OnChanges, OnInit{
     var monthType : String = "";
     var consuntivo : MeseConsuntivo;
 
-    consuntivo = this.monthsOfUser.find(mese => mese.mese_consuntivo == monthParam);
+    if(this.monthsOfUser != null)
+      consuntivo = this.monthsOfUser.find(mese => mese.mese_consuntivo == monthParam);
     
     return consuntivo != null ? consuntivo.nome_stato : "Non disponibile";  
   }

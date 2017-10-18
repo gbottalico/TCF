@@ -3,11 +3,6 @@ const routerDomain = express.Router();
 var domainService = require('services/domain.service');
 
 
-
-routerDomain.post('/sede', addSede);
-routerDomain.get('/sedi', getSedi);
-routerDomain.post('/cliente', addCliente);
-routerDomain.get('/clienti', getClienti);
 routerDomain.post('/profilo', addProfilo);
 routerDomain.get('/profili', getProfili);
 routerDomain.post('/commessa', addCommessa);
@@ -29,45 +24,6 @@ routerDomain.post('/addTipoDeliverable', addTipoDeliverable);
 routerDomain.get('/tipiDeliverable', getTipiDeliverable);
 routerDomain.post('/addStatoMeseConsuntivo', addStatoMeseConsuntivo);
 routerDomain.get('/statiMeseConsuntivo', getStatiMeseConsuntivo);
-
-
-
-function addSede(req, res){
-	domainService.addSede(req.body).then(function(){
-		 res.sendStatus(200);
-	}).catch(function (err) {
-            res.status(400).send(err);
-        });
-	
-};
-
-function getSedi(req, res){
-	domainService.getSedi().then(function(sedi){
-		 res.send(sedi);
-	}).catch(function (err) {
-            res.status(400).send(err);
-    });
-	
-};
-
-
-function addCliente(req, res){
-	domainService.addCliente(req.body).then(function(){
-		 res.sendStatus(200);
-	}).catch(function (err) {
-            res.status(400).send(err);
-        });
-	
-};
-
-function getClienti(req, res){
-	domainService.getClienti().then(function(clienti){
-		 res.send(clienti);
-	}).catch(function (err) {
-            res.status(400).send(err);
-    });
-	
-};
 
 function addProfilo(req, res){
 	domainService.addProfilo(req.body).then(function(){

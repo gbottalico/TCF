@@ -8,6 +8,7 @@ import { NgModule } from '@angular/core';
 import { CustomHttpProvider } from './helpers/custom-http';
 import { AppComponent } from './app.component';
 import { MasterModule } from './master/master.module';
+import { GestioneUtentiModule } from './amministrazione/gestioneUtenti/gestioneUtenti.module';
 
 
 @NgModule({
@@ -21,6 +22,7 @@ import { MasterModule } from './master/master.module';
     HttpModule,
     FormsModule,
     MasterModule,
+    GestioneUtentiModule,
     NgbModule.forRoot()
   ],
   providers: [

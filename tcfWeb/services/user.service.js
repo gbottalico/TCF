@@ -14,12 +14,9 @@ const Cliente = require('../models/cliente.js');
 const UserCliente = require('../models/userCliente.js');
 
 serviceUser.authenticate = authenticate;
-
 serviceUser.changeUserEmail = changeUserEmail;
 serviceUser.changeUserPwd = changeUserPwd;
-
 serviceUser.getUsersByClient = getUsersByClient;
-
 serviceUser.getById = getById;
 serviceUser.insOrUpdUser = insOrUpdUser;
 serviceUser.delUser = delUser;

@@ -4,7 +4,7 @@
         <div class="selectContainer">
             <i class="fa fa-arrow-down" aria-hidden="true"></i>
             <input placeholder="Seleziona anno" class="date" maxlength="4" pattern="[0-9]" type="text" readonly (click)="changeDate()">
-            <ul class="previusYear">
+            <ul class="allList">
                 <li id="{{year}}" *ngFor="let year of years" (click)="changeYear(year)">{{year}}</li>
             </ul>
         </div>

@@ -1,0 +1,211 @@
+.gestioneUtenti {
+    position: relative;
+    height: auto;
+    user-select: none;
+}
+.userCustomTitle {
+    height: 50px;
+    position: relative;
+    cursor: pointer;
+}
+.userCustomTitle:hover {
+    opacity: 0.7;
+}
+.userCustomTitle h1 {
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    transform: translate(0, -50%);
+    font-size: 0.8rem;
+    font-weight: normal;
+}
+.userCustomTitle .toggleRight {
+    right: 10px;
+    transition: all 0.4s ease-in;
+    cursor: pointer;
+    user-select: none;
+}
+.userCustomTitle .toggleRight.active {
+    transform: rotate(-180deg);
+    top: 40%;
+}
+.userCustomTitle .toggleRight.deactive {
+    transform: rotate(0deg);
+    top: 40%;
+}
+.listaUtenti ul {
+    font-size: 0.8rem;
+    list-style: none;
+    margin: 0;
+    background: #fff;
+    border-radius: 3px;
+    box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.4);
+    padding: 15px 5px;
+}
+.listaUtenti ul li {
+    position: relative;
+    height: 35px;
+    user-select: none;
+    border-bottom: 1px solid transparent;
+}
+.listaUtenti ul li:hover {
+    border-bottom: 1px solid #f2f2f2;
+}
+.listaUtenti ul li .utente {
+    padding: 10px 15px;
+    width: 50%;
+    text-align: left;
+    position: absolute;
+    top: 50%;
+    transform: translate(0, -50%);
+    left: 0;
+}
+.listaUtenti ul li .actionUser {
+    padding: 10px 15px;
+    width: 50%;
+    text-align: right;
+    float: right;
+    position: absolute;
+    top: 50%;
+    transform: translate(0, -50%);
+    right: 15px;
+}
+.actionUser div {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translate(0, -50%);
+}
+.actionUser div i {
+    cursor: pointer;
+}
+.actionUser div i:hover {
+    opacity: 0.7
+}
+.aggiungiUtente {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+}
+.aggiungiUtente button {
+    float: right;
+}
+.aggiungiUtenteTitle {
+    height: 50px;
+    position: relative;
+    cursor: pointer;
+}
+.aggiungiUtenteTitle:hover {
+    opacity: 0.7;
+}
+.aggiungiUtenteTitle h1 {
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    transform: translate(0, -50%);
+    font-size: 0.8rem;
+    font-weight: normal;
+}
+.gestioneClientiAssociabili {
+    position: relative;
+    height: auto;
+    user-select: none;
+    display: inline-block;
+    width: 100%;
+    cursor: pointer;
+}
+.aggiungiUtenteTitle .toggleRight {
+    right: 10px;
+    transition: all 0.4s ease-in;
+    cursor: pointer;
+    user-select: none;
+}
+.aggiungiUtenteTitle .toggleRight.active {
+    transform: rotate(-180deg);
+    top: 40%;
+}
+.aggiungiUtenteTitle .toggleRight.deactive {
+    transform: rotate(0deg);
+    top: 40%;
+}
+.clientiAssociabiliCustomTitle {
+    height: 50px;
+    position: relative;
+}
+.gestioneClientiAssociabili:hover {
+    opacity: 0.7;
+}
+.clientiAssociabiliCustomTitle h1 {
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    transform: translate(0, -50%);
+    font-size: 0.8rem;
+    font-weight: normal;
+}
+.clientiAssociabiliCustomTitle .toggleRight {
+    right: 10px;
+    transition: all 0.4s ease-in;
+    cursor: pointer;
+    user-select: none;
+}
+.clientiAssociabiliCustomTitle .toggleRight.active {
+    transform: rotate(-180deg);
+    top: 40%;
+}
+.clientiAssociabiliCustomTitle .toggleRight.deactive {
+    transform: rotate(0deg);
+    top: 40%;
+}
+.listaClientiAssociabili ul {
+    font-size: 0.8rem;
+    list-style: none;
+    margin: 0;
+    background: #fff;
+    border-radius: 3px;
+    box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.4);
+    padding: 15px 5px;
+}
+.listaClientiAssociabili ul li {
+    position: relative;
+    height: 35px;
+    user-select: none;
+    border-bottom: 1px solid transparent;
+}
+.listaClientiAssociabili ul li:hover {
+    border-bottom: 1px solid #f2f2f2;
+}
+.listaClientiAssociabili ul li .clienteAssociablie {
+    padding: 10px 15px;
+    width: 50%;
+    text-align: left;
+    position: absolute;
+    top: 50%;
+    transform: translate(0, -50%);
+    left: 0;
+}
+.listaClientiAssociabili ul li .actionClienteAssociabile {
+    padding: 10px 15px;
+    width: 50%;
+    text-align: right;
+    float: right;
+    position: absolute;
+    top: 50%;
+    transform: translate(0, -50%);
+    right: 15px;
+}
+.actionClienteAssociabile div {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translate(0, -50%);
+}
+.actionClienteAssociabile div i {
+    cursor: pointer;
+}
+.actionClienteAssociabile div i:hover {
+    opacity: 0.7
+}
+.salvaCliente button {
+    float: right;
+}

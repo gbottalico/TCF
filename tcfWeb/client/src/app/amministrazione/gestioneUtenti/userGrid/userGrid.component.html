@@ -1,0 +1,25 @@
+<section class="gestioneUtenti">
+    <div class="userCustomTitle" (click)="showUsersGrid()">
+        <h1><i class="fa fa-users" aria-hidden="true"></i> Gestione utenti</h1>
+        <h1 class="toggleRight userListRemote active"><i class="fa fa-arrow-down" aria-hidden="true"></i></h1>
+    </div>
+</section>
+<section class="listaUtenti">
+    <ul>
+        <li *ngFor="let user of users">
+            <div class="utente">
+                <i [ngClass]="chooseClass(user)" aria-hidden="true"></i> {{user.nome}} {{user.cognome}}
+            </div>
+            <div class="actionUser">
+                <div>
+                    <i class="fa fa-pencil-square-o modifica" aria-hidden="true"></i>
+                    <i class="fa fa-trash-o elimina" aria-hidden="true"></i>
+                </div>
+            </div>
+        </li>
+    </ul>
+</section>
+<section class="aggiungiUtente">
+    <button type="button" class="btn btnPrimary aggiungi" (click)="openUserForm()">Aggiungi Utente</button>
+    <button type="button" class="btn btnPrimary chiudi" (click)="closeUserForm()">Chiudi Senza Salvare</button>
+</section>
