@@ -44,6 +44,8 @@ app.use('/tcf/api/consuntivoController', require('./controllers/consuntivo.contr
 app.use('/tcf/api/reportisticaController', require('./controllers/reportistica.controller'));
 app.use('/tcf/api/menuController', require('./controllers/menu.controller'));
 app.use('/tcf/api/meseConsuntivoController', require('./controllers/meseConsuntivo.controller'));
+app.use('/tcf/api/clienteController', require('./controllers/cliente.controller'));
+app.use('/tcf/api/sedeController', require('./controllers/sede.controller'));
 
 
 

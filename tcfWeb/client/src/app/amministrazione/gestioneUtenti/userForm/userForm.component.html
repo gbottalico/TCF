@@ -1,0 +1,38 @@
+<section class="aggiungiUtenteContainer">
+    
+    <section class="aggiungiUtenteTitleContainer">
+        <div class="aggiungiUtenteTitle" (click)="showUserForm()">
+            <h1><i class="fa fa-puzzle-piece" aria-hidden="true"></i> Aggiungi Utente</h1>
+            <h1 class="toggleRight utenteAdd active"><i class="fa fa-arrow-down" aria-hidden="true"></i></h1>
+        </div>
+    </section>
+    <section class="aggiungiUtenteBodyContainer">
+        <div class="halfWidth noPaddingLeft">
+            <input type="text" placeholder="Cognome" class="inputSecond">
+            <input type="text" placeholder="User" class="inputSecond">
+            <input type="text" placeholder="Email" class="inputSecond">
+            <input type="text" placeholder="Inizio validità" class="inputSecond" pattern="[0-9]" ngModel>
+            <div class="selectContainer relative bottom">
+                <i class="fa fa-arrow-down" aria-hidden="true"></i>
+                <input id="adminInput" type="text" placeholder="Amministratore di sistema" class="elementList relative alternativeInput text" readonly (click)="showAdminList()">
+                <ul class="allList inputSecondList" style="display: none;">
+                    <li id="Si" (click)="chooseAdmin($event)">Si</li>
+                    <li id="No" (click)="chooseAdmin($event)">No</li>
+                </ul>
+            </div>
+        </div>
+        <div class="halfWidth noPaddingRight">
+            <input type="text" placeholder="Nome" class="inputSecond">
+            <input type="password" placeholder="Password" class="inputSecond">
+            <div class="selectContainer relative bottom">
+                <i class="fa fa-arrow-down" aria-hidden="true"></i>
+                <input id="sedeInput" type="text" placeholder="Sede" class="elementList relative alternativeInput text" readonly (click)="showSedeList()">
+                <ul class="allList inputSecondList" style="display: none;" *ngFor="let sede of sedi">
+                    <li id="sede.nome_sede" (click)="chooseSede(sede.nome_sede)">{{sede.nome_sede}}</li>
+                </ul>
+            </div>
+            <input type="text" placeholder="Fine Validità" class="inputSecond" pattern="[0-9]">
+            <button type="button" class="btn btnPrimary specialBtnPosition addClienteBtn" (click)="openClientGrid()">Aggiungi Cliente</button>
+            <button type="button" class="btn btnPrimary specialBtnPosition closePanelClienteBtn" (click)="closeClientGrid()">Chiudi Aggiunta Cliente</button>
+        </div>
+    </section>

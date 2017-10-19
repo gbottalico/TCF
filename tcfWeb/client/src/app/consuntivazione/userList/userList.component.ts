@@ -33,6 +33,7 @@ export class UserListComponent implements OnChanges{
   users: User[];
   @Input() userLogged : User;
   @Input() maxUserLoggedProfile : string;
+  @Input() selected;
   @Output() userSelected = new EventEmitter();
 
   constructor(private userService : UserService) {
@@ -44,7 +45,6 @@ export class UserListComponent implements OnChanges{
 
   selectUser(userParam){
       this.userSelected.emit(userParam);
-
   }
 
   deleteUser(userParam){
@@ -52,17 +52,7 @@ export class UserListComponent implements OnChanges{
   }
 
   getUsers(){
-    if(!this.userLogged.isAdmin){
-      switch(this.maxUserLoggedProfile){
-        case 'Amministratore di progetto':
-          this.userService.getUsersByClient(this.userLogged._id).subscribe( users => this.users = users);
-          break;
-        case 'Amministratore di sistema':
-          this.userService.getUsers().subscribe( users => this.users = users);
-          break;
-      }
-    }
-    else this.userService.getUsers().subscribe( users => this.users = users);
+    this.userService.getUsersByClient(this.userLogged._id).subscribe( users => this.users = users);
   }
 
   chooseClass(userParam : User){

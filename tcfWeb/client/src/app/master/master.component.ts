@@ -27,7 +27,8 @@ export class MasterComponent{
 					item => setTimeout( 
 							() => {
 								  this.userLogged = item;
-								  this.maxUserProfile = this.getMaxProfile(this.userLogged);
+								  if(this.userLogged!=null)
+								  	this.maxUserProfile = this.getMaxProfile(this.userLogged);
 								  console.log(this.userLogged);} 
 					  		, 0)
       			) //timeout fix error ExpressionChangedAfterItHasBeenCheckedError
@@ -43,11 +44,11 @@ export class MasterComponent{
     
     getMaxProfile(userLogged : User) : string{
         var profiles = Array<string>();
+		if(userLogged.clienti != null)
+			for(let i=0; i<userLogged.clienti.length; i++)
+				profiles.push(userLogged.clienti[i].id_profilo);
 
-        for(let i=0; i<userLogged.clienti.length; i++)
-            profiles.push(userLogged.clienti[i].id_profilo);
-
-        return profiles.includes('AS') ? this.adminSystem : profiles.includes('AP') ? this.adminProject : this.reporter;
+        return profiles.includes('AS') ? this.adminSystem : profiles.includes('AP') ? this.adminProject : profiles.includes('CS') ? this.reporter : "";
     }
 
 }

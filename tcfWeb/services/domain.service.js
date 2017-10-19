@@ -5,8 +5,8 @@ var Q = require('q');
 
 var serviceDomain = {};
 
-const Sede = require('../models/sede.js');
-const Cliente = require('../models/sede.js');
+
+const Cliente = require('../models/cliente.js');
 const Profilo = require('../models/profile.js');
 const CommessaCliente = require('../models/commessaCliente.js');
 const MacroArea = require('../models/macroarea.js');
@@ -17,11 +17,6 @@ const StatoAttivita = require('../models/statoAttivita.js');
 const TipoDeliverable = require('../models/tipoDeliverable.js');
 const StatoMeseConsuntivo = require('../models/statoMeseConsuntivo.js');
 
-
-serviceDomain.addSede = addSede;
-serviceDomain.getSedi = getSedi;
-serviceDomain.addCliente = addCliente;
-serviceDomain.getClienti = getClienti;
 serviceDomain.addProfilo = addProfilo;
 serviceDomain.getProfili = getProfili;
 serviceDomain.addProfilo = addProfilo;
@@ -47,80 +42,6 @@ serviceDomain.addStatoMeseConsuntivo = addStatoMeseConsuntivo;
 serviceDomain.getStatiMeseConsuntivo = getStatiMeseConsuntivo;
 
 module.exports = serviceDomain;
-
-
-
-function addSede(sedeParam) {
-    console.log("addSede "+sedeParam._id)
-    var deferred = Q.defer();
-	if(sedeParam.data_inizio_validita == undefined){
-		sedeParam.data_inizio_validita = Date.now();
-	}
-    console.log (sedeParam);
-    let newSede = new Sede(sedeParam);
-    console.log(newSede);
-    var query = {'_id':newSede._id};
-    Sede.findOneAndUpdate(query, newSede, {upsert:true}, function(err, doc){
-        if (err){
-            deferred.reject(err.name + ': ' + err.message);
-        }else{
-             deferred.resolve({msg: 'Sede add successfully'});
-        }
-    });
-     return deferred.promise;
-}
-
-function getSedi() {
-    var deferred = Q.defer();
-	
-	let sede = new Sede();
-    sede.findAll({},function (err, sedi) {
-        if (err){
-          deferred.reject(err.name + ': ' + err.message);  
-      } else{
-        deferred.resolve(sedi);
-      }
-
-    });
-
-    return deferred.promise;
-}
-
-function addCliente(clienteParam) {
-    console.log("addCliente "+clienteParam._id)
-    var deferred = Q.defer();
-	if(clienteParam.data_inizio_validita == undefined){
-		clienteParam.data_inizio_validita = Date.now();
-	}
-    console.log (clienteParam);
-    let newCliente = new Cliente(clienteParam);
-    console.log(newCliente);
-    var query = {'_id':newCliente._id};
-    Cliente.findOneAndUpdate(query, newCliente, {upsert:true}, function(err, doc){
-        if (err){
-            deferred.reject(err.name + ': ' + err.message);
-        }else{
-             deferred.resolve({msg: 'Cliente add successfully'});
-        }
-    });
-     return deferred.promise;
-}
-
-function getClienti() {
-    var deferred = Q.defer();
-
-	let cliente = new Cliente();
-    cliente.findAll({},function (err, clienti) {
-        if (err){
-          deferred.reject(err.name + ': ' + err.message);  
-      } else{
-        deferred.resolve(clienti);
-      }
-
-    });
-
-    return deferred.promise;
-}
 
 function addProfilo(profiloParam) {
     console.log("addProfilo "+profiloParam._id)

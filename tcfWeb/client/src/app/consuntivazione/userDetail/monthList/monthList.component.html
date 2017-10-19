@@ -4,7 +4,7 @@
         <div class="selectContainer">
             <i class="fa fa-arrow-down" aria-hidden="true"></i>
             <input placeholder="Seleziona anno" class="date" maxlength="4" pattern="[0-9]" type="text" readonly (click)="changeDate()">
-            <ul class="previusYear">
+            <ul class="allList">
                 <li id="{{year}}" *ngFor="let year of years" (click)="changeYear(year)">{{year}}</li>
             </ul>
         </div>
@@ -19,12 +19,10 @@
     </div>
     <ul>
         <li *ngFor="let month of months; let j = index" (click)="selectMonth(j+1)">
-            <div class="mese"  >
-               <!--<i class="fa fa-calendar-minus-o" aria-hidden="true"></i> Novembre-->
-                <i class="fa fa-calendar-check-o" aria-hidden="true"></i> {{month}}
+            <div class="mese">
+                <i [ngClass]="monthStatus(j+1)" aria-hidden="true"></i> {{month}}
             </div>
-            <div class="statoMese">
-                Chiuso
+            <div class="statoMese"> {{setStatus(j+1)}}
             </div>
         </li>       
     </ul>
