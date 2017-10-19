@@ -1,7 +1,3 @@
 :host /deep/ .ui-datatable .ui-datatable-thead > tr > th {
    font-size: 10px;
 }
-
-:host /deep/ .ui-datatable .ui-datatable-tbody > tr > td {
-    font-size: 10px;
- }

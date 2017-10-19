@@ -87,7 +87,7 @@ export class LeftsideBarComponent implements OnInit {
             }
         });
 
-        this.systemService.getMenu(null).subscribe(
+        this.systemService.getMenu(this.userLogged).subscribe(
             menulist => this.menuEntries = menulist,
             error => alert(error)
         );

@@ -10,7 +10,7 @@ import { User } from '../model/user';
   styleUrls: ['./master.component.css'],
   providers: []
 })
-export class MasterComponent{
+export class MasterComponent implements OnInit{
 
 	readonly adminSystem:string = "Amministratore di sistema";
     readonly adminProject:string = "Amministratore di progetto";
@@ -22,17 +22,25 @@ export class MasterComponent{
 	maxUserProfile : string;
 
    constructor( private authenticationService: AuthenticationService ) { 
-   		 this.subscription = this.authenticationService.user$
-      			.subscribe(
-					item => setTimeout( 
-							() => {
-								  this.userLogged = item;
-								  if(this.userLogged!=null)
-								  	this.maxUserProfile = this.getMaxProfile(this.userLogged);
-								  console.log(this.userLogged);} 
-					  		, 0)
-      			) //timeout fix error ExpressionChangedAfterItHasBeenCheckedError
+//alert(localStorage.getItem('currentUser'));
+	this.userLogged = localStorage.getItem('currentUser');
+	// this.subscription = this.authenticationService.user$
+	// .subscribe(
+	//   item => setTimeout( 
+	// 		  () => {
+	// 				this.userLogged = item;
+	// 				if(this.userLogged!=null)
+	// 					this.maxUserProfile = this.getMaxProfile(this.userLogged);
+	// 				console.log(this.userLogged);					
+	// 			} 
+	// 			, 0)
+	// ) //timeout fix error ExpressionChangedAfterItHasBeenCheckedError
    }
+
+   ngOnInit(){
+	
+   }
+
 
 	logout(){
 		this.authenticationService.logout();

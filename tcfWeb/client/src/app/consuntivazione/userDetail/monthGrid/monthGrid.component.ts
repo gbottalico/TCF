@@ -29,7 +29,7 @@ export class MonthGridComponent implements OnChanges {
   consuntivi: any;
   loading: boolean;
   cols: any[];
-  
+
 
   nDays: number;
   beforeOnInit: boolean = true;
@@ -38,14 +38,14 @@ export class MonthGridComponent implements OnChanges {
 
 
   constructor(private consuntivazioneService: ConsuntivazioneService) {
-    this.newConsuntivo = {};
+    this.newConsuntivo = new Object();
 
     this.newConsuntivo.client = '';
     this.newConsuntivo.ambito = '';
     this.newConsuntivo.area = '';
     this.newConsuntivo.activity = '';
     this.newConsuntivo.deliverable = '';
-    
+    this.newConsuntivo.isEditable = false;
 
   }
 
@@ -75,22 +75,22 @@ export class MonthGridComponent implements OnChanges {
   private initializeColumns() {
 
     this.cols = new Array(this.nDays);
-   
+
     var i = 0;
 
     while (i < this.nDays) {
       this.cols[i] = {};
       this.cols[i].field = (i).toString();
       this.cols[i].header = ((i) + 1).toString();
-      this.cols[i].isFrozen = false;      
+      this.cols[i].isFrozen = false;
       i++;
     }
   }
 
 
- //costruisce il JSON con le colonne del calendario posizionando i valori recuperati nelle corrette posizioni
+  //costruisce il JSON con le colonne del calendario posizionando i valori recuperati nelle corrette posizioni
   private buildData(_userDays: Consuntivo[], _days: number): any[] {
-   
+
     //ordino la _userDays per attività, data.
 
     const consuntivoComparator_AttivitaData = function (a: Consuntivo, b: Consuntivo): number {
@@ -128,10 +128,10 @@ export class MonthGridComponent implements OnChanges {
     var rowsCollection: any[] = new Array(rowCount);
     var row: any;
 
-    
+
     for (let i = 0; i < rowCount; i++) {
       row = new Object();
-    
+      row.isEditable = false;
       row.client = 'STATICO';//_userDays[userDaysIndex].id_cliente;
       row.ambito = _userDays[userDaysIndex].nome_ambito;
       row.area = _userDays[userDaysIndex].nome_macro_area;
@@ -182,32 +182,52 @@ export class MonthGridComponent implements OnChanges {
 
 
 
-//SAVE NEW ROW
-  private createRow(event) {
-    alert('Sto inserendo una nuova riga..');
-    let newRow: Consuntivo = event.newData;
-    this.consuntivazioneService
-      .addConsuntivo(newRow)
-      .subscribe(userDays => {
-        alert('Riga inserita..');
-        this.userDays = userDays;
-        event.confirm.resolve();
-      },
-      err => alert(err)
-      );
+  //SAVE NEW ROW
+  private saveNew() {
+    //Inserisco solo il primo giorno a0 per effettuare lo store su DB 
+    for (let i = 0; i < this.nDays; i++) {
+      this.newConsuntivo[i]=0;
+    }
+    
+    this.consuntivi = this.consuntivi.concat(this.newConsuntivo);
+    this.displayDialog = false;
 
   }
 
+  //EDIT ROW (INLINE)
+  private edit(r,i) {
+    console.log(r);
+    this.CloseAllEditable();
+    r.isEditable = true;
+  }
+  private CloseAllEditable() {
+    for (let item of this.consuntivi) {
+      if (item.isEditable) {
+        item.isEditable = false;
+      }
+    }
+  }
+
+  //SAVE ROW (INLINE)
+  private saveEdit(r,i) {
+    //TODO: logica di salvataggio dei nuovi dati di row
+    r.isEditable = false;
+  }
+
+  private abortEdit(r,i) {
+    //TODO: logica di annullo modifiche
+    r.isEditable = false;
+  }
+
   //DELETE ROW
-  private deleteRow(event) {
-    alert('Sto eliminando una nuova riga..');
-    let newRow: Consuntivo = event.data;
+  private delete(r, i) {
+    alert('Sto eliminando la riga..');
+    let delRow: Consuntivo = r;
     this.consuntivazioneService
-      .deleteConsuntivo(newRow)
+      .deleteConsuntivo(delRow)
       .subscribe(userDays => {
         alert('Riga eliminata..');
         this.userDays = userDays;
-        event.confirm.resolve();
       },
       err => alert(err)
       );
@@ -220,5 +240,7 @@ export class MonthGridComponent implements OnChanges {
   private daysInMonth(month, year) {
     return new Date(year, month, 0).getUTCDate();
   }
+
+
 
 }
