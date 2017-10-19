@@ -18,7 +18,7 @@ mongoose.connect(config.connectionString);
 expressCRUD.init(app);
 
 // use JWT auth to secure the api, the token can be passed in the authorization header or querystring
-/*app.use(expressJwt({
+app.use(expressJwt({
     secret: config.secret,
     getToken: function (req) {
         if (req.headers.authorization && req.headers.authorization.split(' ')[0] === 'Bearer') {
@@ -29,7 +29,7 @@ expressCRUD.init(app);
         return null;
     }
 }).unless({ path: ['/tcf/api/userController/authenticate'] }));
-*/
+
 // routes
 
 //DYNAMIC STANDARD CRUD SECTION

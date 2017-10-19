@@ -10,8 +10,8 @@ export class ConsuntivazioneService {
   constructor(private http:Http) { }
 
   //retrieving
-  getMeseConsuntivoCliente(user, month, year){
-  	return this.http.get('/tcf/api/consuntivoController/meseConsuntivoCliente/' + user + "/" + month + "/" + year)
+  getMeseConsuntivoUtente(user, month, year){
+  	return this.http.get('/tcf/api/consuntivoController/consuntiviUtente/' + user + "/" + month + "/" + year)
   		.map(res=> res.json());
   }
 

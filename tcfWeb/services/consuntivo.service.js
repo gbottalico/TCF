@@ -157,7 +157,10 @@ function getConsuntiviUtente(id_user, month, year) {
 				"year": new Number(year).valueOf(),
 				"user": id_user
 			}
-		}
+        },
+        {
+            $replaceRoot: { newRoot: "$doc" }
+        },
 	];
 
 	return Consuntivo.aggregate(query).exec((err, consuntiviUtente)=> {

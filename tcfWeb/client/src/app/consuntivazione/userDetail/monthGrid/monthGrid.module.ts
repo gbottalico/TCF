@@ -5,35 +5,29 @@ import { FormsModule }   from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgModule } from '@angular/core';
 import { MonthGridComponent} from './monthGrid.component';
-import { Ng2SmartTableModule } from 'ng2-smart-table';
+import {DataTableModule, SharedModule, DialogModule} from 'primeng/primeng';
 import { ConsuntivazioneService } from '../../../service/consuntivazione.service';
-import { CustomRenderComponent} from './customRender/customRender.component';
-import { CustomEditorComponent} from './customEditor/customEditor.component';
 
-
-//import { CustomHttpProvider } from '../../../helpers/custom-http';
 
 
 
 @NgModule({
   declarations: [
-    MonthGridComponent,
-    CustomRenderComponent,
-    CustomEditorComponent
+    MonthGridComponent
   ],
   imports: [
     BrowserModule,
     HttpModule,
-    //AppRoutingModule,
     NgbModule.forRoot(),
     FormsModule,
-    Ng2SmartTableModule
+    DataTableModule, 
+    SharedModule,
+    DialogModule
   ],
   providers: [
     ConsuntivazioneService
     ],
   exports: [MonthGridComponent],
-  bootstrap: [MonthGridComponent],
-  entryComponents: [CustomRenderComponent, CustomEditorComponent]
+  bootstrap: [MonthGridComponent]
 })
 export class MonthGridModule { }
