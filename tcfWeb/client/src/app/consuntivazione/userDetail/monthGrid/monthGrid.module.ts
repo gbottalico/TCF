@@ -5,7 +5,7 @@ import { FormsModule }   from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgModule } from '@angular/core';
 import { MonthGridComponent} from './monthGrid.component';
-import {DataTableModule, SharedModule, DialogModule} from 'primeng/primeng';
+import {DataTableModule, PanelModule, SharedModule, DialogModule} from 'primeng/primeng';
 import { ConsuntivazioneService } from '../../../service/consuntivazione.service';
 
 
@@ -21,6 +21,7 @@ import { ConsuntivazioneService } from '../../../service/consuntivazione.service
     NgbModule.forRoot(),
     FormsModule,
     DataTableModule, 
+    PanelModule,
     SharedModule,
     DialogModule
   ],

@@ -1,4 +1,4 @@
-import { Component, OnChanges, Input } from '@angular/core';
+import { Component, OnChanges, OnInit, Input } from '@angular/core';
 
 import { Consuntivo } from '../../../model/consuntivo';
 import { User } from '../../../model/user';
@@ -12,7 +12,7 @@ import { ConsuntivazioneService } from '../../../service/consuntivazione.service
   providers: []
 })
 
-export class MonthGridComponent implements OnChanges {
+export class MonthGridComponent implements OnInit, OnChanges {
 
 
   @Input()
@@ -21,6 +21,7 @@ export class MonthGridComponent implements OnChanges {
   yearSelected: number = 2017;
   @Input()
   userSelected: User;
+
 
 
   displayDialog: boolean;
@@ -46,11 +47,14 @@ export class MonthGridComponent implements OnChanges {
     this.newConsuntivo.activity = '';
     this.newConsuntivo.deliverable = '';
     this.newConsuntivo.isEditable = false;
+    // this.userSelected = new User();
+    // this.userSelected._id='1';
+    
 
   }
 
-  ngOnChanges() {
-
+  ngOnChanges() {}
+  ngOnInit() {
     if (this.beforeOnInit) {
       this.nDays = this.daysInMonth(this.monthSelected, this.yearSelected);
     }
@@ -181,15 +185,14 @@ export class MonthGridComponent implements OnChanges {
   }
 
 
-
   //SAVE NEW ROW
   private saveNew() {
-    //Inserisco solo il primo giorno a0 per effettuare lo store su DB 
+    //Inserisco solo il primo giorno 0 per effettuare lo store su DB 
     for (let i = 0; i < this.nDays; i++) {
       this.newConsuntivo[i]=0;
     }
-    
-    this.consuntivi = this.consuntivi.concat(this.newConsuntivo);
+    var deepCopyObj = JSON.parse(JSON.stringify(this.newConsuntivo));
+    this.consuntivi = this.consuntivi.concat(deepCopyObj);
     this.displayDialog = false;
 
   }
@@ -221,16 +224,21 @@ export class MonthGridComponent implements OnChanges {
 
   //DELETE ROW
   private delete(r, i) {
-    alert('Sto eliminando la riga..');
-    let delRow: Consuntivo = r;
-    this.consuntivazioneService
-      .deleteConsuntivo(delRow)
-      .subscribe(userDays => {
-        alert('Riga eliminata..');
-        this.userDays = userDays;
-      },
-      err => alert(err)
-      );
+
+    //TODO logica di eleiminazione della riga
+    this.consuntivi.splice(i,1);
+    this.consuntivi = JSON.parse(JSON.stringify(this.consuntivi)); //deepcopy
+    
+    // alert('Sto eliminando la riga..');
+    // let delRow: Consuntivo = r;
+    // this.consuntivazioneService
+    //   .deleteConsuntivo(delRow)
+    //   .subscribe(userDays => {
+    //     alert('Riga eliminata..');
+    //     this.userDays = userDays;
+    //   },
+    //   err => alert(err)
+    //   );
 
   }
 
@@ -241,6 +249,7 @@ export class MonthGridComponent implements OnChanges {
     return new Date(year, month, 0).getUTCDate();
   }
 
+  
 
 
 }
