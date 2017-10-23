@@ -1,7 +1,24 @@
-:host /deep/ .ui-datatable .ui-datatable-thead > tr > th {
-   font-size: 10px;
-}
-
-:host /deep/ .ui-datatable .ui-datatable-tbody > tr > td {
+ :host /deep/ .ui-datatable .ui-datatable-thead > tr > th {
+    height: 30px;
     font-size: 10px;
- }
+    text-align: center;
+    word-wrap: normal;
+}
+:host /deep/ .ui-datatable .ui-datatable-data > tr > td {
+    height: 40px;
+    font-size: 10px;
+    text-align: center;
+}
+.inputDay {
+    width: 12px;
+    font-size: 10px;
+    text-align: center;
+}
+:host /deep/ .fixed .ui-datatable-scrollable-view{
+    float: none!important;
+} 
+
+:host /deep/ .ui-datatable thead th {
+    word-wrap: break-word;
+    }
+@import url("../../../../../node_modules/primeng/resources/primeng.css");

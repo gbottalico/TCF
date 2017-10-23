@@ -1,57 +1,85 @@
-<p-dataTable [value]="consuntivi" scrollable="true" >
+<p-dataTable [value]="consuntivi" scrollable="true" frozenWidth="470px" unfrozenWidth="calc( 100% - 470px)"   columnResizeMode="fit" [style]="{'margin-top':'30px'}">
     <p-header>
         <div>{{monthSelected}}/{{yearSelected}}</div>
     </p-header>
-    <p-column field="isEditable" header="Action" [editable]="isEditable" [frozen]="true">
+    <p-column field="isEditable" header="" frozen="true" [editable]="isEditable" [style]="{'width':'30px','overflow':'visible'}">
         <ng-template let-col let-row="rowData" let-index="rowIndex" pTemplate="body">
-            <span>
+            <span *ngIf="!row.isEditable">
                 <i class="fa fa-pencil-square-o modifica" aria-hidden="true" (click)="edit(row,index)"></i>
                 <i class="fa fa-trash-o elimina" aria-hidden="true" (click)="delete(row,index)"></i>
             </span>
+            <span *ngIf="row.isEditable">
+                <i class="fa fa-floppy-o conferma" aria-hidden="true" (click)="saveEdit(row,index)"></i>
+                <i class="fa fa-minus annulla" aria-hidden="true" (click)="abortEdit(row,index)"></i>
+            </span>
+        </ng-template>
+    </p-column>
+   
+    <p-column frozen="true" header="Cliente/Ambito/Area" [editable]="isEditable" >
+        <ng-template let-col let-row="rowData" pTemplate="body">
+            <span>{{row.client}} - {{row.ambito}} - {{row.area}}</span>
         </ng-template>
     </p-column>
 
-    <p-column field="client"    header="Cliente" [style]="{'width':'150px'}" frozen="true"></p-column>
-    <p-column field="ambito"    header="Ambito" [style]="{'width':'80px'}" frozen="true"></p-column>
-    <p-column field="area"      header="Macro-Area" [style]="{'width':'100px'}" frozen="true"></p-column>
-    <p-column field="activity"  header="Attività" [style]="{'width':'250px'}" frozen="true"></p-column>
-    <p-column field="deliverable" header="Tipo Deliverable" [style]="{'width':'80px'}" frozen="true"></p-column>
-    
-    <p-column *ngFor="let col of cols" [field]="col.field" [header]="col.header" [style]="{'width':'30px'}"></p-column>
+    <p-column field="activity" frozen="true" header="Attività">
+        <ng-template let-col let-row="rowData" pTemplate="body">
+            <span *ngIf="!row.isEditable">{{row.activity}}</span>
+            <span *ngIf="row.isEditable"><input type="text" [(ngModel)]="row.activity"></span>
+        </ng-template>
+    </p-column>
+
+    <p-column field="deliverable" frozen="true" header="Tipo Deliverable" [editable]="isEditable" >
+        <ng-template let-col let-row="rowData" pTemplate="body">
+            <span *ngIf="!row.isEditable">{{row.deliverable}}</span>
+            <span *ngIf="row.isEditable"><input type="text" [(ngModel)]="row.deliverable"></span>
+        </ng-template>
+    </p-column>
+
+    <p-column *ngFor="let col of cols" [field]="col.field" [header]="col.header" [style]="{'width':'20px', 'overflow':'inherit'}">
+        <ng-template let-col let-row="rowData" pTemplate="body">
+            <span *ngIf="!row.isEditable">{{row[col.field]}}</span>
+            <span *ngIf="row.isEditable"><input class="inputDay" type="text" [(ngModel)]="row[col.field]"></span>
+        </ng-template>
+    </p-column>
 
     <p-footer>
-        <div class="ui-helper-clearfix" style="width:100%"><button type="button" pButton icon="fa-plus" style="float:left" (click)="showDialogToAdd()" label="Add"></button></div>
+        <div class="ui-helper-clearfix" style="width:100%">
+            <button type="button" pButton class="btn btn-primary btnPrimary" style="float:left" (click)="showDialogToAdd()" label="Add">
+                Aggiungi        
+            </button>
+        </div>
     </p-footer>
 
 </p-dataTable>
 
-<p-dialog header="Activity Details" [(visible)]="displayDialog" [responsive]="true" showEffect="fade" [modal]="true">
-    <div class="ui-grid ui-grid-responsive ui-fluid" *ngIf="rowConsuntivo">
+<p-dialog header="Activity Details" [(visible)]="displayDialog" appendTo="body" [responsive]="true" appendTo="body" showEffect="fade"
+    [modal]="true">
+    <div class="ui-grid ui-grid-responsive ui-fluid" *ngIf="newConsuntivo">
         <div class="ui-grid-row">
             <div class="ui-grid-col-4"><label for="client">Cliente</label></div>
-            <div class="ui-grid-col-8"><input pInputText id="client" [(ngModel)]="rowConsuntivo.client" /></div>
+            <div class="ui-grid-col-8"><input pInputText id="client" [(ngModel)]="newConsuntivo.client" /></div>
         </div>
         <div class="ui-grid-row">
             <div class="ui-grid-col-4"><label for="ambito">Ambito</label></div>
-            <div class="ui-grid-col-8"><input pInputText id="ambito" [(ngModel)]="rowConsuntivo.ambito" /></div>
+            <div class="ui-grid-col-8"><input pInputText id="ambito" [(ngModel)]="newConsuntivo.ambito" /></div>
         </div>
         <div class="ui-grid-row">
             <div class="ui-grid-col-4"><label for="area">Macro Area</label></div>
-            <div class="ui-grid-col-8"><input pInputText id="area" [(ngModel)]="rowConsuntivo.area" /></div>
+            <div class="ui-grid-col-8"><input pInputText id="area" [(ngModel)]="newConsuntivo.area" /></div>
         </div>
         <div class="ui-grid-row">
             <div class="ui-grid-col-4"><label for="activity">Attività</label></div>
-            <div class="ui-grid-col-8"><input pInputText id="activity" [(ngModel)]="rowConsuntivo.activity" /></div>
+            <div class="ui-grid-col-8"><input pInputText id="activity" [(ngModel)]="newConsuntivo.activity" /></div>
         </div>
         <div class="ui-grid-row">
             <div class="ui-grid-col-4"><label for="deliverable">Deliverable</label></div>
-            <div class="ui-grid-col-8"><input pInputText id="deliverable" [(ngModel)]="rowConsuntivo.deliverable" /></div>
+            <div class="ui-grid-col-8"><input pInputText id="deliverable" [(ngModel)]="newConsuntivo.deliverable" /></div>
         </div>
     </div>
     <p-footer>
         <div class="ui-dialog-buttonpane ui-helper-clearfix">
-            <button type="button" pButton icon="fa-close" (click)="delete()" label="Delete"></button>
-            <button type="button" pButton icon="fa-check" (click)="save()" label="Save"></button>
+            <button type="button" pButton class="btn btn-primary btnPrimary" (click)="saveNew()" label="Save">Salva</button>
+            <button type="button" pButton class="btn btn-primary btnPrimary" (click)="abortNew()" label="Abort">Annulla</button>
         </div>
     </p-footer>
 </p-dialog>
