@@ -18,7 +18,8 @@ export class GestioneUtentiComponent{
   showUserSection : boolean;
   showClientGrid : boolean;
   saved : boolean;
-  userLogged : User; 
+  userLogged : User;
+  userDaModificare : User; 
 
   public constructor(private authenticationService : AuthenticationService){
     this.authenticationService.user$.subscribe(user => { this.userLogged = user });
@@ -31,6 +32,7 @@ export class GestioneUtentiComponent{
 
   closeUserForm($event){
     this.showUserSection = false;
+    this.userDaModificare = null;
   }
 
   openClientGrid($event){
@@ -45,6 +47,12 @@ export class GestioneUtentiComponent{
     this.showUserSection = null;
     this.showClientGrid = null;
     this.saved = true;
+    this.userDaModificare = null;
+  }
+
+  modificaUtente(userParam){    
+    this.showUserSection = true;
+    this.userDaModificare = userParam;
   }
 
 }

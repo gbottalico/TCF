@@ -5,6 +5,7 @@ import 'jquery-ui';
 import 'jquery-easing';
 import { Sede } from '../../../model/sede';
 import { SedeService } from '../../../service/sede.service';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'userForm',
@@ -19,6 +20,9 @@ export class UserFormComponent implements OnInit, OnChanges{
     @Output() dismissClientGrid = new EventEmitter();
     @Input() showUserSection : boolean;
     @Input() saved : boolean;
+    @Input() userDaModificare : User;
+    datePipe = new DatePipe('en-US');
+
     constructor(private sedeService : SedeService) {
     }
 
@@ -27,12 +31,19 @@ export class UserFormComponent implements OnInit, OnChanges{
         $('.closePanelClienteBtn').hide();
         $('.allList').hide();
         $('.addClienteBtn').show();
-        //$('.aggiungiUtenteContainer').slideToggle();
+
+        var datePipe = new DatePipe('en-US');
+        //$('#dataInizio').val(datePipe.transform(Date.now(), 'dd/MM/yyyy'));
     }
 
     ngOnChanges(){
-        if(this.showUserSection != null)
+        if(this.showUserSection != null){
+            if(this.userDaModificare != null){
+                this.compilaUtente(this.userDaModificare);
+            }
+            //else this.resetUtente();
             this.showClientGrid && this.showUserSection ? $('.aggiungiUtenteContainer').fadeIn("slow").show() : $('.aggiungiUtenteContainer').fadeOut("slow").hide();
+        }
         else
             $('.aggiungiUtenteContainer').slideToggle().hide();
 
@@ -90,4 +101,28 @@ export class UserFormComponent implements OnInit, OnChanges{
         $('#sedeInput').parent().find('i').toggleClass('active'); 
     }
     
+    compilaUtente(user : User){
+        $('#cognome').val(user.cognome);
+        $('#user').val(user._id);
+        $('#email').val(user.email);
+        $('#dataInizio').val(this.datePipe.transform(user.data_inizio_validita, 'dd/MM/yyyy'));
+        $('#adminInput').val(user.isAdmin ? 'Si' : 'No');       
+        $('#nome').val(user.nome);
+        $('#password').val(user.password);
+        $('#sedeInput').val(user.desc_sede);
+        $('#dataFine').val(this.datePipe.transform(user.data_fine_validita, 'dd/MM/yyyy'));
+    }
+
+    resetUtente(){
+        $('#cognome').val();
+        $('#user').val();
+        $('#email').val();
+        $('#dataInizio').val(this.datePipe.transform(Date.now(), 'dd/MM/yyyy'));
+        $('#adminInput').val();       
+        $('#nome').val();
+        $('#password').val();
+        $('#sedeInput').val();
+        $('#dataFine').val();
+     
+    }
 }

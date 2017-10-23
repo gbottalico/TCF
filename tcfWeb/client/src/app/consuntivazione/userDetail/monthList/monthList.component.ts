@@ -44,10 +44,10 @@ export class MonthListComponent implements OnChanges, OnInit{
       for(let i=0; i<=this.diffYears; i++)
         this.years.push(this.todayYear - i);
 
-      $('.date').val(this.todayYear);
+      $('.today').val(this.todayYear);
       $('.allList').hide();
 
-      this.meseConsuntivoService.getMesiConsuntiviUtente(this.userSelected._id, $('.date').val()).subscribe(months => this.monthsOfUser = months);  
+      this.meseConsuntivoService.getMesiConsuntiviUtente(this.userSelected._id, $('.today').val()).subscribe(months => this.monthsOfUser = months);  
 
     }
     
@@ -66,7 +66,7 @@ export class MonthListComponent implements OnChanges, OnInit{
 
   /*Gestione selezione mese da consuntivare per far appare la griglia*/
   selectMonth(monthParam){
-    var year = $('.date').val();
+    var year = $('.today').val();
     this.openMonths();
     $('.riassuntoMesiSection p').text(this.months[monthParam-1]);
     this.backToMonthEvent = false;
@@ -75,7 +75,7 @@ export class MonthListComponent implements OnChanges, OnInit{
 
   /*Gestione click dell'anno nella combobox*/
   changeYear(yearParam){
-    $('.date').val(yearParam);
+    $('.today').val(yearParam);
     $('.allList').slideToggle();
     $('i').toggleClass('active');
     $('.riassuntoMesiSection p').text('');

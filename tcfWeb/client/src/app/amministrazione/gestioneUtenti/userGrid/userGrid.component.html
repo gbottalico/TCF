@@ -1,4 +1,4 @@
-<section class="gestioneUtenti">
+<!--<section class="gestioneUtenti">
     <div class="userCustomTitle" (click)="showUsersGrid()">
         <h1><i class="fa fa-users" aria-hidden="true"></i> Gestione utenti</h1>
         <h1 class="toggleRight userListRemote active"><i class="fa fa-arrow-down" aria-hidden="true"></i></h1>
@@ -12,14 +12,124 @@
             </div>
             <div class="actionUser">
                 <div>
-                    <i class="fa fa-pencil-square-o modifica" aria-hidden="true"></i>
+                    <i class="fa fa-pencil-square-o modifica" aria-hidden="true" (click)=modificaUtente(user)></i>
                     <i class="fa fa-trash-o elimina" aria-hidden="true"></i>
                 </div>
             </div>
         </li>
     </ul>
-</section>
-<section class="aggiungiUtente">
-    <button type="button" class="btn btnPrimary aggiungi" (click)="openUserForm()">Aggiungi Utente</button>
-    <button type="button" class="btn btnPrimary chiudi" (click)="closeUserForm()">Chiudi Senza Salvare</button>
+</section>-->
+<section class="gestioneUtenti">
+    <div class="ui-widget-header" style="padding:4px 10px;border-bottom: 0 none">
+        <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+        <input #gb type="text" pInputText size="30" placeholder="Filtra utenti">
+    </div>
+    <p-dataTable [value]="users" scrollable="true" selectionMode="single" [paginator]="true" [rows]="8" [globalFilter]="gb" responsive="true">
+        <p-header>Lista Utenti</p-header>
+        <p-column header="Azioni" visible="true" [style]="{'width':'10%'}">
+            <ng-template let-user let-index="rowIndex" pTemplate="user">
+                <span>
+                    <i class="fa fa-pencil-square-o modifica" aria-hidden="true" (click)=edit(index)></i>   
+                    <i class="fa fa-trash-o elimina" aria-hidden="true" (click)=delete(index)></i>
+                </span>
+            </ng-template>
+        </p-column>
+        <p-column field="nome" header="Nome" [sortable]="true"></p-column>
+        <p-column field="cognome" header="Cognome" [sortable]="true"></p-column>
+        <p-column field="clienti" header="Clienti">
+            <ng-template let-user let-index="rowIndex" pTemplate="user">
+                <ng-container *ngIf="users[index].clienti != null">
+                    <span *ngFor="let cliente of users[index].clienti; let i=index">{{cliente.id_cliente}}{{i+1 < users[index].clienti.length ? ', ' : null}}</span>
+                </ng-container>
+            </ng-template>
+        </p-column>
+        <p-footer>
+            <div>
+                <button type="button" class="btn btnPrimary aggiungi" (click)=edit()>Aggiungi utente</button>
+            </div>
+        </p-footer>
+    </p-dataTable>
+
+
+    <p-dialog id="dialog" [(header)]="headerUtente" [(visible)]="displayDialog" modal="true" responsive="true" appendTo="body">
+        <div class="halfWidth noPaddingLeft">
+            <div class="ui-g ui-fluid">
+                <div class="ui-g-12 ui-md-12">
+                    <span class="ui-float-label">
+                            <input class="input" id="cognome" type="text" pInputText>
+                            <label for="cognome">Cognome</label>
+                        </span>
+                </div>
+            </div>
+            <div class="ui-g ui-fluid">
+                <div class="ui-g-12 ui-md-12">
+                    <span class="ui-float-label">
+                            <input class="input"  id="nome" type="text" pInputText>
+                            <label for="nome">Nome</label>
+                        </span>
+                </div>
+            </div>
+            <div class="ui-g ui-fluid">
+                <div class="ui-g-12 ui-md-12">
+                    <span class="ui-float-label">
+                        <input class="input"  id="email" type="text" pInputText>
+                        <label for="email">Email</label>
+                    </span>
+                </div>
+            </div>
+            <div class="ui-g ui-fluid">
+                <div class="ui-g-12 ui-md-12">
+                    <span class="ui-float-label">
+                        <p-calendar id="dataInizio" [(ngModel)]="startDate" dateFormat="dd/mm/yy" [showIcon]="true" [readonlyInput]="true" appendTo="body"></p-calendar>
+                        <label for="dataInizio">Data Inizio Validita</label>
+                    </span>
+                </div>
+            </div>
+            <div class="ui-g ui-fluid">
+                <div class="ui-g-12 ui-md-12">
+                    <span class="ui-float-label">
+                        <p-calendar id="dataFine" [(ngModel)]="endDate" dateFormat="dd/mm/yy" [showIcon]="true" [readonlyInput]="true" appendTo="body"></p-calendar>
+                        <label for="dataFine">Data Fine Validita</label>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="halfWidth noPaddingRight">
+            <div class="ui-g ui-fluid">
+                <div class="ui-g-12 ui-md-12">
+                    <span class="ui-float-label">
+                        <input class="input"  id="user" type="text" pInputText>
+                        <label for="user">User</label>
+                    </span>
+                </div>
+            </div>
+            <div class="ui-g ui-fluid">
+                <div class="ui-g-12 ui-md-12">
+                    <span class="ui-float-label">
+                        <input class="input"  id="password" type="text" pInputText>
+                        <label for="password">Password</label>
+                    </span>
+                </div>
+            </div>
+            <div class="ui-g ui-fluid">
+                    <p-dropdown class="ui-g-12 ui-md-12" [options]="sediList" [style]="{'width':'100%'}" placeholder="Seleziona sede" [(ngModel)]="selectedSede">
+                    </p-dropdown>
+            </div>
+            <div class="ui-g ui-fluid">
+                <p-dropdown class="ui-g-12 ui-md-12" [options]="admins" [style]="{'width':'100%'}" [(ngModel)]="selectedAdmin" placeholder="Amm. di Sistema"
+                    [(ngModel)]="selectedAdmin"></p-dropdown>
+            </div>
+            <div class="ui-g ui-fluid">
+                <p-multiSelect class="ui-g-12 ui-md-12" [options]="clienti" [(ngModel)]="selectedClients" [panelStyle]="{minWidth:'12em'}"
+                    defaultLabel="Seleziona cliente" maxSelectedLabels="10" scrollable="false">
+                </p-multiSelect>
+            </div>
+        </div>
+        <p-footer>
+            <div class="ui-dialog-buttonpane ui-helper-clearfix">
+                <button type="button" class="btn btnPrimary aggiungi" (click)="prova()" label="Delete">{{this.btnDialog}}</button>
+            </div>
+        </p-footer>
+    </p-dialog>
+
 </section>
