@@ -15,7 +15,7 @@ export class SystemService {
     }
 
     getMenu(userLogged: any) {
-        return this.http.post('/tcf/api/menuController/getMenuList', { userLogged })
+        return this.http.post('/tcf/api/menuController/getMenuList',  userLogged )
             .map((response: Response) => {
                 let menu = response.json();
                 return menu;

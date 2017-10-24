@@ -1,62 +1,73 @@
-import { Component, OnInit, OnChanges } from '@angular/core';
-import {Subscription} from 'rxjs/Subscription';
+import { Component, OnChanges } from '@angular/core';
+import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
+import { Subscription } from 'rxjs/Subscription';
+import 'rxjs/add/operator/filter';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/mergeMap';
 
 import { AuthenticationService } from '../service/authentication.service';
 import { User } from '../model/user';
 
 @Component({
-  selector: 'master',
-  templateUrl: './master.component.html',
-  styleUrls: ['./master.component.css'],
-  providers: []
+	selector: 'master',
+	templateUrl: './master.component.html',
+	styleUrls: ['./master.component.css'],
+	providers: []
 })
-export class MasterComponent implements OnInit{
+export class MasterComponent implements OnChanges {
 
-	readonly adminSystem:string = "Amministratore di sistema";
-    readonly adminProject:string = "Amministratore di progetto";
-    readonly reporter:string = "Consuntivatore";
+	userLogged: any;
 
-	subscription:Subscription;
-	userLogged : any;
-	menuSelected : any;
-	maxUserProfile : string;
+	readonly adminSystem: string = "Amministratore di sistema";
+	readonly adminProject: string = "Amministratore di progetto";
+	readonly reporter: string = "Consuntivatore";
 
-   constructor( private authenticationService: AuthenticationService ) { 
-//alert(localStorage.getItem('currentUser'));
-	this.userLogged = localStorage.getItem('currentUser');
-	// this.subscription = this.authenticationService.user$
-	// .subscribe(
-	//   item => setTimeout( 
-	// 		  () => {
-	// 				this.userLogged = item;
-	// 				if(this.userLogged!=null)
-	// 					this.maxUserProfile = this.getMaxProfile(this.userLogged);
-	// 				console.log(this.userLogged);					
-	// 			} 
-	// 			, 0)
-	// ) //timeout fix error ExpressionChangedAfterItHasBeenCheckedError
-   }
+	subscription: Subscription;
 
-   ngOnInit(){
-	
-   }
+	menuSelected: any;
+	maxUserProfile: string;
 
-
-	logout(){
-		this.authenticationService.logout();
+	constructor(
+		private authenticationService: AuthenticationService,
+		private router: Router,
+		private activatedRoute: ActivatedRoute) {
+		this.authenticationService.user$.subscribe(user => {			
+			if (user != null) {
+				this.userLogged = user;
+				this.maxUserProfile = this.getMaxProfile(user);
+			} else {
+				this.userLogged = null;
+				this.maxUserProfile = null;
+			}
+		});
 	}
 
-	selectMenu(menuParam){
+	ngOnChanges() {
+		console.log(this.userLogged);
+	}
+
+	logout() {
+		this.authenticationService.logout();		
+	}
+
+	selectMenu(menuParam) {
 		this.menuSelected = menuParam;
 	}
-    
-    getMaxProfile(userLogged : User) : string{
-        var profiles = Array<string>();
-		if(userLogged.clienti != null)
-			for(let i=0; i<userLogged.clienti.length; i++)
+
+	getMaxProfile(userLogged: User): string {
+		var profiles = Array<string>();
+
+		if(userLogged.isAdmin)
+			return this.adminSystem;
+
+		if (userLogged.clienti != null && userLogged.clienti.length>0) {
+			for (let i = 0; i < userLogged.clienti.length; i++)
 				profiles.push(userLogged.clienti[i].id_profilo);
 
-        return profiles.includes('AS') ? this.adminSystem : profiles.includes('AP') ? this.adminProject : profiles.includes('CS') ? this.reporter : "";
-    }
+			return profiles.includes('AS') ? this.adminSystem : profiles.includes('AP') ? this.adminProject : profiles.includes('CS') ? this.reporter : "";
+		} else {
+			return this.reporter;
+		}
+	}
 
 }

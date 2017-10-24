@@ -1,4 +1,4 @@
-import { Component, OnChanges, OnInit, Input } from '@angular/core';
+import { Component, OnChanges,  Input } from '@angular/core';
 
 import { Consuntivo } from '../../../model/consuntivo';
 import { User } from '../../../model/user';
@@ -12,7 +12,7 @@ import { ConsuntivazioneService } from '../../../service/consuntivazione.service
   providers: []
 })
 
-export class MonthGridComponent implements OnInit, OnChanges {
+export class MonthGridComponent implements  OnChanges {
 
 
   @Input()
@@ -53,8 +53,9 @@ export class MonthGridComponent implements OnInit, OnChanges {
 
   }
 
-  ngOnChanges() {}
-  ngOnInit() {
+  // ngOnChanges() {}
+
+  ngOnChanges() {
     if (this.beforeOnInit) {
       this.nDays = this.daysInMonth(this.monthSelected, this.yearSelected);
     }

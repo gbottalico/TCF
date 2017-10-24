@@ -1,6 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { AuthenticationService } from '../../../service/authentication.service';
 import * as $ from 'jquery';
 import 'jquery-ui';
 import 'jquery-easing';
@@ -19,8 +18,7 @@ export class ListMenuComponent{
 
     constructor(
         private route: ActivatedRoute,
-        private router: Router,
-        private authenticationService: AuthenticationService,
+        private router: Router
     ) {
    
     }
@@ -36,7 +34,7 @@ export class ListMenuComponent{
     }
     
     public logout(){
-		this.authenticationService.logout();
+		this.router.navigate(['/login']);
     }
 
     public navtoChangeEmail(){
