@@ -19,7 +19,7 @@ export class ConsuntivazioneService {
   addConsuntivo(consuntivoParam : Consuntivo){
   	var headers = new Headers();
   	headers.append('Content-Type', 'application/json');
-  	return this.http.post('/tcf/api/consuntivoController/consuntivo/', consuntivoParam, {headers:headers})
+  	return this.http.post('/tcf/api/consuntivoController/CRUD/', consuntivoParam, {headers:headers})
   		.map(res => res.json());
   }
 
