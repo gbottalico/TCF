@@ -10,7 +10,9 @@
             <h3>{{this.userLogged.nome}} {{this.userLogged.cognome}}</h3>
             <div class="infoalternative">
                 <ul>
-                    <li class = "list-comma" *ngFor="let clienti of userLogged.clienti; let i = index">{{clienti.id_cliente}}</li>
+                    <ng-container *ngIf="userLogged.clienti != null">
+                    <li *ngFor="let clienti of userLogged.clienti; let i = index">{{clienti.id_cliente}}{{i+1 < userLogged.clienti.length ? ', ' : null}}</li>
+                    </ng-container>
                 </ul>
             </div>
     </div>
@@ -25,7 +27,9 @@
                 <h3>{{user.nome}} {{user.cognome}}</h3> 
                 <div class="infoalternative">
                     <ul>
-                        <li class = "list-comma" *ngFor="let clienti of user.clienti; let i = index">{{clienti.id_cliente}}</li>
+                        <ng-container *ngIf="user.clienti != null">
+                            <li *ngFor="let clienti of user.clienti; let i = index">{{clienti.id_cliente}}{{i+1 < user.clienti.length ? ', ' : null}}</li>
+                        </ng-container> 
                     </ul>
                 </div>
             </div>

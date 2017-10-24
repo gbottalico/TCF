@@ -5,16 +5,14 @@ import { FormsModule }   from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgModule } from '@angular/core';
 import { GestioneUtentiComponent } from './gestioneUtenti.component';
-import { UserGridComponent } from './userGrid/userGrid.component';
 import { UserFormComponent} from './userForm/userForm.component';
 import { ClientGridComponent } from './clientGrid/clientGrid.component';
-
+import { UserGridModule } from './userGrid/userGrid.module';
 //import { CustomHttpProvider } from '../../../helpers/custom-http';
 
 @NgModule({
   declarations: [
     GestioneUtentiComponent,
-    UserGridComponent,
     UserFormComponent,
     ClientGridComponent,
 
@@ -24,7 +22,8 @@ import { ClientGridComponent } from './clientGrid/clientGrid.component';
     HttpModule,
     //AppRoutingModule,
     NgbModule.forRoot(),
-    FormsModule,    
+    FormsModule,
+    UserGridModule    
   ],
   providers: [
     //CustomHttpProvider,

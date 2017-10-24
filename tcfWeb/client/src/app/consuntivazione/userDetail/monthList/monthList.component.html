@@ -3,7 +3,7 @@
         <h1 aria-hidden="true"><i class="fa fa-calendar" aria-hidden="true"></i> Anno</h1>
         <div class="selectContainer">
             <i class="fa fa-arrow-down" aria-hidden="true"></i>
-            <input placeholder="Seleziona anno" class="date" maxlength="4" pattern="[0-9]" type="text" readonly (click)="changeDate()">
+            <input placeholder="Seleziona anno" class="elementList today" maxlength="4" pattern="[0-9]" type="text" readonly (click)="changeDate()">
             <ul class="allList">
                 <li id="{{year}}" *ngFor="let year of years" (click)="changeYear(year)">{{year}}</li>
             </ul>
