@@ -5,7 +5,7 @@ import { FormsModule }   from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgModule } from '@angular/core';
 import { UserGridComponent} from './userGrid.component';
-import {CalendarModule, DataTableModule, SharedModule, DialogModule, InputTextModule, DropdownModule, MultiSelectModule} from 'primeng/primeng';
+import { ConfirmDialogModule, AccordionModule, CalendarModule, DataTableModule, SharedModule, DialogModule, InputTextModule, DropdownModule, MultiSelectModule} from 'primeng/primeng';
 
 
 
@@ -25,7 +25,9 @@ import {CalendarModule, DataTableModule, SharedModule, DialogModule, InputTextMo
     InputTextModule,
     DropdownModule,
     MultiSelectModule,
-    CalendarModule
+    CalendarModule,
+    AccordionModule,
+    ConfirmDialogModule
   ],
   providers: [],
   exports: [UserGridComponent],

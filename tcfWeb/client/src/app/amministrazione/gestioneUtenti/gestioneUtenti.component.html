@@ -1,5 +1,5 @@
 <section class="containerUtenti">
-    <userGrid [saved]="this.saved" [userLogged]="this.userLogged" (modUser)="modificaUtente($event)" (showUserForm)="openUserForm($event)" (dismissUserForm)="closeUserForm($event)"></userGrid>
+    <userGrid [userLogged]="this.userLogged"></userGrid>
     <userForm  class="userForm" [saved]="this.saved" [userDaModificare]="this.userDaModificare" [showUserSection]=this.showUserSection (showClientGrid)="openClientGrid($event)" (dismissClientGrid)="closeClientGrid($event)"></userForm>
     <clientGrid class="clientGrid" [showUserSection]=this.showUserSection [showClientGrid]="this.showClientGrid"></clientGrid>
 

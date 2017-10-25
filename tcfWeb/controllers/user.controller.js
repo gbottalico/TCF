@@ -8,6 +8,8 @@ routerUser.post('/authenticate', authenticate);
 routerUser.post('/userChangeEmail', changeUserEmail);
 routerUser.post('/userChangePwd', changeUserPwd);
 routerUser.get('/userByClient/:userLogged', getUsersByClient);
+routerUser.post('/insOrUpdUtente', insOrUpdUtente); 			//CREATE-UPDATE
+
 
 //SECURITY SECTION - START
 function authenticate(req, res) {
@@ -60,6 +62,15 @@ function getUsersByClient(req, res){
 	}).catch(function (err) {
 		res.status(400).send(err);
 	});
+};
+
+function insOrUpdUtente(req, res){
+	userService.insOrUpdUser(req.body).then(function(msg){
+		console.log("user.controller.insOrUpdUtente: ok");
+		res.send(msg);
+	}).catch(function (err) {
+            res.status(400).send(err);
+	});	
 };
 
 /*

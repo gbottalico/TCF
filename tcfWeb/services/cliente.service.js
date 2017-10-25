@@ -10,6 +10,7 @@ const Cliente = require('../models/cliente.js');
 
 serviceCliente.addCliente = addCliente;
 serviceCliente.getClienti = getClienti;
+serviceCliente.getClienteById = getClienteById;
 
 module.exports = serviceCliente;
 
@@ -42,6 +43,21 @@ function getClienti() {
           deferred.reject(err.name + ': ' + err.message);  
       } else{
         deferred.resolve(clienti);
+      }
+
+    });
+
+    return deferred.promise;
+}
+
+function getClienteById(idParam) {
+    var deferred = Q.defer();
+
+	Cliente.find({"_id" : {$eq : idParam}},function (err, cliente) {
+        if (err){
+          deferred.reject(err.name + ': ' + err.message);  
+      } else{
+        deferred.resolve(cliente);
       }
 
     });

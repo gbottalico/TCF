@@ -96,7 +96,7 @@ function getUsersByClient(userLogged) {
         else {
             if(clienti[0] != null)
                 if(clienti[0].isAdmin == true){
-                    User.find({}, function (err, users) {
+                    User.find({"_id":{$ne : userLogged}}, function (err, users) {
                         if (err) {
                             deferred.reject(err.name + ': ' + err.message);
                         } else {
@@ -193,12 +193,13 @@ function insOrUpdUser(userParam) {
     var deferred = Q.defer();
     // set user object to userParam without the cleartext password
     var user = _.omit(userParam, 'password');
-    console.log (user);
+    
+   // mongoose.set('debug', true);
     // add hashed password to user object
-    user.password = bcrypt.hashSync(userParam.password, 10);
-
+    //user.password = bcrypt.hashSync(userParam.password, 10);
+    console.log(user);
     let newUser = new User(user);
-    console.log(newUser);
+
     var query = {'_id':newUser._id};
     User.findOneAndUpdate(query, newUser, {upsert:true}, function(err, doc){
         if (err){
