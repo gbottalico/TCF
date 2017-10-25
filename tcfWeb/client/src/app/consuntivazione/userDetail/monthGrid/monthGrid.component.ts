@@ -1,8 +1,10 @@
-import { Component, OnChanges,  Input } from '@angular/core';
+import { Component, OnChanges, Input } from '@angular/core';
 
 import { Consuntivo } from '../../../model/consuntivo';
 import { User } from '../../../model/user';
 import { ConsuntivazioneService } from '../../../service/consuntivazione.service';
+import { SystemService } from '../../../service/system.service';
+import { SelectItem } from 'primeng/primeng';
 
 
 @Component({
@@ -12,7 +14,7 @@ import { ConsuntivazioneService } from '../../../service/consuntivazione.service
   providers: []
 })
 
-export class MonthGridComponent implements  OnChanges {
+export class MonthGridComponent implements OnChanges {
 
 
   @Input()
@@ -35,21 +37,43 @@ export class MonthGridComponent implements  OnChanges {
   nDays: number;
   beforeOnInit: boolean = true;
 
-  newConsuntivo: any;
+  newConsuntivo: Consuntivo;
 
+  
+  lst_clienti: SelectItem[];
+  lst_ambiti: SelectItem[];
+  lst_aree: SelectItem[];
+  lst_attivita: SelectItem[];
+  lst_deliverable: SelectItem[];
+  
 
-  constructor(private consuntivazioneService: ConsuntivazioneService) {
-    this.newConsuntivo = new Object();
+  constructor(private consuntivazioneService: ConsuntivazioneService,
+              private systemService: SystemService) {
+    this.newConsuntivo = new Consuntivo();
 
-    this.newConsuntivo.client = '';
-    this.newConsuntivo.ambito = '';
-    this.newConsuntivo.area = '';
-    this.newConsuntivo.activity = '';
-    this.newConsuntivo.deliverable = '';
-    this.newConsuntivo.isEditable = false;
-    // this.userSelected = new User();
-    // this.userSelected._id='1';
-    
+    this.newConsuntivo.id_cliente = null;
+    this.newConsuntivo.id_ambito = null;
+    this.newConsuntivo.id_macro_area = null;
+    this.newConsuntivo.id_attivita = null;
+    this.newConsuntivo.id_tipo_deliverable = null;
+    this.newConsuntivo.data_consuntivo = new Date(this.yearSelected, this.monthSelected, 1, 0, 0, 0, 0);
+    this.newConsuntivo.ore = 0;
+
+    //POPOLAMENTO LISTE
+    //this.clientiService.().subscribe(domain=>{this.lst_clienti=domain});
+    //this.systemService.getAttivita().subscribe(domain=>{this.lst_clienti=domain});
+    this.systemService.getTipiDeliverable().subscribe(domain=>{
+      this.lst_deliverable = domain;
+    });
+
+    this.systemService.getAree().subscribe(domain=>{
+      this.lst_aree = domain;
+    });
+
+    this.systemService.getAmbiti().subscribe(domain=>{
+      this.lst_ambiti = domain;
+    });
+
 
   }
 
@@ -77,6 +101,8 @@ export class MonthGridComponent implements  OnChanges {
 
 
   //GRID - LOAD
+
+  //Inizializzazione header colonne dinamiche (giorni del mese)
   private initializeColumns() {
 
     this.cols = new Array(this.nDays);
@@ -137,7 +163,7 @@ export class MonthGridComponent implements  OnChanges {
     for (let i = 0; i < rowCount; i++) {
       row = new Object();
       row.isEditable = false;
-      row.client = 'STATICO';//_userDays[userDaysIndex].id_cliente;
+      row.client = _userDays[userDaysIndex].id_cliente;
       row.ambito = _userDays[userDaysIndex].nome_ambito;
       row.area = _userDays[userDaysIndex].nome_macro_area;
       row.activity = _userDays[userDaysIndex].nome_attivita;
@@ -175,12 +201,12 @@ export class MonthGridComponent implements  OnChanges {
 
   //NEW ROW
   showDialogToAdd() {
-
-    this.newConsuntivo.client = '';
-    this.newConsuntivo.ambito = '';
-    this.newConsuntivo.area = '';
-    this.newConsuntivo.activity = '';
-    this.newConsuntivo.deliverable = '';
+    //Inizializzazione dei parametri di input
+    this.newConsuntivo.id_cliente = null;
+    this.newConsuntivo.id_ambito = null;
+    this.newConsuntivo.id_macro_area = null;
+    this.newConsuntivo.id_attivita = null;
+    this.newConsuntivo.id_tipo_deliverable = null;
     this.displayDialog = true;
 
   }
@@ -189,17 +215,27 @@ export class MonthGridComponent implements  OnChanges {
   //SAVE NEW ROW
   private saveNew() {
     //Inserisco solo il primo giorno 0 per effettuare lo store su DB 
-    for (let i = 0; i < this.nDays; i++) {
-      this.newConsuntivo[i]=0;
-    }
-    var deepCopyObj = JSON.parse(JSON.stringify(this.newConsuntivo));
-    this.consuntivi = this.consuntivi.concat(deepCopyObj);
-    this.displayDialog = false;
 
+    this.consuntivazioneService.addConsuntivo(this.newConsuntivo).subscribe
+      (obj => {
+        var newCons: any = JSON.parse(JSON.stringify(obj));
+
+        //inizializzo la nuova riga con 0 ore su tutti i gg 
+        for (let i = 0; i < this.nDays; i++) {
+          newCons[i] = 0;
+        }
+        //var deepCopyObj = JSON.parse(JSON.stringify(this.newConsuntivo));
+        this.consuntivi = this.consuntivi.concat(newCons);
+        this.displayDialog = false;
+      });
   }
 
+  private abortNew() {
+    //TODO: logica di annullo modifiche
+    this.displayDialog = false;
+  }
   //EDIT ROW (INLINE)
-  private edit(r,i) {
+  private edit(r, i) {
     console.log(r);
     this.CloseAllEditable();
     r.isEditable = true;
@@ -213,12 +249,12 @@ export class MonthGridComponent implements  OnChanges {
   }
 
   //SAVE ROW (INLINE)
-  private saveEdit(r,i) {
+  private saveEdit(r, i) {
     //TODO: logica di salvataggio dei nuovi dati di row
     r.isEditable = false;
   }
 
-  private abortEdit(r,i) {
+  private abortEdit(r, i) {
     //TODO: logica di annullo modifiche
     r.isEditable = false;
   }
@@ -227,9 +263,9 @@ export class MonthGridComponent implements  OnChanges {
   private delete(r, i) {
 
     //TODO logica di eleiminazione della riga
-    this.consuntivi.splice(i,1);
+    this.consuntivi.splice(i, 1);
     this.consuntivi = JSON.parse(JSON.stringify(this.consuntivi)); //deepcopy
-    
+
     // alert('Sto eliminando la riga..');
     // let delRow: Consuntivo = r;
     // this.consuntivazioneService
@@ -250,7 +286,7 @@ export class MonthGridComponent implements  OnChanges {
     return new Date(year, month, 0).getUTCDate();
   }
 
-  
+
 
 
 }

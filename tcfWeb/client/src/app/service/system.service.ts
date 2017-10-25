@@ -14,6 +14,7 @@ export class SystemService {
         ) {            
     }
 
+    //MENU SECTION
     getMenu(userLogged: any) {
         return this.http.post('/tcf/api/menuController/getMenuList',  userLogged )
             .map((response: Response) => {
@@ -21,6 +22,28 @@ export class SystemService {
                 return menu;
             });
     }
+
+    //DOMAIN SECTION
+    getTipiDeliverable() {
+        return this.getGenericCall("/FTC/COMMON/lst_deliverable");      
+    }
+
+    getAmbiti() {
+        return this.getGenericCall("/FTC/COMMON/lst_ambiti");               
+    }
+
+    getAree() {
+        return this.getGenericCall("/FTC/COMMON/lst_aree");               
+    }
+
+    getGenericCall(domain){
+        return this.http.get('/tcf/api/domainController/getDomainList' + domain )
+        .map((response: Response) => {
+            let domain  = response.json();
+            return domain;
+        }); 
+    }
+
 
  
 }
