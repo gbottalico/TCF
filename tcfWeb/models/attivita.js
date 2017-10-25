@@ -1,16 +1,13 @@
 const mongoose = require('mongoose');
 
 const AttivitaSchema = mongoose.Schema({
-	_id: {
-		type: Number,
-		required: true
-	},
+
 	id_ambito: {
-		type: Number,
+		type: String,
 		required: true
 	},
 	id_commessa_cliente: {
-		type: Number,
+		type: String,
 		required: true
 	},
 	id_stato_attivita: {

@@ -33,11 +33,12 @@ expressCRUD.init(app);
 // routes
 
 //DYNAMIC STANDARD CRUD SECTION
-var crud = app.crud('tcf/api/sedeController/CRUD',       require('./models/sede.js'));
-var crud = app.crud('tcf/api/userController/CRUD',       require('./models/user.js'));
-var crud = app.crud('tcf/api/consuntivoController/CRUD', require('./models/consuntivo.js'));
-var crud = app.crud('tcf/api/domainController/CRUD',     require('./models/domain.js'));
-// console.log(crud);
+// app.crud('tcf/api/domainController/CRUD',     require('./models/domain.js'));
+// app.crud('tcf/api/userController/CRUD',       require('./models/user.js'));
+// app.crud('tcf/api/sedeController/CRUD',       require('./models/sede.js'));
+var crud= app.crud('tcf/api/consuntivoController/CRUD', require('./models/consuntivo.js'));
+//app.crud('tcf/api/attivitaController/CRUD',   require('./models/attivita.js'));
+console.log(crud);
 
 //STATIC CUSTOM ROUTES
 app.use('/tcf/api/userController', require('./controllers/user.controller'));

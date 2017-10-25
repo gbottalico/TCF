@@ -3,17 +3,14 @@ const mongoose = require('mongoose');
 
 
 const SedeSchema = mongoose.Schema({
-	_id: {
-		type: String,
-		required: true
-	},
+
 	nome_sede:{
 		type: String,
 		required: true
 	},
 	data_inizio_validita:{
 		type: Date,
-		required: true,
+		required: false,
 	},
 	data_fine_validita:{
 		type: Date,

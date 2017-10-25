@@ -1,10 +1,7 @@
 const mongoose = require('mongoose');
 
 const DomainSchema = mongoose.Schema({
-	_id: {
-		type: Number,
-		required: true
-	},
+	
 	system: {
 		type: String,
 		required: true

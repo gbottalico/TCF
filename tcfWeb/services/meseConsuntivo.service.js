@@ -85,11 +85,11 @@ function delMeseConsuntivoUtente(id) {
 
     MeseConsuntivo.remove(
         { _id: id },
-        function (err) {
+        function (err, doc) {
             if (err){
               deferred.reject(err.name + ': ' + err.message);
             }else{
-                deferred.resolve("deleted");
+                deferred.resolve(doc);
             }
         });
 

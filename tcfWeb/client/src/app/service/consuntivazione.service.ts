@@ -23,18 +23,18 @@ export class ConsuntivazioneService {
   		.map(res => res.json());
   }
 
-  addConsuntivi(consuntivoParam : Consuntivo[]){
+  addUpdateConsuntivi(consuntivoParam : Consuntivo[]){
   	var headers = new Headers();
   	headers.append('Content-Type', 'application/json');
-  	return this.http.post('/tcf/api/consuntivoController/modifyConsuntiviUtente/', consuntivoParam, {headers:headers})
+  	return this.http.post('/tcf/api/consuntivoController/consuntiviUtente/', consuntivoParam, {headers:headers})
   		.map(res => res.json());
   }
 
-  //add Consuntivo
-  deleteConsuntivo(consuntivoParam : Consuntivo){
+  //delete Consuntivo
+  deleteConsuntivi(id_user, id_macro_area, id_ambito, id_attivita, id_tipo_deliverable){
   	var headers = new Headers();
-  	headers.append('Content-Type', 'application/json');
-  	return this.http.post('/tcf/api/consuntivoController/consuntivo/', consuntivoParam, {headers:headers})
+    headers.append('Content-Type', 'application/json');
+    return this.http.delete('/tcf/api/consuntivoController/consuntiviUtente/'+id_user+'/' + id_macro_area+'/'+id_ambito+'/'+id_attivita+'/'+id_tipo_deliverable, {headers:headers})
   		.map(res => res.json());
   }
 

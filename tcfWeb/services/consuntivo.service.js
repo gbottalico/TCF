@@ -183,6 +183,8 @@ function insOrUpdConsuntiviUtente(consuntiviUtente) {
     var transaction = Fawn.Task();
     var query;
 
+    mongoose.set('debug', true);
+    
     for (var i = 0; i < consuntiviUtente.body.length; i++) {
         if (consuntiviUtente.body[i]._id != null) {
             transaction.update(Consuntivo, {_id: consuntiviUtente.body[i]._id}, consuntiviUtente.body[i]);
@@ -213,12 +215,17 @@ function delConsuntiviUtente(id_user,
     var deferred = Q.defer();
     console.log("delConsuntivi");
     let consuntivo = new Consuntivo();
+ 
+    mongoose.set('debug', true);
+    consuntivo.remove({ "id_user": new Number(id_user), 
+                        "id_macro_area": new Number(id_macro_area), 
+                        "id_ambito": new Number(id_ambito), 
+                        "id_tipo_deliverable": new Number(id_tipo_deliverable) }, function(err, doc) {
 
-    consuntivo.remove({ "id_user": id_user, "id_macro_area": id_macro_area, "id_ambito": id_ambito, "id_tipo_deliverable": id_tipo_deliverable }, function(err) {
         if (err) {
             deferred.reject(err.name + ': ' + err.message);
-        } else {            
-            deferred.resolve("Deleted");
+        } else {      
+            deferred.resolve({ msg: 'Consuntivi deleted successfully' });
         }
 
     });
