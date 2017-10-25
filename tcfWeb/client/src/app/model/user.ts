@@ -12,6 +12,8 @@ export class User{
 		{
 			id_cliente:  string;
 			id_profilo : string;
+			data_inizio_validita_cliente : Date;
+			data_fine_validita_cliente : Date;
 		}
 	];
 	isAdmin: boolean

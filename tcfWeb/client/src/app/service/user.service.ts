@@ -18,13 +18,21 @@ export class UserService {
   addUser(newUser){
   	var headers = new Headers();
   	headers.append('Content-Type', 'application/json');
-  	return this.http.post('/tcf/api/userController/user', newUser, {headers:headers})
+  	return this.http.post('/tcf/api/userController/insOrUpdUtente', newUser, {headers:headers})
   		.map(res => res.json());
+  }
+
+  //add user
+  updateUser(modifiedUser){
+    var headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    return this.http.post('/tcf/api/userController/insOrUpdUtente/', modifiedUser, {headers:headers})
+      .map(res => res.json());
   }
 
   //delete user
   deleteUser(id){
-    return this.http.delete('/tcf/api/user')
+    return this.http.delete('/tcf/api/userController/CRUD/' + id)
       .map(res => res.json);
   }
 

@@ -43,6 +43,14 @@ const UserSchema = mongoose.Schema({
 			id_profilo : {
 				type : String,
 				required: false
+			},
+			data_inizio_validita_cliente: {
+				type : Date,
+				required: false
+			},
+			data_fine_validita_cliente: {
+				type : Date,
+				required: false
 			}
 		}
 	],

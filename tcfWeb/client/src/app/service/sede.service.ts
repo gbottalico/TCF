@@ -12,5 +12,11 @@ export class SedeService {
   	return this.http.get('/tcf/api/sedeController/sedi')
   		.map(res=> res.json());
   }
+
+  //delete sede
+  deleteSede(id){
+    return this.http.delete('/tcf/api/sedeController/CRUD/' + id)
+      .map(res => res.json);
+  }
   
 }
