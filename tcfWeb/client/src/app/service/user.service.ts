@@ -18,7 +18,7 @@ export class UserService {
   addUser(newUser){
   	var headers = new Headers();
   	headers.append('Content-Type', 'application/json');
-  	return this.http.post('/tcf/api/userController/insOrUpdUtente', newUser, {headers:headers})
+  	return this.http.post('/tcf/api/userController/CRUD', newUser, {headers:headers})
   		.map(res => res.json());
   }
 

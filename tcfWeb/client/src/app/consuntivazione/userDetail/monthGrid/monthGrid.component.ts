@@ -51,7 +51,7 @@ export class MonthGridComponent implements OnChanges {
               private systemService: SystemService) {
     this.newConsuntivo = new Consuntivo();
 
-    this.newConsuntivo.id_cliente = null;
+    //this.newConsuntivo.id_cliente = null;
     this.newConsuntivo.id_ambito = null;
     this.newConsuntivo.id_macro_area = null;
     this.newConsuntivo.id_attivita = null;
@@ -62,7 +62,7 @@ export class MonthGridComponent implements OnChanges {
     //POPOLAMENTO LISTE
     //this.clientiService.().subscribe(domain=>{this.lst_clienti=domain});
     //this.systemService.getAttivita().subscribe(domain=>{this.lst_clienti=domain});
-    this.systemService.getTipiDeliverable().subscribe(domain=>{
+    /*this.systemService.getTipiDeliverable().subscribe(domain=>{
       this.lst_deliverable = domain;
     });
 
@@ -72,7 +72,7 @@ export class MonthGridComponent implements OnChanges {
 
     this.systemService.getAmbiti().subscribe(domain=>{
       this.lst_ambiti = domain;
-    });
+    });*/
 
 
   }
@@ -163,7 +163,7 @@ export class MonthGridComponent implements OnChanges {
     for (let i = 0; i < rowCount; i++) {
       row = new Object();
       row.isEditable = false;
-      row.client = _userDays[userDaysIndex].id_cliente;
+      //row.client = _userDays[userDaysIndex].id_cliente;
       row.ambito = _userDays[userDaysIndex].nome_ambito;
       row.area = _userDays[userDaysIndex].nome_macro_area;
       row.activity = _userDays[userDaysIndex].nome_attivita;
@@ -202,7 +202,7 @@ export class MonthGridComponent implements OnChanges {
   //NEW ROW
   showDialogToAdd() {
     //Inizializzazione dei parametri di input
-    this.newConsuntivo.id_cliente = null;
+    //this.newConsuntivo.id_cliente = null;
     this.newConsuntivo.id_ambito = null;
     this.newConsuntivo.id_macro_area = null;
     this.newConsuntivo.id_attivita = null;

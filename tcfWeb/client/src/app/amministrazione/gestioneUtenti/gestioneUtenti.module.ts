@@ -5,29 +5,31 @@ import { FormsModule }   from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgModule } from '@angular/core';
 import { GestioneUtentiComponent } from './gestioneUtenti.component';
-import { UserFormComponent} from './userForm/userForm.component';
-import { ClientGridComponent } from './clientGrid/clientGrid.component';
-import { UserGridModule } from './userGrid/userGrid.module';
-//import { CustomHttpProvider } from '../../../helpers/custom-http';
+import { ConfirmDialogModule, AccordionModule, CalendarModule, DataTableModule, SharedModule, DialogModule, InputTextModule, DropdownModule, MultiSelectModule} from 'primeng/primeng';
+
+
+
 
 @NgModule({
   declarations: [
-    GestioneUtentiComponent,
-    UserFormComponent,
-    ClientGridComponent,
-
+    GestioneUtentiComponent
   ],
   imports: [
     BrowserModule,
     HttpModule,
-    //AppRoutingModule,
     NgbModule.forRoot(),
     FormsModule,
-    UserGridModule    
+    DataTableModule, 
+    SharedModule,
+    DialogModule,
+    InputTextModule,
+    DropdownModule,
+    MultiSelectModule,
+    CalendarModule,
+    AccordionModule,
+    ConfirmDialogModule
   ],
-  providers: [
-    //CustomHttpProvider,
-    ],
+  providers: [],
   exports: [GestioneUtentiComponent],
   bootstrap: [GestioneUtentiComponent]
 })
