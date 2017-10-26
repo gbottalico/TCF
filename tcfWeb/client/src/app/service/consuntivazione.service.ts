@@ -25,16 +25,25 @@ export class ConsuntivazioneService {
 
   addUpdateConsuntivi(consuntivoParam : Consuntivo[]){
   	var headers = new Headers();
-  	headers.append('Content-Type', 'application/json');
+    headers.append('Content-Type', 'application/json');
+    console.log(consuntivoParam);
   	return this.http.post('/tcf/api/consuntivoController/consuntiviUtente/', consuntivoParam, {headers:headers})
   		.map(res => res.json());
   }
 
   //delete Consuntivo
-  deleteConsuntivi(id_user, id_macro_area, id_ambito, id_attivita, id_tipo_deliverable){
+  // deleteConsuntivi(id_user, id_macro_area, id_ambito, id_attivita, id_tipo_deliverable){
+  // 	var headers = new Headers();
+  //   headers.append('Content-Type', 'application/json');
+  //   return this.http.delete('/tcf/api/consuntivoController/consuntiviUtente/'+id_user+'/' + id_macro_area+'/'+id_ambito+'/'+id_attivita+'/'+id_tipo_deliverable, {headers:headers})
+  // 		.map(res => res.json());
+  // }
+
+  deleteConsuntivi(criteria){
   	var headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    return this.http.delete('/tcf/api/consuntivoController/consuntiviUtente/'+id_user+'/' + id_macro_area+'/'+id_ambito+'/'+id_attivita+'/'+id_tipo_deliverable, {headers:headers})
+    console.log("/tcf/api/consuntivoController/CRUD?criteria="+JSON.stringify(criteria));
+    return this.http.delete('/tcf/api/consuntivoController/CRUD?criteria='+JSON.stringify(criteria), {headers:headers})
   		.map(res => res.json());
   }
 
