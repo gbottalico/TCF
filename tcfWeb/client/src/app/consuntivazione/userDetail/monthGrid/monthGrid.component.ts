@@ -299,8 +299,6 @@ export class MonthGridComponent implements OnChanges {
           },
           err => alert(err)
           );
-      } else {
-        alert("nessun Consuntivo da aggiornare");
       }
 
       r.isEditable = false;

@@ -1,9 +1,7 @@
 const mongoose = require('mongoose');
 
-
-
-
 const ConsuntivoSchema = mongoose.Schema({
+
 	data_consuntivo: {
 		type: Date,
 		required: true
