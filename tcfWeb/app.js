@@ -8,6 +8,14 @@ var expressJwt = require('express-jwt');
 var config = require('config.json');
 var RouterFactory = require('node-express-crud-router').RouterFactory;
 
+/* rollback transaction appese
+const Fawn = require("fawn");
+var roller = Fawn.Roller();
+
+roller.roll()
+ .then(function(){
+   // start server
+ });*/
 
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));

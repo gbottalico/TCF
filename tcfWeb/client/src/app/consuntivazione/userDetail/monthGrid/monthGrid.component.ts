@@ -56,7 +56,7 @@ export class MonthGridComponent implements OnChanges {
     this.newRowConsuntivo = new Object();
     this.blankConsuntivo = new Consuntivo()
     this.resetConsuntivo(this.newRowConsuntivo);
-
+    
     //POPOLAMENTO LISTE
     //this.clientiService.().subscribe(domain=>{this.lst_clienti=domain});
     this.lst_attivita = new Array<SelectItem>();
@@ -86,7 +86,9 @@ export class MonthGridComponent implements OnChanges {
   ngOnChanges() {
     if (this.beforeOnInit) {
       this.nDays = this.daysInMonth(this.monthSelected, this.yearSelected);
+      //this.consuntivi = null;
     }
+    
     this.initializeColumns();
 
     this.loading = true;
@@ -108,7 +110,7 @@ export class MonthGridComponent implements OnChanges {
 
   //Inizializzazione header colonne dinamiche (giorni del mese)
   private initializeColumns() {
-
+    this.consuntivi = null;
     this.cols = new Array(this.nDays);
 
     var i = 0;
@@ -204,7 +206,7 @@ export class MonthGridComponent implements OnChanges {
           userDaysIndex++; //scorro la lista, potrei fare un pop dalla testa.
         } else {
           var blankItem = JSON.parse(JSON.stringify(this.blankConsuntivo));
-          blankItem.data_consuntivo = new Date(this.yearSelected, this.monthSelected, j+1 ,0, 0, 0, 0);
+          blankItem.data_consuntivo = new Date(this.yearSelected, this.monthSelected-1, j+1 ,0, 0, 0, 0);
           
           row[j] = blankItem;
         }
@@ -245,11 +247,11 @@ export class MonthGridComponent implements OnChanges {
         //inizializzo la nuova riga con 0 ore su tutti i gg 
         this.cloneConsuntivoField(this.newRowConsuntivo, this.blankConsuntivo);
         this.blankConsuntivo.ore = 0;
-        this.blankConsuntivo.data_consuntivo = new Date(this.yearSelected, this.monthSelected, 1 ,0, 0, 0, 0);
+        this.blankConsuntivo.data_consuntivo = new Date(this.yearSelected, this.monthSelected - 1, 1 ,0, 0, 0, 0);
         //inizializzo la table
         for (let i = 0; i < this.nDays; i++) {
           var blankItem = JSON.parse(JSON.stringify(this.blankConsuntivo));  
-          blankItem.data_consuntivo = new Date(this.yearSelected, this.monthSelected, i + 1 ,0, 0, 0, 0);
+          blankItem.data_consuntivo = new Date(this.yearSelected, this.monthSelected - 1, i + 1 ,0, 0, 0, 0);
           newCons[i] = blankItem;
         }
         //var deepCopyObj = JSON.parse(JSON.stringify(this.newConsuntivo));
@@ -280,7 +282,6 @@ export class MonthGridComponent implements OnChanges {
 
   //SAVE ROW (INLINE)
   private saveEdit(r, i) {
-    alert("save");
 
     var consuntiviToAdd: Consuntivo[] = new Array<Consuntivo>();
 
@@ -342,7 +343,7 @@ export class MonthGridComponent implements OnChanges {
     consuntivo.id_macro_area = null;
     consuntivo.id_attivita = null;
     consuntivo.id_tipo_deliverable = null;
-    consuntivo.data_consuntivo = new Date(this.yearSelected, this.monthSelected - 1, 1, 0, 0, 0, 0);
+    consuntivo.data_consuntivo = new Date(this.yearSelected, this.monthSelected-1, 1, 0, 0, 0, 0);
 
   }
 

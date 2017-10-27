@@ -182,18 +182,23 @@ function insOrUpdConsuntiviUtente(consuntiviUtente) {
     var deferred = Q.defer();
     var transaction = Fawn.Task();
     var query;
-
+    //transaction.initModel("Consuntivo", this.Consuntivo);
     mongoose.set('debug', true);
     
-    for (var i = 0; i < consuntiviUtente.body.length; i++) {
-        if (consuntiviUtente.body[i]._id != null) {
-            transaction.update(Consuntivo, {_id: consuntiviUtente.body[i]._id}, consuntiviUtente.body[i]);
-        } else {
-            transaction.save('Consuntivo', consuntiviUtente.body[i]);
+    for (var i = 0; i < consuntiviUtente.body.length; i++) {   
+        var id = consuntiviUtente.body[i]._id;
+        var object = _.omit(consuntiviUtente.body[i], '_id');  
+        object = _.omit(consuntiviUtente.body[i], '__v');    
+        if(id != null){            
+            transaction.update(Consuntivo, {_id: id}, object).options({upsert: true});
+        }else{
+            transaction.save(Consuntivo, object);
         }
     }
 
-    transaction.run().then(function(){
+    transaction.run({useMongoose: true}).then(function(results){
+            console.log(results[0].result);
+            //deferred.resolve(results[0].result);
             deferred.resolve({msg: 'ConsuntiviUtente add successfully'});
         })
         .catch(function(err){

@@ -4,7 +4,7 @@ import {User} from '../../model/user';
 import {AuthenticationService} from '../../service/authentication.service';
 
 @Component({
-  selector: 'app-users',
+  selector: 'change-email',
   templateUrl: './changeemail.component.html',
   styleUrls: ['./changeemail.component.css'],
   providers: [UserService]
