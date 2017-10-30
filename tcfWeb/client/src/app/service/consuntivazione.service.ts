@@ -3,6 +3,7 @@ import {Http, Headers} from '@angular/http';
 import 'rxjs/add/operator/map';
 import { Consuntivo } from "../model/consuntivo";
 import { MeseConsuntivo } from "../model/meseConsuntivo";
+import { beforeMethod } from 'kaop-ts';import { LogAspect } from '../helpers/logAspect';
 
 @Injectable()
 export class ConsuntivazioneService {
@@ -10,12 +11,14 @@ export class ConsuntivazioneService {
   constructor(private http:Http) { }
 
   //retrieving
+  @beforeMethod(LogAspect.log)
   getMeseConsuntivoUtente(user, month, year){
   	return this.http.get('/tcf/api/consuntivoController/consuntiviUtente/' + user + "/" + month + "/" + year)
   		.map(res=> res.json());
   }
 
   //add Consuntivo
+  @beforeMethod(LogAspect.log)
   addConsuntivo(consuntivoParam : Consuntivo){
   	var headers = new Headers();
   	headers.append('Content-Type', 'application/json');
@@ -23,6 +26,7 @@ export class ConsuntivazioneService {
   		.map(res => res.json());
   }
 
+  @beforeMethod(LogAspect.log)
   addUpdateConsuntivi(consuntivoParam : Consuntivo[]){
   	var headers = new Headers();
     headers.append('Content-Type', 'application/json');
@@ -39,6 +43,7 @@ export class ConsuntivazioneService {
   // 		.map(res => res.json());
   // }
 
+  @beforeMethod(LogAspect.log)
   deleteConsuntivi(criteria){
   	var headers = new Headers();
     headers.append('Content-Type', 'application/json');
@@ -48,6 +53,7 @@ export class ConsuntivazioneService {
   }
 
   //add Mese Consuntivo
+  @beforeMethod(LogAspect.log)
   addMeseConsuntivo(meseConsuntivoParam : MeseConsuntivo){
   	var headers = new Headers();
   	headers.append('Content-Type', 'application/json');

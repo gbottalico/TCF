@@ -1,4 +1,4 @@
- require('rootpath')();
+require('rootpath')();
 var express = require('express');
 var mongoose = require('mongoose');
 var app = express();
@@ -7,6 +7,31 @@ var bodyParser = require('body-parser');
 var expressJwt = require('express-jwt');
 var config = require('config.json');
 var RouterFactory = require('node-express-crud-router').RouterFactory;
+
+mongoose.connect(config.connectionString);
+
+app.use(cors());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+
+//LOGGING CONFIGURATION - START
+var JL = require('jsnlog').JL;
+var winston = require('winston');
+var jsnlog_nodejs = require('jsnlog-nodejs').jsnlog_nodejs;
+
+require('winston-mongodb').MongoDB;
+var mongo_appender = new winston.transports.MongoDB( { db: config.connectionString, collection: 'log', level: 'info' });
+var consoleAppender = JL.createConsoleAppender('consoleAppender');
+JL().setOptions({ "appenders": [mongo_appender, consoleAppender] });
+
+
+app.post('/tcf/api/jsnlog.logger', function (req, res) { 
+  jsnlog_nodejs(JL, req.body);
+  // Send empty response. This is ok, because client side jsnlog does not use response from server.
+  res.send(''); 
+});
+
+//LOGGING CONFIGURATION - END
 
 /* rollback transaction appese
 const Fawn = require("fawn");
@@ -17,14 +42,7 @@ roller.roll()
    // start server
  });*/
 
-app.use(cors());
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
 
-
-mongoose.connect(config.connectionString);
-
-//expressCRUD.init(app);
 
 // use JWT auth to secure the api, the token can be passed in the authorization header or querystring
 // app.use(expressJwt({
@@ -80,5 +98,5 @@ app.use('/tcf/api/sedeController', require('./controllers/sede.controller'));
 // start server
 var port = process.env.NODE_ENV === 'production' ? 80 : 4000;
 var server = app.listen(port, function () {
-    console.log('Server listening on port ' + port);
+    JL().info('Server listening on port ' + port);
 });

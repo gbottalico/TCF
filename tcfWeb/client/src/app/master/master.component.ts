@@ -1,4 +1,4 @@
-import { Component, OnChanges } from '@angular/core';
+import { Component, Injectable } from '@angular/core';
 import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
 import 'rxjs/add/operator/filter';
@@ -14,7 +14,8 @@ import { User } from '../model/user';
 	styleUrls: ['./master.component.css'],
 	providers: []
 })
-export class MasterComponent implements OnChanges {
+@Injectable()
+export class MasterComponent {
 
 	userLogged: any;
 
@@ -26,11 +27,13 @@ export class MasterComponent implements OnChanges {
 
 	menuSelected: any;
 	maxUserProfile: string;
-
+	
 	constructor(
 		private authenticationService: AuthenticationService,
 		private router: Router,
-		private activatedRoute: ActivatedRoute) {
+		private activatedRoute: ActivatedRoute
+		) {
+			
 		this.authenticationService.user$.subscribe(user => {			
 			if (user != null) {
 				this.userLogged = user;
@@ -42,9 +45,6 @@ export class MasterComponent implements OnChanges {
 		});
 	}
 
-	ngOnChanges() {
-		console.log(this.userLogged);
-	}
 
 	logout() {
 		this.authenticationService.logout();		

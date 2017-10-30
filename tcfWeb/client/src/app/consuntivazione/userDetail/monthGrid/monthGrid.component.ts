@@ -1,4 +1,4 @@
-import { Component, OnChanges, Input } from '@angular/core';
+import { Component, OnChanges, Input, Inject } from '@angular/core';
 
 import { Consuntivo } from '../../../model/consuntivo';
 import { User } from '../../../model/user';
@@ -6,7 +6,6 @@ import { ConsuntivazioneService } from '../../../service/consuntivazione.service
 import { SystemService } from '../../../service/system.service';
 import { AttivitaService } from '../../../service/attivita.service';
 import { SelectItem } from 'primeng/primeng';
-
 
 @Component({
   selector: 'month-grid',
@@ -16,7 +15,6 @@ import { SelectItem } from 'primeng/primeng';
 })
 
 export class MonthGridComponent implements OnChanges {
-
 
   @Input()
   monthSelected: number = 1;
@@ -50,9 +48,11 @@ export class MonthGridComponent implements OnChanges {
   lst_deliverable: SelectItem[];
 
 
-  constructor(private consuntivazioneService: ConsuntivazioneService,
+  constructor(
+    private consuntivazioneService: ConsuntivazioneService,
     private attivitaService: AttivitaService,
     private systemService: SystemService) {
+    
     this.newRowConsuntivo = new Object();
     this.blankConsuntivo = new Consuntivo()
     this.resetConsuntivo(this.newRowConsuntivo);
@@ -84,6 +84,8 @@ export class MonthGridComponent implements OnChanges {
 
 
   ngOnChanges() {
+
+
     if (this.beforeOnInit) {
       this.nDays = this.daysInMonth(this.monthSelected, this.yearSelected);
       //this.consuntivi = null;
