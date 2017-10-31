@@ -1,31 +1,34 @@
-import { Injectable, OnInit } from '@angular/core';
+import { Injectable, OnInit, Inject } from '@angular/core';
 import { Http, Headers, Response } from '@angular/http';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 //import {Subject} from 'rxjs/Subject';
 import {Router, ActivatedRoute, NavigationEnd} from '@angular/router';
+import { beforeMethod } from 'kaop-ts';import { LogAspect } from '../helpers/logAspect';
+import {JL} from "jsnlog";
 
 import 'rxjs/add/operator/map'
 
 @Injectable()
 export class AuthenticationService implements OnInit{
-
+    JL: JL.JSNLog;
     user$ = new BehaviorSubject<any>(null);
     //userLogged =new BehaviorSubject<any>(0);
     //user$ = this.userLogged.asObservable();
 
+
     constructor(
         private http: Http,
         private router: Router,
-        private activatedRoute: ActivatedRoute
+        private activatedRoute: ActivatedRoute,
+        @Inject('JSNLOG') JL: JL.JSNLog
         ) {
-            console.log("costruttore autentication service");
             this.user$.next(this._user$);
-            // if(localStorage.getItem('currentUser'))
-            //     this._user$ = localStorage.getItem('currentUser');
+            this._user$ = localStorage.getItem('currentUser');
+            this.JL = JL;
     }
 
     ngOnInit(){
-        console.log("onInit autentication service");
+
         this.router.events
         .filter((event) => event instanceof NavigationEnd)
         .map(() => this.activatedRoute)
@@ -38,7 +41,7 @@ export class AuthenticationService implements OnInit{
         .mergeMap((route) => route.data)
         .subscribe(
         (event) => {
-            console.log(window.location.pathname);
+            JL().info(window.location.pathname);
             if (window.location.pathname == "/login") {
                 this.logout();
             } else {
@@ -50,7 +53,7 @@ export class AuthenticationService implements OnInit{
         });
     }
 
-
+	@beforeMethod(LogAspect.log)
     login(username: string, password: string) {
         return this.http.post('/tcf/api/userController/authenticate', { username: username, password: password })
             .map((response: Response) => {
@@ -64,7 +67,7 @@ export class AuthenticationService implements OnInit{
                 return this._user$;
             });
     }
-
+	@beforeMethod(LogAspect.log)
     logout() {
         // remove user from local storage to log user out
         //this.userLogged.next(null);
@@ -75,7 +78,7 @@ export class AuthenticationService implements OnInit{
     }
 
     set _user$(value: any) {
-        console.log("set userLogged");
+        JL().info("set userLogged in LocalSorage");
         if(value){
             localStorage.setItem('currentUser', JSON.stringify(value));
         }else{
@@ -85,7 +88,7 @@ export class AuthenticationService implements OnInit{
     }
      
       get _user$() {
-        console.log("get userLogged");
+        JL().info("get userLogged from LocalStorage");
         return JSON.parse(localStorage.getItem('currentUser'));
       }
 

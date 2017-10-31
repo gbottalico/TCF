@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {Http, Headers} from '@angular/http';
 import {User} from '../model/user';
 import 'rxjs/add/operator/map';
+import { beforeMethod } from 'kaop-ts';import { LogAspect } from '../helpers/logAspect';
 
 @Injectable()
 export class UserService {
@@ -9,12 +10,14 @@ export class UserService {
   constructor(private http:Http) { }
 
   //retrieving UserService
+  @beforeMethod(LogAspect.log)
   getUsers(){
   	return this.http.get('/tcf/api/userController/users')
   		.map(res=> res.json());
   }
 
   //add user
+  @beforeMethod(LogAspect.log)
   addUser(newUser){
   	var headers = new Headers();
   	headers.append('Content-Type', 'application/json');
@@ -23,6 +26,7 @@ export class UserService {
   }
 
   //add user
+  @beforeMethod(LogAspect.log)
   updateUser(modifiedUser){
     var headers = new Headers();
     headers.append('Content-Type', 'application/json');
@@ -31,11 +35,13 @@ export class UserService {
   }
 
   //delete user
+  @beforeMethod(LogAspect.log)
   deleteUser(id){
     return this.http.delete('/tcf/api/userController/CRUD/' + id)
       .map(res => res.json);
   }
 
+  @beforeMethod(LogAspect.log)
   changeUserEmail(username:string, newEmail:string){
     var headers = new Headers();
     headers.append('Content-Type', 'application/json');
@@ -44,6 +50,7 @@ export class UserService {
   		.map(res => res.json());
   }
 
+  @beforeMethod(LogAspect.log)
   changeUserPwd(userLogged: User, oldPwd:string, newPwd:string){
     var headers = new Headers();
     headers.append('Content-Type', 'application/json');
@@ -52,11 +59,13 @@ export class UserService {
   		.map(res => res.json());
   }
 
+  @beforeMethod(LogAspect.log)
   getUsersByClient(userLogged){
   	return this.http.get('/tcf/api/userController/userByClient/' + userLogged + "/")
     .map(res => res.json()); 
   }
 
+  @beforeMethod(LogAspect.log)
   getMaxProfile(userLogged){
   	return this.http.get('/tcf/api/userController/getMaxProfile/' + userLogged + "/")
     .map(res => res.json()); 

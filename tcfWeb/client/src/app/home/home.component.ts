@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
+import { beforeMethod } from 'kaop-ts';import { LogAspect } from '../helpers/logAspect';
 
 @Component({
   selector: 'app-home',
@@ -9,5 +9,13 @@ import { Component, OnInit } from '@angular/core';
 })
 
 export class HomeComponent {
+  constructor(){
+    this.log();    
+  }
+
+	@beforeMethod(LogAspect.log)
+  private log(){
+    //nothing
+  }
 
 }

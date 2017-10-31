@@ -44,7 +44,7 @@
         <ng-template let-col let-row="rowData" pTemplate="body">
             <span *ngIf="!row.isEditable">{{row[col.field].ore}}</span>
             <span *ngIf="row.isEditable">
-                <input type="number" min="0" max="23" class="inputDay" type="text" [(ngModel)]="row[col.field].ore">
+                <input type="number" min="0" max="23" class="from-control input inputDay" type="text" [(ngModel)]="row[col.field].ore">
             </span>
         </ng-template>
     </p-column>
@@ -59,43 +59,49 @@
 
 </p-dataTable>
 
+<<<<<<< HEAD
 <p-dialog header="Nuova Attività" [(visible)]="displayDialog" appendTo="body" [responsive]="true" appendTo="body" showEffect="fade"
     [modal]="true">
     <form name="form" (ngSubmit)="f.form.valid && saveNew()" #f="ngForm" novalidate>
         
     <div class="ui-grid ui-grid-responsive ui-fluid" *ngIf="newConsuntivo">
+=======
+<p-dialog header="Nuova Attività" [(visible)]="displayDialog" appendTo="body" appendTo="body" showEffect="fade" [modal]="true">
+    <form name="form" (ngSubmit)="f.form.valid && saveNew()" #f="ngForm" novalidate>
+    <div class="ui-grid ui-grid-responsive ui-fluid" *ngIf="newRowConsuntivo">
+>>>>>>> d1b31cb912d23e751b78f2197bc98fd7cc83c67b
         <div class="ui-grid-row">
             <div class="ui-grid-col-4"><label for="id_cliente">Cliente</label></div>
             <div class="ui-grid-col-8">
-                    <p-dropdown #ddl_clienti name="ddl_clienti" [options]="lst_deliverable" [(ngModel)]="newConsuntivo.id_cliente" required="true" appendTo="body" placeholder="Seleziona Cliente" [autoWidth]="false" [style]="{'width':'100%'}"></p-dropdown>
+                    <p-dropdown #ddl_clienti name="ddl_clienti" [options]="lst_deliverable" [(ngModel)]="newRowConsuntivo.id_cliente" required="true" appendTo="body" placeholder="Seleziona Cliente" [autoWidth]="false" [style]="{'width':'100%'}"></p-dropdown>
                     <div *ngIf="f.submitted && !ddl_clienti.valid" class="alert alert-danger">Clienti is required</div>
                 </div>
         </div>
         <div class="ui-grid-row">
             <div class="ui-grid-col-4"><label for="id_ambito">Ambito</label></div>
             <div class="ui-grid-col-8">
-                <p-dropdown #ddl_ambiti name="ddl_ambiti" [options]="lst_ambiti" [(ngModel)]="newConsuntivo.id_ambito" required="true" appendTo="body" placeholder="Seleziona Ambito" [autoWidth]="false" [style]="{'width':'100%'}"></p-dropdown>
+                <p-dropdown #ddl_ambiti name="ddl_ambiti" [options]="lst_ambiti" [(ngModel)]="newRowConsuntivo.id_ambito" required="true" appendTo="body" placeholder="Seleziona Ambito" [autoWidth]="false" [style]="{'width':'100%'}"></p-dropdown>
                 <div *ngIf="f.submitted && !ddl_ambiti.valid" class="help-block">Ambiti is required</div>
             </div>
         </div>
         <div class="ui-grid-row">
             <div class="ui-grid-col-4"><label for="id_macro_area">Macro Area</label></div>
             <div class="ui-grid-col-8">
-               <p-dropdown #ddl_aree name="ddl_aree" [options]="lst_aree" [(ngModel)]="newConsuntivo.id_macro_area" required="true" appendTo="body" placeholder="Seleziona Area" [autoWidth]="false" [style]="{'width':'100%'}"></p-dropdown>
+               <p-dropdown #ddl_aree name="ddl_aree" [options]="lst_aree" [(ngModel)]="newRowConsuntivo.id_macro_area" required="true" appendTo="body" placeholder="Seleziona Area" [autoWidth]="false" [style]="{'width':'100%'}"></p-dropdown>
                <div *ngIf="f.submitted && !ddl_aree.valid" class="help-block">Area is required</div>
             </div>
         </div>
         <div class="ui-grid-row">
             <div class="ui-grid-col-4"><label for="id_attivita">Attività</label></div>
             <div class="ui-grid-col-8">
-               <p-dropdown #ddl_attivita name="ddl_attivita" [options]="lst_attivita" [(ngModel)]="newConsuntivo.id_attivita" required="true" appendTo="body" placeholder="Seleziona attività" [autoWidth]="false" [style]="{'width':'100%'}"></p-dropdown>
+               <p-dropdown #ddl_attivita name="ddl_attivita" [options]="lst_attivita" [(ngModel)]="newRowConsuntivo.id_attivita" required="true" appendTo="body" placeholder="Seleziona attività" [autoWidth]="false" [style]="{'width':'100%'}"></p-dropdown>
                <div *ngIf="f.submitted && !ddl_attivita.valid" class="help-block">Attività is required</div>
             </div>
         </div>
         <div class="ui-grid-row">
             <div class="ui-grid-col-4"><label for="id_tipo_deliverable">Deliverable</label></div>
             <div class="ui-grid-col-8">
-                <p-dropdown #ddl_deliverable name="ddl_deliverable" [options]="lst_deliverable" [(ngModel)]="newConsuntivo.id_tipo_deliverable" required="true" appendTo="body" placeholder="Seleziona deliverable" [autoWidth]="false" [style]="{'width':'100%'}"></p-dropdown>
+                <p-dropdown #ddl_deliverable name="ddl_deliverable" [options]="lst_deliverable" [(ngModel)]="newRowConsuntivo.id_tipo_deliverable" required="true" appendTo="body" placeholder="Seleziona deliverable" [autoWidth]="false" [style]="{'width':'100%'}"></p-dropdown>
                 <div *ngIf="f.submitted && !ddl_deliverable.valid" class="help-block">Deliverable is required</div>
             </div>
         </div>

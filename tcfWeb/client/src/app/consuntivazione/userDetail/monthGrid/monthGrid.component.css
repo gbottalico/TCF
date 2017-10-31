@@ -13,6 +13,8 @@
     width: 12px;
     font-size: 10px;
     text-align: center;
+    margin-bottom: 0rem !important;
+    padding: 0rem 0rem !important;
 }
 :host /deep/ .fixed .ui-datatable-scrollable-view{
     float: none!important;
@@ -21,4 +23,3 @@
 :host /deep/ .ui-datatable thead th {
     word-wrap: break-word;
     }
-@import url("../../../../../node_modules/primeng/resources/primeng.css");
