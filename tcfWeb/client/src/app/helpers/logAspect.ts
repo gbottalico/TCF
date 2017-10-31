@@ -1,18 +1,17 @@
 // LogAspect.ts
-import { Injectable, Inject } from '@angular/core'
-import { AdvicePool, adviceMetadata, IMetadata } from 'kaop-ts'
+import { Inject } from '@angular/core'
+import { AdvicePool, adviceMetadata} from 'kaop-ts'
+import { IMetadata } from '../app.interfaces'
 import { JL } from 'jsnlog';
 
-
+@Inject('JSNLOG')
 export class LogAspect extends AdvicePool {
-
-    @Inject('JSNLOG')
+    
     static log(@adviceMetadata meta: IMetadata) {        
-        JL().debug('Called: ' + meta.propertyKey);
-        JL().debug('Args: ' + JSON.stringify(meta.args));        
+        JL().debug('Called: ' + meta.propertyKey.substring(0,255));
+        JL().debug('Args: ' + meta.args.toString().substring(0,255));        
     }
-
-    @Inject('JSNLOG')
+    
     public logger : JL.JSNLog;
 }
 
