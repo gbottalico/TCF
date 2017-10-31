@@ -18,13 +18,13 @@
    
     <p-column frozen="true" header="Cliente/Ambito/Area" [editable]="isEditable" >
         <ng-template let-col let-row="rowData" pTemplate="body">
-            <span>{{row.id_cliente}} - {{row.id_ambito}} - {{row.id_area}}</span>
+            <span>{{row.nome_cliente}} - {{row.nome_ambito}} - {{row.nome_area}}</span>
         </ng-template>
     </p-column>
 
     <p-column field="activity" frozen="true" header="Attività">
         <ng-template let-col let-row="rowData" pTemplate="body">
-            <span *ngIf="!row.isEditable">{{row.id_attivita}}</span>
+            <span *ngIf="!row.isEditable">{{row.nome_attivita}}</span>
             <span *ngIf="row.isEditable">
                 <p-dropdown [options]="lst_attivita" [(ngModel)]="row.id_attivita" required="true" appendTo="body" placeholder="Seleziona attività" [autoWidth]="false" [style]="{'width':'100%'}"></p-dropdown>
             </span>
@@ -33,7 +33,7 @@
 
     <p-column field="deliverable" frozen="true" header="Tipo Deliverable" [editable]="isEditable" >
         <ng-template let-col let-row="rowData" pTemplate="body">
-            <span *ngIf="!row.isEditable">{{row.id_tipo_deliverable}}</span>
+            <span *ngIf="!row.isEditable">{{row.nome_tipo_deliverable}}</span>
             <span *ngIf="row.isEditable">
                     <p-dropdown [options]="lst_deliverable" [(ngModel)]="row.id_tipo_deliverable" required="true" appendTo="body" placeholder="Seleziona deliverable" [autoWidth]="false" [style]="{'width':'100%'}"></p-dropdown>
             </span>

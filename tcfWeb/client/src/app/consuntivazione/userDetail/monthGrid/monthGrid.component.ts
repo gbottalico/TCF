@@ -15,14 +15,13 @@ import { SelectItem } from 'primeng/primeng';
 })
 
 export class MonthGridComponent implements OnChanges {
-
+  
   @Input()
   monthSelected: number = 1;
   @Input()
   yearSelected: number = 2017;
   @Input()
   userSelected: User;
-
 
 
   displayDialog: boolean;
@@ -241,7 +240,13 @@ export class MonthGridComponent implements OnChanges {
   //SAVE NEW ROW
   private saveNew() {
     //Inserisco solo il primo giorno 0 per effettuare lo store dell'activity su DB 
-
+    
+    this.newRowConsuntivo.nome_cliente = this.lst_clienti.find(x=> x.value == this.newRowConsuntivo.id_cliente).label ;
+    this.newRowConsuntivo.nome_ambito = this.lst_ambiti.find(x=> x.value == this.newRowConsuntivo.id_ambito).label ;
+    this.newRowConsuntivo.nome_macro_area = this.lst_aree.find(x=> x.value == this.newRowConsuntivo.id_macro_area).label ;
+    this.newRowConsuntivo.nome_attivita = this.lst_attivita.find(x=> x.value == this.newRowConsuntivo.id_attivita).label ;
+    this.newRowConsuntivo.nome_deliverable = this.lst_deliverable.find(x=> x.value == this.newRowConsuntivo.id_tipo_deliverable).label ;
+    
     this.consuntivazioneService.addConsuntivo(this.newRowConsuntivo).subscribe
       (obj => {
         var newCons: any = JSON.parse(JSON.stringify(obj));
@@ -283,13 +288,18 @@ export class MonthGridComponent implements OnChanges {
   }
 
   //SAVE ROW (INLINE)
-  private saveEdit(r, i) {
-
+  private saveEdit(editRowConsuntivo, index) {
+    //editRowConsuntivo.nome_cliente = this.lst_clienti.find(x=> x.value == editRowConsuntivo.id_cliente).label ;
+    //editRowConsuntivo.nome_ambito = this.lst_ambiti.find(x=> x.value == editRowConsuntivo.id_ambito).label ;
+    //editRowConsuntivo.nome_macro_area = this.lst_aree.find(x=> x.value == editRowConsuntivo.id_macro_area).label ;
+    editRowConsuntivo.nome_attivita = this.lst_attivita.find(x=> x.value == editRowConsuntivo.id_attivita).label ;
+    editRowConsuntivo.nome_deliverable = this.lst_deliverable.find(x=> x.value == editRowConsuntivo.id_tipo_deliverable).label ;
+   
     var consuntiviToAdd: Consuntivo[] = new Array<Consuntivo>();
 
     for (let i = 0; i < this.nDays; i++) {
-      if (r[i]._id != null || r[i].ore > 0) {
-        consuntiviToAdd.push(r[i]);
+      if (editRowConsuntivo[i]._id != null || editRowConsuntivo[i].ore > 0) {
+        consuntiviToAdd.push(editRowConsuntivo[i]);
       }
     }
       if (consuntiviToAdd.length > 0) {
@@ -301,7 +311,7 @@ export class MonthGridComponent implements OnChanges {
           err => alert(err)
           );
       }
-      r.isEditable = false;    
+      editRowConsuntivo.isEditable = false;    
   }
 
   private abortEdit(r, i) {
