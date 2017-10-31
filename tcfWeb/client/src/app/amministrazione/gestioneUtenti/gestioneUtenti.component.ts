@@ -22,6 +22,7 @@ import { FormGroup, FormBuilder, Validators, AbstractControl, FormControl, Valid
 })
 
 export class GestioneUtentiComponent implements OnInit {
+  allSistemUser: User[] = [];
   users: any;
   newUser: User;
   sedi: any;
@@ -53,6 +54,7 @@ export class GestioneUtentiComponent implements OnInit {
     private authenticationService: AuthenticationService,
     private formBuilder: FormBuilder) {
     this.authenticationService.user$.subscribe(user => { this.userLogged = user });
+    this.allSistemUser = [];
     this.users = null;
     this.sedi = null;
     this.newUser = new User();
@@ -61,12 +63,12 @@ export class GestioneUtentiComponent implements OnInit {
       nome: new FormControl('', Validators.required),
       email: new FormControl('', Validators.compose([Validators.required, Validators.email])),
       dataInizio: new FormControl('', Validators.required),
-      dataFine: new FormControl(''),
-      username: new FormControl('', Validators.required),
+      dataFine: new FormControl('', this.controlDateValidator),
+      username: new FormControl('', [Validators.required, /*this.usernameValidator*/]),
       password: new FormControl('', Validators.required),
-      confPassword: new FormControl('', Validators.required)
-    },{
-      validator: this.controlDate
+      confPassword: new FormControl('', [Validators.required, this.matchPasswordValidator]),
+      dataInizioCliente: new FormControl('',Validators.required),
+      dataFineCliente: new FormControl('', [Validators.required, this.controlClientDateValidator])
     });
   }
 
@@ -93,6 +95,7 @@ export class GestioneUtentiComponent implements OnInit {
         this.maxClientDate.push(clienti.data_fine_validita);
       });
     });
+    this.userService.getUsers().subscribe(users => this.allSistemUser = users);
   }
 
   /*Gestione click MODIFICA UTENTE*/
@@ -212,13 +215,41 @@ export class GestioneUtentiComponent implements OnInit {
     return color;
   }
 
+  private matchPasswordValidator(control: FormControl) {
+    let password = control.root.value['password'] != null ? control.root.value['password'] : null;
+    let confPassword = control.value; 
+    if (password != confPassword) { 
+        return { matchPassword: true }
+    }
+    return null; 
+  }
 
-  /*controlDateValidator = (formGroup: FormGroup): { [key: string]: boolean } => {
-    var dataInizio = new Date(this.userForm.get('dataInizio').value);
-    var dataFine = this.userForm.get('dataFine').value != null ? new Date(this.userForm.get('dataFine').value) : null;
+  private controlDateValidator(control: FormControl) {
+    let dataInizio = control.root.value['dataInizio'] != null ? control.root.value['dataInizio'] : null;
+    let dataFine = control.value; 
+    if (dataInizio > dataFine && dataFine != null) { 
+        return { controlDate: true }
+    }
+    return null; 
+  }
 
-    return dataInizio > dataFine ? { controlDate: true } : null;
-  };*/
+  private controlClientDateValidator(control: FormControl) {
+    let dataInizioCliente = control.root.value['dataInizioCliente'] != null ? control.root.value['dataInizioCliente'] : null;
+    let dataFineCliente = control.value; 
+    if (dataInizioCliente > dataFineCliente && dataFineCliente != null) { 
+        return { controlClientDate: true }
+    }
+    return null; 
+  }
+
+  /*private usernameValidator(control: FormControl) {
+    let username = control.value;
+    this.allSistemUser.forEach(element => {
+        if(element._id == username)
+          return { usernameExist: true}
+    });
+    return null;
+  }*/
 
   /*il form group non ha di per se un metodo per verificare se sul form è stato fatto il submit*/
   private checkForm(form) {
@@ -226,17 +257,7 @@ export class GestioneUtentiComponent implements OnInit {
     return form.valid;
   }
 
-  private matchPassword(AC: AbstractControl) {
-    let password = AC.get('password').value; // to get value in input tag
-    let confirmPassword = AC.get('confPassword').value; // to get value in input tag
-     password != confirmPassword ? AC.get('confPassword').setErrors({matchPassword: true}) : null;
-  }
-
-  private controlDate(AC: AbstractControl) {
-    let dataInizio = AC.get('dataInizio').value; // to get value in input tag
-    let dataFine = AC.get('dataFine').value != null ? new Date(AC.get('dataFine').value) : null; // to get value in input tag
-    dataFine != null && dataFine < dataInizio ? AC.get('dataFine').setErrors( {controlDate: true}) : null;
-  }
+  
 }
 
 
