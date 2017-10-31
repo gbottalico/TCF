@@ -1,4 +1,4 @@
-import { Injectable, OnInit, Inject } from '@angular/core';
+import { Injectable, OnInit, OnChanges, Inject } from '@angular/core';
 import { Http, Headers, Response } from '@angular/http';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 //import {Subject} from 'rxjs/Subject';
@@ -9,12 +9,11 @@ import {JL} from "jsnlog";
 import 'rxjs/add/operator/map'
 
 @Injectable()
-export class AuthenticationService implements OnInit{
+export class AuthenticationService implements OnInit, OnChanges{
     JL: JL.JSNLog;
-    user$ = new BehaviorSubject<any>(null);
+    user$ = new BehaviorSubject<any>(this._user$);
     //userLogged =new BehaviorSubject<any>(0);
     //user$ = this.userLogged.asObservable();
-
 
     constructor(
         private http: Http,
@@ -22,13 +21,18 @@ export class AuthenticationService implements OnInit{
         private activatedRoute: ActivatedRoute,
         @Inject('JSNLOG') JL: JL.JSNLog
         ) {
-            this.user$.next(this._user$);
-            this._user$ = localStorage.getItem('currentUser');
+            console.log("constructor authentication service");
             this.JL = JL;
     }
 
-    ngOnInit(){
+    ngOnChanges(){
+        console.log("onChanges");        
+        this._user$ = localStorage.getItem('currentUser');
+    }
 
+    ngOnInit(){
+        console.log("authentication service: "+this.user$);
+        
         this.router.events
         .filter((event) => event instanceof NavigationEnd)
         .map(() => this.activatedRoute)
@@ -41,11 +45,13 @@ export class AuthenticationService implements OnInit{
         .mergeMap((route) => route.data)
         .subscribe(
         (event) => {
-            JL().info(window.location.pathname);
+            //JL().info(window.location.pathname);
             if (window.location.pathname == "/login") {
                 this.logout();
             } else {
-                
+                if(this.user$ == null){
+                    this.user$.next(this._user$);
+                }
                 // user = localStorage.getItem('currentUser');
                 // if (this.userLogged != null)
                 // this.maxUserProfile = this.getMaxProfile(this.userLogged);
@@ -72,23 +78,29 @@ export class AuthenticationService implements OnInit{
         // remove user from local storage to log user out
         //this.userLogged.next(null);
         //this.userLogged = null;
-        
+        console.log("logout: " + this._user$);
         this.router.navigate(['/login']);
         this._user$ = null;
     }
 
     set _user$(value: any) {
-        JL().info("set userLogged in LocalSorage");
-        if(value){
-            localStorage.setItem('currentUser', JSON.stringify(value));
-        }else{
-            localStorage.removeItem('currentUser');
+        //JL().info("set userLogged in LocalSorage");
+        console.log("setuser" + value);
+        try{
+            if(value){            
+                localStorage.setItem('currentUser', JSON.stringify(value));
+            }else{
+                localStorage.removeItem('currentUser');
+            }
+            this.user$.next(value); // this will make sure to tell every subscriber about the change.
+        }catch(error){
+            console.log(error);
         }
-        this.user$.next(value); // this will make sure to tell every subscriber about the change.
     }
      
       get _user$() {
-        JL().info("get userLogged from LocalStorage");
+        //JL().info("get userLogged from LocalStorage");
+        console.log("getuser" + localStorage.getItem('currentUser'));
         return JSON.parse(localStorage.getItem('currentUser'));
       }
 

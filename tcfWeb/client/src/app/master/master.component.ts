@@ -27,7 +27,7 @@ export class MasterComponent {
 
 	menuSelected: any;
 	maxUserProfile: string;
-	
+
 	constructor(
 		private authenticationService: AuthenticationService,
 		private router: Router,

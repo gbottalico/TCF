@@ -18,6 +18,7 @@ export class SystemService {
     //MENU SECTION
     @beforeMethod(LogAspect.log)
     getMenu(userLogged: any) {
+        
         return this.http.post('/tcf/api/menuController/getMenuList',  userLogged )
             .map((response: Response) => {
                 let menu = response.json();
