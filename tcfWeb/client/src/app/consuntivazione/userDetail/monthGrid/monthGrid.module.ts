@@ -8,6 +8,7 @@ import { MonthGridComponent} from './monthGrid.component';
 import {DataTableModule, PanelModule, SharedModule, DialogModule, DropdownModule} from 'primeng/primeng';
 import { ConsuntivazioneService } from '../../../service/consuntivazione.service';
 import { SystemService } from '../../../service/system.service';
+import { AttivitaService } from '../../../service/attivita.service';
 
 
 
@@ -29,6 +30,7 @@ import { SystemService } from '../../../service/system.service';
   ],
   providers: [
     ConsuntivazioneService,
+    AttivitaService,
     SystemService
     ],
   exports: [MonthGridComponent],

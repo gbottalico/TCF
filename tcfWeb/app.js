@@ -6,7 +6,8 @@ var cors = require('cors');
 var bodyParser = require('body-parser');
 var expressJwt = require('express-jwt');
 var config = require('config.json');
-var expressCRUD = require('express-generic-crud');
+var RouterFactory = require('node-express-crud-router').RouterFactory;
+
 
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -15,7 +16,7 @@ app.use(bodyParser.json());
 
 mongoose.connect(config.connectionString);
 
-expressCRUD.init(app);
+//expressCRUD.init(app);
 
 // use JWT auth to secure the api, the token can be passed in the authorization header or querystring
 // app.use(expressJwt({
@@ -32,12 +33,21 @@ expressCRUD.init(app);
 
 // routes
 
+
+// Create the crud router 
+
+// Add router to your express app 
+
+
+
 //DYNAMIC STANDARD CRUD SECTION
-app.crud('tcf/api/sedeController/CRUD',       require('./models/sede.js'));
-app.crud('tcf/api/userController/CRUD',       require('./models/user.js'));
-app.crud('tcf/api/consuntivoController/CRUD', require('./models/consuntivo.js'));
-app.crud('tcf/api/domainController/CRUD',     require('./models/domain.js'));
-// console.log(crud);
+app.use('/tcf/api/domainController/CRUD',     RouterFactory.create({path: "", model: require('./models/domain.js')}));
+app.use('/tcf/api/userController/CRUD',       RouterFactory.create({path: "", model: require('./models/user.js')}));
+app.use('/tcf/api/sedeController/CRUD',       RouterFactory.create({path: "", model: require('./models/sede.js')}));
+app.use('/tcf/api/attivitaController/CRUD',   RouterFactory.create({path: "", model: require('./models/attivita.js')}));
+app.use('/tcf/api/consuntivoController/CRUD', RouterFactory.create({path: "", model: require('./models/consuntivo.js')}));
+
+
 
 //STATIC CUSTOM ROUTES
 app.use('/tcf/api/userController', require('./controllers/user.controller'));

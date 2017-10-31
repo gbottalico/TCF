@@ -1,9 +1,7 @@
 const mongoose = require('mongoose');
 
-
-
-
 const ConsuntivoSchema = mongoose.Schema({
+
 	data_consuntivo: {
 		type: Date,
 		required: true
@@ -14,15 +12,15 @@ const ConsuntivoSchema = mongoose.Schema({
 	},
 	nome_utente: {
 		type: String,
-		required: true
+		required: false
 	},
 	id_ambito: {
-		type: Number,
+		type: String,
 		required: true
 	},
 	nome_ambito: {
 		type: String,
-		required: true
+		required: false
 	},
 	id_macro_area: {
 		type: String,
@@ -30,15 +28,15 @@ const ConsuntivoSchema = mongoose.Schema({
 	},
 	nome_macro_area: {
 		type: String,
-		required: true
+		required: false
 	},
 	id_attivita: {
-		type: Number,
+		type: String,
 		required: true
 	},
 	nome_attivita: {
 		type: String,
-		required: true
+		required: false
 	},
 	id_tipo_deliverable: {
 		type: String,
@@ -46,7 +44,7 @@ const ConsuntivoSchema = mongoose.Schema({
 	},
 	nome_tipo_deliverable: {
 		type: String,
-		required: true
+		required: false
 	},
 	note: {
 		type: String,

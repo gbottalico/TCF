@@ -4,6 +4,7 @@ import { Consuntivo } from '../../../model/consuntivo';
 import { User } from '../../../model/user';
 import { ConsuntivazioneService } from '../../../service/consuntivazione.service';
 import { SystemService } from '../../../service/system.service';
+import { AttivitaService } from '../../../service/attivita.service';
 import { SelectItem } from 'primeng/primeng';
 
 
@@ -32,6 +33,7 @@ export class MonthGridComponent implements OnChanges {
   consuntivi: any;
   loading: boolean;
   cols: any[];
+  blankConsuntivo = new Consuntivo();
 
 
   nDays: number;
@@ -39,19 +41,21 @@ export class MonthGridComponent implements OnChanges {
 
   newConsuntivo: Consuntivo;
 
-  
+
   lst_clienti: SelectItem[];
   lst_ambiti: SelectItem[];
   lst_aree: SelectItem[];
   lst_attivita: SelectItem[];
   lst_deliverable: SelectItem[];
-  
+
 
   constructor(private consuntivazioneService: ConsuntivazioneService,
-              private systemService: SystemService) {
+    private attivitaService: AttivitaService,
+    private systemService: SystemService) {
     this.newConsuntivo = new Consuntivo();
 
-    //this.newConsuntivo.id_cliente = null;
+    this.newConsuntivo.id_utente = null;
+    this.newConsuntivo.id_cliente = null;
     this.newConsuntivo.id_ambito = null;
     this.newConsuntivo.id_macro_area = null;
     this.newConsuntivo.id_attivita = null;
@@ -59,25 +63,33 @@ export class MonthGridComponent implements OnChanges {
     this.newConsuntivo.data_consuntivo = new Date(this.yearSelected, this.monthSelected, 1, 0, 0, 0, 0);
     this.newConsuntivo.ore = 0;
 
+    this.blankConsuntivo.ore = 0;
+
     //POPOLAMENTO LISTE
     //this.clientiService.().subscribe(domain=>{this.lst_clienti=domain});
-    //this.systemService.getAttivita().subscribe(domain=>{this.lst_clienti=domain});
-    /*this.systemService.getTipiDeliverable().subscribe(domain=>{
+    this.lst_attivita = new Array<SelectItem>();
+    this.attivitaService.getAttivita().subscribe(attivitas => {
+      attivitas.forEach((item, index) => {
+        this.lst_attivita.push({ label: item.nome_attivita, value: item._id });
+      });
+
+    });
+
+    this.systemService.getTipiDeliverable().subscribe(domain => {
       this.lst_deliverable = domain;
     });
 
-    this.systemService.getAree().subscribe(domain=>{
+    this.systemService.getAree().subscribe(domain => {
       this.lst_aree = domain;
     });
 
-    this.systemService.getAmbiti().subscribe(domain=>{
+    this.systemService.getAmbiti().subscribe(domain => {
       this.lst_ambiti = domain;
-    });*/
+    });
 
 
   }
 
-  // ngOnChanges() {}
 
   ngOnChanges() {
     if (this.beforeOnInit) {
@@ -160,14 +172,26 @@ export class MonthGridComponent implements OnChanges {
     var row: any;
 
 
+
     for (let i = 0; i < rowCount; i++) {
       row = new Object();
+
+      row.id_cliente = _userDays[userDaysIndex].id_cliente;
+      row.nome_cliente = _userDays[userDaysIndex].nome_cliente;
+      row.id_ambito = _userDays[userDaysIndex].id_ambito;
+      row.nome_ambito = _userDays[userDaysIndex].nome_ambito;
+      row.id_macro_area = _userDays[userDaysIndex].id_macro_area;
+      row.nome_macro_area = _userDays[userDaysIndex].nome_macro_area;
+      row.id_attivita = _userDays[userDaysIndex].id_attivita;
+      row.nome_attivita = _userDays[userDaysIndex].nome_attivita;
+      row.id_tipo_deliverable = _userDays[userDaysIndex].id_tipo_deliverable;
+      row.nome_tipo_deliverable = _userDays[userDaysIndex].nome_tipo_deliverable;
+      row.id_user = this.userSelected._id;
+      row.ore = 0;
+
+      this.blankConsuntivo = Object.create(row);
+      //inserito successivamente per poter utilizzare la stessa inizializzazione di row anche per blankconsuntivo
       row.isEditable = false;
-      //row.client = _userDays[userDaysIndex].id_cliente;
-      row.ambito = _userDays[userDaysIndex].nome_ambito;
-      row.area = _userDays[userDaysIndex].nome_macro_area;
-      row.activity = _userDays[userDaysIndex].nome_attivita;
-      row.deliverable = _userDays[userDaysIndex].nome_tipo_deliverable;
 
       //ciclo sulle colonne
       for (let j = 0; j < _days; j++) {
@@ -183,10 +207,10 @@ export class MonthGridComponent implements OnChanges {
 
         if ((j + 1) == consuntivoDayOfMonth) { //aggiungo 1 visto che l'indice parte da 0;
 
-          row[j] = _userDays[userDaysIndex].ore;
+          row[j] = _userDays[userDaysIndex];
           userDaysIndex++; //scorro la lista, potrei fare un pop dalla testa.
         } else {
-          row[j] = 0;
+          row[j] = Object.create(this.blankConsuntivo);
         }
       }
       rowsCollection[i] = row;
@@ -200,9 +224,10 @@ export class MonthGridComponent implements OnChanges {
   //GRID - ACTION
 
   //NEW ROW
-  showDialogToAdd() {
+  private showDialogToAdd() {
     //Inizializzazione dei parametri di input
-    //this.newConsuntivo.id_cliente = null;
+    this.newConsuntivo.id_utente = this.userSelected._id;
+    this.newConsuntivo.id_cliente = null;
     this.newConsuntivo.id_ambito = null;
     this.newConsuntivo.id_macro_area = null;
     this.newConsuntivo.id_attivita = null;
@@ -211,10 +236,13 @@ export class MonthGridComponent implements OnChanges {
 
   }
 
+  private abortNew() {
+    this.displayDialog = false;
+  }
 
   //SAVE NEW ROW
   private saveNew() {
-    //Inserisco solo il primo giorno 0 per effettuare lo store su DB 
+    //Inserisco solo il primo giorno 0 per effettuare lo store dell'activity su DB 
 
     this.consuntivazioneService.addConsuntivo(this.newConsuntivo).subscribe
       (obj => {
@@ -222,18 +250,20 @@ export class MonthGridComponent implements OnChanges {
 
         //inizializzo la nuova riga con 0 ore su tutti i gg 
         for (let i = 0; i < this.nDays; i++) {
-          newCons[i] = 0;
+          newCons[i] = Object.create(this.blankConsuntivo);
         }
         //var deepCopyObj = JSON.parse(JSON.stringify(this.newConsuntivo));
         this.consuntivi = this.consuntivi.concat(newCons);
         this.displayDialog = false;
-      });
+      },
+      err=>{
+        alert(err);
+      }
+    );
+
   }
 
-  private abortNew() {
-    //TODO: logica di annullo modifiche
-    this.displayDialog = false;
-  }
+
   //EDIT ROW (INLINE)
   private edit(r, i) {
     console.log(r);
@@ -250,43 +280,54 @@ export class MonthGridComponent implements OnChanges {
 
   //SAVE ROW (INLINE)
   private saveEdit(r, i) {
-    //TODO: logica di salvataggio dei nuovi dati di row
-    r.isEditable = false;
+    alert("save");
+
+    var consuntiviToAdd: Consuntivo[] = new Array<Consuntivo>();
+
+    for (let i = 0; i < this.nDays; i++) {
+      if (r[i]._id != null || r[i].ore > 0) {
+        consuntiviToAdd.push(r[i]);
+      }
+
+      if (consuntiviToAdd.length > 0) {
+        this.consuntivazioneService
+          .addUpdateConsuntivi(consuntiviToAdd)
+          .subscribe(msg => {
+            this.consuntivi.splice(i, 1);
+            this.consuntivi = Object.create(this.consuntivi); //deepcopy    
+            alert("deleted " + msg);
+          },
+          err => alert(err)
+          );
+      }
+
+      r.isEditable = false;
+    }
   }
 
   private abortEdit(r, i) {
-    //TODO: logica di annullo modifiche
+    //TODO: logica di annullo modifiche (annullo modifiche parziali e ripristino riga precedente)
     r.isEditable = false;
   }
 
   //DELETE ROW
   private delete(r, i) {
 
-    //TODO logica di eleiminazione della riga
-    this.consuntivi.splice(i, 1);
-    this.consuntivi = JSON.parse(JSON.stringify(this.consuntivi)); //deepcopy
-
-    // alert('Sto eliminando la riga..');
-    // let delRow: Consuntivo = r;
-    // this.consuntivazioneService
-    //   .deleteConsuntivo(delRow)
-    //   .subscribe(userDays => {
-    //     alert('Riga eliminata..');
-    //     this.userDays = userDays;
-    //   },
-    //   err => alert(err)
-    //   );
+    this.consuntivazioneService
+      .deleteConsuntivi(r.id_user, r.id_macro_area, r.id_ambito, r.id_attivita, r.id_tipo_deliverable)
+      .subscribe(msg => {
+        this.consuntivi.splice(i, 1);
+        this.consuntivi = Object.create(this.consuntivi); //deepcopy    
+        alert("deleted " + msg);
+      },
+      err => alert(err)
+      );
 
   }
-
-
 
   //UTILITY
   private daysInMonth(month, year) {
     return new Date(year, month, 0).getUTCDate();
   }
-
-
-
 
 }

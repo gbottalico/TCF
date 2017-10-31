@@ -12,7 +12,7 @@
                 <button style="float: left;" type="button" pButton (click)=addNewUser() label="Aggiungi Utente"></button>
             </div>
         </p-header>
-        <p-column header="Azioni" visible="true" [style]="{'width':'5%'}">
+        <p-column header="Azioni" visible="true" [style]="{'width':'7%'}">
             <ng-template let-row="rowData" let-index="rowIndex" pTemplate="user">
                 <span style="display: inline-block;">
                         <i class="fa fa-pencil-square-o modifica" aria-hidden="true" (click)="editRow(row, index)"></i>   
@@ -33,127 +33,151 @@
 
 
     <p-dialog id="dialog" [(header)]="headerUtente" [(visible)]="displayDialog" modal="true" responsive="true" appendTo="body"
-        scrollable="true">
+         scrollable="true">
+        <form [formGroup]="userForm" (ngSubmit)="checkForm(userForm) && saveNew()" novalidate>
+            <div class="halfWidth noPaddingLeft">
+                <div class="ui-g ui-fluid">
+                    <div class="ui-g-12 ui-md-12">
+                        <span class="ui-float-label">
+                            <input type="text" id="cognome" formControlName="cognome" [formGroup]="userForm" [ngStyle]="{'border-color': isValid((userForm.get('cognome').touched || formSubmitted) && userForm.get('cognome').errors)}" pInputText [(ngModel)]="newUser.cognome" >
+                            <label for="cognome" [ngStyle]="{'color': isValid((userForm.get('cognome').touched || formSubmitted) && userForm.get('cognome').errors)}">{{((userForm.get('cognome').touched || formSubmitted) && userForm.get('cognome').errors) ? "Inserisci cognome" : "Cognome"}}</label>
+                        </span>
+                    </div>
+                </div>
+                <div class="ui-g ui-fluid">
+                    <div class="ui-g-12 ui-md-12">
+                        <span class="ui-float-label">
+                                <input type="text" id="nome" formControlName="nome" [formGroup]="userForm" [ngStyle]="{'border-color': isValid((userForm.get('nome').touched || formSubmitted) && userForm.get('nome').errors)}" pInputText [(ngModel)]="newUser.nome">
+                                <label for="nome" [ngStyle]="{'color': isValid((userForm.get('nome').touched || formSubmitted) && userForm.get('nome').errors)}" > {{(userForm.get('nome').touched || formSubmitted) && userForm.get('nome').errors ? 'Inserisci Nome' : 'Nome'}}</label>
+                           </span>
+                    </div>
+                </div>
+                <div class="ui-g ui-fluid">
+                    <div class="ui-g-12 ui-md-12">
+                        <span class="ui-float-label">
+                            <input type="email" id="email" formControlName="email" [ngStyle]="{'border-color': isValid((userForm.get('email').touched || formSubmitted) && userForm.get('email').errors)}" type="text" pInputText [(ngModel)]="newUser.email">
+                            <label for="email" [ngStyle]="{'color': isValid((userForm.get('email').touched || formSubmitted) && userForm.get('email').errors)}">{{(userForm.get('email').touched || formSubmitted) && userForm.get('email').hasError('required') ? 'Inserisci email' : userForm.get('email').touched && userForm.get('email').hasError('email') ? 'Email in formato errato' : 'Email'}}</label>
+                        </span>
+                    </div>
+                </div>
+                <div class="ui-g ui-fluid">
+                    <div class="ui-g-12 ui-md-12">
+                        <span class="ui-float-label">
+                            <p-calendar id="dataInizio" formControlName="dataInizio" [ngStyle]="{'border-color': isValid((userForm.get('dataInizio').touched || formSubmitted) && userForm.get('dataInizio').errors)}" [(ngModel)]="newUser.data_inizio_validita" dateFormat="dd/mm/yy" [showIcon]="true" appendTo="body"></p-calendar>
+                            <label for="dataInizio" [ngStyle]="{'color': isValid((userForm.get('dataInizio').touched || formSubmitted) && userForm.get('dataInizio').errors)}">{{(userForm.get('dataInizio').touched || formSubmitted) && userForm.get('dataInizio').errors ? 'Inserisci Data Inizio Validità (dd/mm/aaaa)' : 'Data Inizio Validità (dd/mm/aaaa)'}}</label>
+                        </span>
+                    </div>
+                </div>
+                <div class="ui-g ui-fluid">
+                    <div class="ui-g-12 ui-md-12">
+                        <span class="ui-float-label">
+                            <p-calendar id="dataFine" formControlName="dataFine" [minDate]="newUser.data_inizio_validita" [(ngModel)]="newUser.data_fine_validita" dateFormat="dd/mm/yy" [showIcon]="true" appendTo="body"></p-calendar>
+                            <label for="dataFine" [ngStyle]="{'color': isValid(userForm.get('dataFine').hasError('controlDate') || (formSubmitted && userForm.get('dataFine').hasError('controlDate')))}">{{userForm.get('dataFine').hasError('controlDate')}}-{{userForm.get('dataFine').hasError('controlDate') || (formSubmitted && userForm.get('dataFine').hasError('controlDate')) ? 'Data fine validità incompatibile' : 'Data Fine Validità (dd/mm/aaaa)'}}</label>
+                        </span>
+                    </div>
+                </div>
+            </div>
 
-        <div class="halfWidth noPaddingLeft">
-            <div class="ui-g ui-fluid">
-                <div class="ui-g-12 ui-md-12">
-                    <span class="ui-float-label">
-                                <input class="input" id="cognome" type="text" pInputText [(ngModel)]="newUser.cognome">
-                                <label for="cognome">Cognome</label>
-                            </span>
-                </div>
-            </div>
-            <div class="ui-g ui-fluid">
-                <div class="ui-g-12 ui-md-12">
-                    <span class="ui-float-label">
-                                <input class="input"  id="nome" type="text" pInputText [(ngModel)]="newUser.nome">
-                                <label for="nome">Nome</label>
-                            </span>
-                </div>
-            </div>
-            <div class="ui-g ui-fluid">
-                <div class="ui-g-12 ui-md-12">
-                    <span class="ui-float-label">
-                            <input class="input"  id="email" type="text" pInputText [(ngModel)]="newUser.email">
-                            <label for="email">Email</label>
+            <div class="halfWidth noPaddingRight">
+                <div class="ui-g ui-fluid">
+                    <div class="ui-g-12 ui-md-12">
+                        <span class="ui-float-label">
+                            <input id="username" formControlName="username" [ngStyle]="{'border-color': isValid((userForm.get('username').touched || formSubmitted) && userForm.get('username').errors)}" type="text" pInputText [(ngModel)]="newUser._id">
+                            <label for="username" [ngStyle]="{'color': isValid((userForm.get('username').touched || formSubmitted) && userForm.get('username').errors)}">{{(userForm.get('username').touched || formSubmitted) && userForm.get('username').errors ? 'Inserisci username' : 'Username'}}</label>
                         </span>
+                    </div>
                 </div>
-            </div>
-            <div class="ui-g ui-fluid">
-                <div class="ui-g-12 ui-md-12">
-                    <span class="ui-float-label">
-                            <p-calendar id="dataInizio" [(ngModel)]="newUser.data_inizio_validita" dateFormat="dd/mm/yy" [showIcon]="true" appendTo="body"></p-calendar>
-                            <label for="dataInizio">Data Inizio Validita (dd/mm/aa)</label>
+                <div class="ui-g ui-fluid" *ngIf="userIndex == null">
+                    <div class="ui-g-12 ui-md-12">
+                        <span class="ui-float-label">
+                            <input name="password" type="password" id="password" formControlName="password" [formGroup]="userForm" [ngStyle]="{'border-color': isValid((userForm.get('password').touched || formSubmitted) && userForm.get('password').errors)}" pInputText [(ngModel)]="newUser.password" >
+                            <label for="password" [ngStyle]="{'color': isValid((userForm.get('password').touched || formSubmitted) && userForm.get('password').errors)}">{{(userForm.get('password').touched || formSubmitted) && userForm.get('password').errors ? "Inserisci password" : "Password"}}</label>
                         </span>
+                    </div>
                 </div>
-            </div>
-            <div class="ui-g ui-fluid">
-                <div class="ui-g-12 ui-md-12">
-                    <span class="ui-float-label">
-                            <p-calendar id="dataFine" [(ngModel)]="newUser.data_fine_validita" dateFormat="dd/mm/yy" [showIcon]="true" appendTo="body"></p-calendar>
-                            <label for="dataFine">Data Fine Validita (dd/mm/aa)</label>
+                <div class="ui-g ui-fluid" *ngIf="userIndex == null">
+                    <div class="ui-g-12 ui-md-12">
+                        <span class="ui-float-label">
+                                <input #confPassword type="password" id="confPassword" formControlName="confPassword" [formGroup]="userForm" [ngStyle]="{'border-color': isValid((userForm.get('confPassword').touched || formSubmitted) && userForm.get('confPassword').errors)}" pInputText [(ngModel)]="this.confirmPassword">
+                                <label for="confPassword" [ngStyle]="{'color': isValid((userForm.get('confPassword').touched || formSubmitted) && userForm.get('confPassword').errors)}" >{{(userForm.get('confPassword').touched || formSubmitted) && userForm.get('confPassword').hasError('matchPassword') ? 'Password non corrispondente' : (userForm.get('confPassword').touched || formSubmitted) && userForm.get('confPassword').hasError('required') ? 'Inserisci Conferma Password' : 'Conferma Password'}}</label>
+                           </span>
+                    </div>
+                </div>
+                <div class="ui-g ui-fluid">
+                    <div class="ui-g-12 ui-md-12">
+                        <span class="ui-float-label">
+                            <label for="sede" style="top: -.60em;font-size:12px; color:#d6d6d6">Sede</label>
                         </span>
-                </div>
-            </div>
-        </div>
+                        <p-dropdown [ngModelOptions]="{standalone: true}" [options]="sediList" [style]="{'width':'100%'}" placeholder="Seleziona sede"
+                            [(ngModel)]="newUser.id_sede">
+                        </p-dropdown>
 
-        <div class="halfWidth noPaddingRight">
-            <div class="ui-g ui-fluid">
-                <div class="ui-g-12 ui-md-12">
-                    <span class="ui-float-label">
-                            <input class="input"  id="user" type="text" pInputText [(ngModel)]="newUser._id">
-                            <label for="user">User</label>
-                        </span>
+                    </div>
                 </div>
-            </div>
-            <div class="ui-g ui-fluid" *ngIf="this.userIndex == null">
-                <div class="ui-g-12 ui-md-12">
-                    <span class="ui-float-label">
-                            <input class="input"  id="password" type="text" pInputText [(ngModel)]="newUser.password">
-                            <label for="password">Password</label>
-                        </span>
+                <div class="ui-g ui-fluid">
+                    <div class="ui-g-12 ui-md-12">
+                        <span class="ui-float-label">
+                                <label for="admin" style="top: -.60em;font-size:12px; color:#d6d6d6">Admin</label>
+                            </span>
+                        <p-dropdown [ngModelOptions]="{standalone: true}" [options]="admins" [style]="{'width':'100%'}" placeholder="Amm. di Sistema" [(ngModel)]="newUser.isAdmin"></p-dropdown>
+                    </div>
                 </div>
-            </div>
-            <div class="ui-g ui-fluid">
-                <p-dropdown class="ui-g-12 ui-md-12" [options]="sediList" [style]="{'width':'100%'}" placeholder="Seleziona sede" [(ngModel)]="newUser.id_sede">
-                </p-dropdown>
-            </div>
-            <div class="ui-g ui-fluid">
-                <p-dropdown class="ui-g-12 ui-md-12" [options]="admins" [style]="{'width':'100%'}" placeholder="Amm. di Sistema" [(ngModel)]="newUser.isAdmin"></p-dropdown>
-            </div>
-            <!-- <div class="ui-g ui-fluid">
+                <!-- <div class="ui-g ui-fluid">
                     <p-multiSelect class="ui-g-12 ui-md-12" [options]="clientiComboBox" [(ngModel)]="selectedClients" [panelStyle]="{minWidth:'12em'}"
                         defaultLabel="Seleziona cliente" maxSelectedLabels="10" scrollable="false">
                     </p-multiSelect>
                 </div> -->
-        </div>
-        <div style="clear:both;">
-            <p-dataTable [value]="newUser.clienti" emptyMessage="Nessun cliente trovato" scrollable="true" [style]="{'width':'60%'}" scrollHeight="200px">
-                <p-header>
-                    <div style="width:100%;text-align:center;">
-                        <label>Lista Clienti</label>
-                        <button style="float: left;" pButton type="button" icon="fa fa-plus" (click)="addCliente()" label="Aggiungi Cliente"></button>
-                    </div>
-                </p-header>
-                <p-column [style]="{'width':'5%'}">
-                    <ng-template let-row="rowData" let-index="rowIndex" pTemplate="body">
-                        <button style="display: inline-block;" pButton type="button" icon="fa fa-trash" (click)="deleteClientRow(row, index)"></button>
-                    </ng-template>
-                </p-column>
-                <p-column field="id_cliente" header="Cliente">
-                    <ng-template let-row="rowData" let-index="rowIndex" pTemplate="body">
-                        <p-dropdown [options]="clientiComboBox" [autoWidth]="false" required="true" [(ngModel)]="row.id_cliente" [style]="{'width':'100%'}"
-                            required="true" appendTo="body" placeholder="Seleziona cliente"></p-dropdown>
-                    </ng-template>
-                </p-column>
-                <p-column field="id_profilo" header="Profilo">
-                    <ng-template let-index="rowIndex" let-row="rowData" pTemplate="body">
-                        <p-dropdown [options]="profili" [(ngModel)]="row.id_profilo" required="true" [autoWidth]="false" [style]="{'width':'100%'}"
-                            required="true" appendTo="body" placeholder="Seleziona profilo"></p-dropdown>
-                    </ng-template>
-                </p-column>
-                <p-column field="data_inizio_validita_cliente" header="Data Inizio">
-                    <ng-template let-row="rowData" let-index="rowIndex" pTemplate="body">
-                        <!-- [minDate]="minClientDate[index] | date:'dd/mm/yy'" [maxDate]="maxClientDate[index]"  -->
-                        <p-calendar id="dataInizio" placeholder="Data Inizio (dd/mm/aa)" required="true" [inputStyle]="{'width':'90%'}" [(ngModel)]="row.data_inizio_validita_cliente"
-                            dateFormat="dd/mm/yy" [style]="{'width':'100%'}" [showIcon]="true" appendTo="body"></p-calendar>
-
-                    </ng-template>
-                </p-column>
-                <p-column field="data_fine_validita_cliente" header="Data Fine">
-                    <ng-template let-row="rowData" let-index="rowIndex" pTemplate="body">
-                        <p-calendar id="dataFine" placeholder="Data Fine (dd/mm/aa)" [inputStyle]="{'width':'90%'}" [(ngModel)]="row.data_fine_validita_cliente"
-                            dateFormat="dd/mm/yy" [style]="{'width':'100%'}" [showIcon]="true" appendTo="body"></p-calendar>
-                    </ng-template>
-                </p-column>
-            </p-dataTable>
-        </div>
-        <p-footer>
-            <div class="ui-dialog-buttonpane ui-helper-clearfix">
-                <button type="button" class="btn btnPrimary aggiungi" (click)="saveNew()">{{this.btnDialog}}</button>
             </div>
-        </p-footer>
+            <div style="clear:both;">
+                <p-dataTable [value]="newUser.clienti" emptyMessage="Nessun cliente trovato" scrollable="true" [style]="{'width':'60%'}"
+                    scrollHeight="200px">
+                    <p-header>
+                        <div >
+                            <label style="text-align:center">Lista Clienti</label>
+                            <button style="float: left;" pButton type="button" icon="fa fa-plus" (click)="addCliente()" label="Aggiungi Cliente"></button>
+                        </div>
+                    </p-header>
+
+                    <p-column [style]="{'width':'6%'}">
+                        <ng-template let-row="rowData" let-index="rowIndex" pTemplate="body">
+                            <button style="display: inline-block;" pButton type="button" icon="fa fa-trash" (click)="deleteClientRow(row, index)"></button>
+                        </ng-template>
+                    </p-column>
+                    <p-column field="id_cliente" header="Cliente">
+                        <ng-template let-row="rowData" let-index="rowIndex" pTemplate="body">
+                            <!-- #clienti="ngModel" name="clienti" required [ngStyle]="{'color': isValid(f.submitted && !clienti.valid)}" -->
+                            <p-dropdown [ngModelOptions]="{standalone: true}" [options]="clientiComboBox" [autoWidth]="false" [(ngModel)]="row.id_cliente"
+                                [style]="{'width':'100%'}" appendTo="body" placeholder="Seleziona cliente"></p-dropdown>
+                        </ng-template>
+                    </p-column>
+                    <p-column field="id_profilo" header="Profilo">
+                        <ng-template let-index="rowIndex" let-row="rowData" pTemplate="body">
+                            <p-dropdown [ngModelOptions]="{standalone: true}" [options]="profili" [(ngModel)]="row.id_profilo" required="true" [autoWidth]="false"
+                                [style]="{'width':'100%'}" required="true" appendTo="body" placeholder="Seleziona profilo"></p-dropdown>
+                        </ng-template>
+                    </p-column>
+                    <p-column field="data_inizio_validita_cliente" header="Data Inizio">
+                        <ng-template let-row="rowData" let-index="rowIndex" pTemplate="body">
+                            <!-- [minDate]="minClientDate[index] | date:'dd/mm/yy'" [maxDate]="maxClientDate[index]"  -->
+                            <p-calendar [ngModelOptions]="{standalone: true}" placeholder="Data Inizio (dd/mm/aa)" [inputStyle]="{'width':'90%'}" [(ngModel)]="row.data_inizio_validita_cliente"
+                                dateFormat="dd/mm/yy" [style]="{'width':'100%'}" [showIcon]="true" appendTo="body"></p-calendar>
+                        </ng-template>
+                    </p-column>
+                    <p-column field="data_fine_validita_cliente" header="Data Fine">
+                        <ng-template let-row="rowData" let-index="rowIndex" pTemplate="body">
+                            <p-calendar [ngModelOptions]="{standalone: true}" placeholder="Data Fine (dd/mm/aa)" [inputStyle]="{'width':'90%'}" [(ngModel)]="row.data_fine_validita_cliente"
+                                dateFormat="dd/mm/yy" [style]="{'width':'100%'}" [showIcon]="true" appendTo="body"></p-calendar>
+                        </ng-template>
+                    </p-column>
+
+                </p-dataTable>
+            </div>
+            <p-footer>
+                <div class="ui-dialog-buttonpane ui-helper-clearfix">
+                    <button type="submit" class="btn btnPrimary aggiungi">{{this.btnDialog}}</button>
+                </div>
+            </p-footer>
+        </form>
     </p-dialog>
 
     <p-confirmDialog acceptLabel="Elimina" rejectLabel="Annulla" appendTo="body"></p-confirmDialog>

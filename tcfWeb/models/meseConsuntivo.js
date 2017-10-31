@@ -1,10 +1,7 @@
 const mongoose = require('mongoose');
 
 const MeseConsuntivoSchema = mongoose.Schema({
-	_id: {
-		type: String,
-		required: true
-	},
+
 	id_utente: {
 		type: String,
 		required: true

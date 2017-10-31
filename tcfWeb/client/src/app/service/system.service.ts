@@ -43,7 +43,5 @@ export class SystemService {
             return domain;
         }); 
     }
-
-
  
 }
