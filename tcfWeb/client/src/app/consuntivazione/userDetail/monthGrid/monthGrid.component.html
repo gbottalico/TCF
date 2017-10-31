@@ -59,9 +59,17 @@
 
 </p-dataTable>
 
+<<<<<<< HEAD
+<p-dialog header="Nuova Attività" [(visible)]="displayDialog" appendTo="body" [responsive]="true" appendTo="body" showEffect="fade"
+    [modal]="true">
+    <form name="form" (ngSubmit)="f.form.valid && saveNew()" #f="ngForm" novalidate>
+        
+    <div class="ui-grid ui-grid-responsive ui-fluid" *ngIf="newConsuntivo">
+=======
 <p-dialog header="Nuova Attività" [(visible)]="displayDialog" appendTo="body" appendTo="body" showEffect="fade" [modal]="true">
     <form name="form" (ngSubmit)="f.form.valid && saveNew()" #f="ngForm" novalidate>
     <div class="ui-grid ui-grid-responsive ui-fluid" *ngIf="newRowConsuntivo">
+>>>>>>> d1b31cb912d23e751b78f2197bc98fd7cc83c67b
         <div class="ui-grid-row">
             <div class="ui-grid-col-4"><label for="id_cliente">Cliente</label></div>
             <div class="ui-grid-col-8">
