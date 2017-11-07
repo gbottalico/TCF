@@ -9,7 +9,7 @@ export class AttivitaService {
 
   constructor(private http:Http) { }
 
-  //retrieving SedeService
+  //retrieving ActivityService
 	@beforeMethod(LogAspect.log)
   getAttivita(){
   	return this.http.get('/tcf/api/attivitaController/CRUD')

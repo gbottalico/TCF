@@ -1,21 +1,25 @@
 import { Component, OnChanges, Input, Inject } from '@angular/core';
+import { FormGroup, FormBuilder, Validators, AbstractControl, FormControl, ValidatorFn, ValidationErrors } from '@angular/forms';
 
 import { Consuntivo } from '../../../model/consuntivo';
+import { MeseConsuntivo } from '../../../model/meseConsuntivo';
 import { User } from '../../../model/user';
 import { ConsuntivazioneService } from '../../../service/consuntivazione.service';
 import { SystemService } from '../../../service/system.service';
 import { AttivitaService } from '../../../service/attivita.service';
 import { SelectItem } from 'primeng/primeng';
+import { ClienteService } from '../../../service/cliente.service';
+import { MeseConsuntivoService } from '../../../service/meseConsuntivo.service';
 
 @Component({
   selector: 'month-grid',
   templateUrl: './monthGrid.component.html',
   styleUrls: ['./monthGrid.component.css'],
-  providers: []
+  providers: [FormBuilder]
 })
 
 export class MonthGridComponent implements OnChanges {
-  
+
   @Input()
   monthSelected: number = 1;
   @Input()
@@ -30,7 +34,7 @@ export class MonthGridComponent implements OnChanges {
   consuntivi: any;
   loading: boolean;
   cols: any[];
-
+  formSubmitted: boolean = false;
 
 
   nDays: number;
@@ -38,26 +42,39 @@ export class MonthGridComponent implements OnChanges {
 
   newRowConsuntivo: any;
   blankConsuntivo: Consuntivo;
-  
+
 
   lst_clienti: SelectItem[];
   lst_ambiti: SelectItem[];
   lst_aree: SelectItem[];
   lst_attivita: SelectItem[];
   lst_deliverable: SelectItem[];
-
+  activityForm: FormGroup;
 
   constructor(
     private consuntivazioneService: ConsuntivazioneService,
     private attivitaService: AttivitaService,
-    private systemService: SystemService) {
-    
+    private clienteService: ClienteService,
+    private meseConsuntivoService: MeseConsuntivoService,
+    private systemService: SystemService,
+    private formBuilder: FormBuilder
+    ) {
+
+      this.activityForm = this.formBuilder.group({
+        ddl_clienti: new FormControl('', Validators.required)});  
+
     this.newRowConsuntivo = new Object();
     this.blankConsuntivo = new Consuntivo()
     this.resetConsuntivo(this.newRowConsuntivo);
-    
+
     //POPOLAMENTO LISTE
-    //this.clientiService.().subscribe(domain=>{this.lst_clienti=domain});
+    this.lst_clienti = new Array<SelectItem>();
+    this.clienteService.getClienti().subscribe(clienti => {
+      clienti.forEach(cliente => {
+        this.lst_clienti.push({ label: cliente.nome_cliente, value: cliente._id });
+      });
+    });
+
     this.lst_attivita = new Array<SelectItem>();
     this.attivitaService.getAttivita().subscribe(attivitas => {
       attivitas.forEach((item, index) => {
@@ -89,7 +106,7 @@ export class MonthGridComponent implements OnChanges {
       this.nDays = this.daysInMonth(this.monthSelected, this.yearSelected);
       //this.consuntivi = null;
     }
-    
+
     this.initializeColumns();
 
     this.loading = true;
@@ -128,96 +145,102 @@ export class MonthGridComponent implements OnChanges {
 
   //costruisce il JSON con le colonne del calendario posizionando i valori recuperati nelle corrette posizioni
   private buildData(_userDays: Consuntivo[], _days: number): any[] {
-
-    //ordino la _userDays per attività, data.
-
-    const consuntivoComparator_AttivitaData = function (a: Consuntivo, b: Consuntivo): number {
-
-      if (a.id_attivita == b.id_attivita) {
-        return a.data_consuntivo > b.data_consuntivo ? 1 : a.data_consuntivo < b.data_consuntivo ? -1 : 0;
-      }
-
-      return a.id_attivita > b.id_attivita ? 1 : -1;
-    }
-
-    _userDays.sort(consuntivoComparator_AttivitaData);
+    try {
 
 
-    var rowCount: number = 0;
-    var last: Consuntivo;
-    //conto il numero di attività (righe della tabella) --> come fare un distinct su id_attivita
-    for (let current_cons of _userDays) {
-      if (!last) {
-        //primo elemento;
-        last = current_cons;
-        rowCount++;
-        continue;
-      }
+      //ordino la _userDays per attività, data.
 
-      if (current_cons.id_attivita != last.id_attivita) {
-        rowCount++;
-      } else {
-        last = current_cons;
-      }
-    }
+      const consuntivoComparator_AttivitaData = function (a: Consuntivo, b: Consuntivo): number {
 
-    var userDaysIndex: number = 0;
-
-    var rowsCollection: any[] = new Array(rowCount);
-    var row: any;
-
-
-
-    for (let i = 0; i < rowCount; i++) {
-  
-      row = new Object();
-
-      row.id_cliente = _userDays[userDaysIndex].id_cliente;
-      row.nome_cliente = _userDays[userDaysIndex].nome_cliente;
-      row.id_ambito = _userDays[userDaysIndex].id_ambito;
-      row.nome_ambito = _userDays[userDaysIndex].nome_ambito;
-      row.id_macro_area = _userDays[userDaysIndex].id_macro_area;
-      row.nome_macro_area = _userDays[userDaysIndex].nome_macro_area;
-      row.id_attivita = _userDays[userDaysIndex].id_attivita;
-      row.nome_attivita = _userDays[userDaysIndex].nome_attivita;
-      row.id_tipo_deliverable = _userDays[userDaysIndex].id_tipo_deliverable;
-      row.nome_tipo_deliverable = _userDays[userDaysIndex].nome_tipo_deliverable;
-      row.id_utente = this.userSelected._id;
-      row.isEditable = false;
-
-      this.cloneConsuntivoField(row, this.blankConsuntivo);
-      this.blankConsuntivo.ore = 0;
-      
-
-      //ciclo sulle colonne
-      for (let j = 0; j < _days; j++) {
-
-        let consuntivoDayOfMonth = -1;
-
-        if (userDaysIndex < _userDays.length) {
-          let consuntivoDateFull = _userDays[userDaysIndex].data_consuntivo;
-          consuntivoDayOfMonth = new Date(consuntivoDateFull).getUTCDate();
-        } else {
-          consuntivoDayOfMonth = -1;
+        if (a.id_attivita == b.id_attivita) {
+          return a.data_consuntivo > b.data_consuntivo ? 1 : a.data_consuntivo < b.data_consuntivo ? -1 : 0;
         }
 
-        if ((j + 1) == consuntivoDayOfMonth) { //aggiungo 1 visto che l'indice parte da 0;
-
-          row[j] = _userDays[userDaysIndex];
-          userDaysIndex++; //scorro la lista, potrei fare un pop dalla testa.
-        } else {
-          var blankItem = JSON.parse(JSON.stringify(this.blankConsuntivo));
-          blankItem.data_consuntivo = new Date(this.yearSelected, this.monthSelected-1, j+1 ,0, 0, 0, 0);
-          
-          row[j] = blankItem;
-        }
+        return a.id_attivita > b.id_attivita ? 1 : -1;
       }
-      rowsCollection[i] = row;
+
+      _userDays.sort(consuntivoComparator_AttivitaData);
+
+
+      var rowCount: number = 0;
+      var last: Consuntivo;
+      //conto il numero di attività (righe della tabella) --> come fare un distinct su id_attivita/id_tipo_deliverable
+      for (let current_cons of _userDays) {
+        if (!last) {
+          //primo elemento;
+          last = current_cons;
+          rowCount++;
+          continue;
+        }
+
+        if (current_cons.id_attivita != last.id_attivita || current_cons.id_tipo_deliverable != last.id_tipo_deliverable) {
+          rowCount++;
+        }
+        last = current_cons;
+
+      }
+
+      //var userDaysIndex: number = 0;
+
+      var rowsCollection: any[] = new Array(0);
+      var row: any;
+
+      var i = 0;
+      while (i < rowCount) {
+
+        row = new Object();
+
+        row.id_cliente = _userDays[i].id_cliente;
+        row.nome_cliente = _userDays[i].nome_cliente;
+        row.id_ambito = _userDays[i].id_ambito;
+        row.nome_ambito = _userDays[i].nome_ambito;
+        row.id_macro_area = _userDays[i].id_macro_area;
+        row.nome_macro_area = _userDays[i].nome_macro_area;
+        row.id_attivita = _userDays[i].id_attivita;
+        row.nome_attivita = _userDays[i].nome_attivita;
+        row.id_tipo_deliverable = _userDays[i].id_tipo_deliverable;
+        row.nome_tipo_deliverable = _userDays[i].nome_tipo_deliverable;
+        row.id_utente = this.userSelected._id;
+        row.isEditable = false;
+
+        this.cloneConsuntivoField(row, this.blankConsuntivo);
+        this.blankConsuntivo.ore = 0;
+
+
+        //ciclo sulle colonne
+        for (let j = 0; j < _days; j++) {
+
+          let consuntivoDayOfMonth = -1;
+
+          if (i < _userDays.length) {
+            let consuntivoDateFull = _userDays[i].data_consuntivo;
+            consuntivoDayOfMonth = new Date(consuntivoDateFull).getUTCDate();
+          } else {
+            consuntivoDayOfMonth = -1;
+          }
+
+          if ((j + 1) == consuntivoDayOfMonth) { //aggiungo 1 visto che l'indice parte da 0;
+
+            row[j] = _userDays[i];
+            i++; //scorro la lista, potrei fare un pop dalla testa.
+          } else {
+            var blankItem = JSON.parse(JSON.stringify(this.blankConsuntivo));
+            blankItem.data_consuntivo = new Date(this.yearSelected, this.monthSelected - 1, j + 1, 0, 0, 0, 0);
+
+            row[j] = blankItem;
+          }
+        }
+        //rowsCollection[i] = row;    
+        rowsCollection.push(row);
+      }
+
+      console.log(rowsCollection);
+
+    } catch (error) {
+      alert(error);
+    } finally {
+      return rowsCollection;
     }
-
-    console.log(rowsCollection);
-    return rowsCollection;
-
   }
 
 
@@ -228,7 +251,7 @@ export class MonthGridComponent implements OnChanges {
     //Inizializzazione dei parametri di input
     this.resetConsuntivo(this.newRowConsuntivo);
     this.newRowConsuntivo.id_utente = this.userSelected._id;
-    
+
     this.displayDialog = true;
 
   }
@@ -240,36 +263,62 @@ export class MonthGridComponent implements OnChanges {
   //SAVE NEW ROW
   private saveNew() {
     //Inserisco solo il primo giorno 0 per effettuare lo store dell'activity su DB 
-    
-    this.newRowConsuntivo.nome_cliente = this.lst_clienti.find(x=> x.value == this.newRowConsuntivo.id_cliente).label ;
-    this.newRowConsuntivo.nome_ambito = this.lst_ambiti.find(x=> x.value == this.newRowConsuntivo.id_ambito).label ;
-    this.newRowConsuntivo.nome_macro_area = this.lst_aree.find(x=> x.value == this.newRowConsuntivo.id_macro_area).label ;
-    this.newRowConsuntivo.nome_attivita = this.lst_attivita.find(x=> x.value == this.newRowConsuntivo.id_attivita).label ;
-    this.newRowConsuntivo.nome_deliverable = this.lst_deliverable.find(x=> x.value == this.newRowConsuntivo.id_tipo_deliverable).label ;
-    
-    this.consuntivazioneService.addConsuntivo(this.newRowConsuntivo).subscribe
-      (obj => {
-        var newCons: any = JSON.parse(JSON.stringify(obj));
 
-        //inizializzo la nuova riga con 0 ore su tutti i gg 
-        this.cloneConsuntivoField(this.newRowConsuntivo, this.blankConsuntivo);
-        this.blankConsuntivo.ore = 0;
-        this.blankConsuntivo.data_consuntivo = new Date(this.yearSelected, this.monthSelected - 1, 1 ,0, 0, 0, 0);
-        //inizializzo la table
-        for (let i = 0; i < this.nDays; i++) {
-          var blankItem = JSON.parse(JSON.stringify(this.blankConsuntivo));  
-          blankItem.data_consuntivo = new Date(this.yearSelected, this.monthSelected - 1, i + 1 ,0, 0, 0, 0);
-          newCons[i] = blankItem;
+    this.newRowConsuntivo.nome_cliente = this.lst_clienti.find(x => x.value == this.newRowConsuntivo.id_cliente).label;
+    this.newRowConsuntivo.nome_ambito = this.lst_ambiti.find(x => x.value == this.newRowConsuntivo.id_ambito).label;
+    this.newRowConsuntivo.nome_macro_area = this.lst_aree.find(x => x.value == this.newRowConsuntivo.id_macro_area).label;
+    this.newRowConsuntivo.nome_attivita = this.lst_attivita.find(x => x.value == this.newRowConsuntivo.id_attivita).label;
+    this.newRowConsuntivo.nome_tipo_deliverable = this.lst_deliverable.find(x => x.value == this.newRowConsuntivo.id_tipo_deliverable).label;
+    this.newRowConsuntivo.ore = 0;
+
+
+    //TODO: Verifico che non sia già presente tra quelle visualizzate
+
+
+    //Se è la prima riga inserita del mese devo creare anche il mese /sarebbe da creare il servizio ad-hoc server side
+    if(this.consuntivi.length == 0){
+      var meseConsuntivo : MeseConsuntivo = new MeseConsuntivo();
+      meseConsuntivo.anno_consuntivo = this.yearSelected.toString();
+      meseConsuntivo.mese_consuntivo = this.monthSelected.toString();
+      meseConsuntivo.id_utente = this.userSelected._id.toString();
+      meseConsuntivo.nome_stato = "Aperto";
+      this.meseConsuntivoService.addMeseConsuntivo(meseConsuntivo).subscribe(
+        obj=>{
+          this.addConsuntivo();
+        },
+        err=>{
+          alert("errore nell'inserimento del mese")
         }
-        //var deepCopyObj = JSON.parse(JSON.stringify(this.newConsuntivo));
-        this.consuntivi = this.consuntivi.concat(newCons);
-        this.displayDialog = false;
-      },
-      err=>{
-        alert(err);
-      }
-    );
+      );
+    }else{
+      this.addConsuntivo();
+    }  
 
+  }
+
+  private addConsuntivo(){
+    this.consuntivazioneService.addConsuntivo(this.newRowConsuntivo).subscribe
+    (obj => {
+      var newCons: any = JSON.parse(JSON.stringify(obj));
+
+      //inizializzo la nuova riga con 0 ore su tutti i gg 
+      this.cloneConsuntivoField(this.newRowConsuntivo, this.blankConsuntivo);
+      this.blankConsuntivo.ore = 0;
+      this.blankConsuntivo.data_consuntivo = new Date(this.yearSelected, this.monthSelected - 1, 1, 0, 0, 0, 0);
+      //inizializzo la table
+      for (let i = 0; i < this.nDays; i++) {
+        var blankItem = JSON.parse(JSON.stringify(this.blankConsuntivo));
+        blankItem.data_consuntivo = new Date(this.yearSelected, this.monthSelected - 1, i + 1, 0, 0, 0, 0);
+        newCons[i] = blankItem;
+      }
+      //var deepCopyObj = JSON.parse(JSON.stringify(this.newConsuntivo));
+      this.consuntivi = this.consuntivi.concat(newCons);
+      this.displayDialog = false;
+    },
+    err => {
+      alert(err);
+    }
+    );
   }
 
 
@@ -289,29 +338,28 @@ export class MonthGridComponent implements OnChanges {
 
   //SAVE ROW (INLINE)
   private saveEdit(editRowConsuntivo, index) {
-    //editRowConsuntivo.nome_cliente = this.lst_clienti.find(x=> x.value == editRowConsuntivo.id_cliente).label ;
-    //editRowConsuntivo.nome_ambito = this.lst_ambiti.find(x=> x.value == editRowConsuntivo.id_ambito).label ;
-    //editRowConsuntivo.nome_macro_area = this.lst_aree.find(x=> x.value == editRowConsuntivo.id_macro_area).label ;
-    editRowConsuntivo.nome_attivita = this.lst_attivita.find(x=> x.value == editRowConsuntivo.id_attivita).label ;
-    editRowConsuntivo.nome_deliverable = this.lst_deliverable.find(x=> x.value == editRowConsuntivo.id_tipo_deliverable).label ;
-   
+    editRowConsuntivo.nome_attivita = this.lst_attivita.find(x => x.value == editRowConsuntivo.id_attivita).label;
+    editRowConsuntivo.nome_tipo_deliverable = this.lst_deliverable.find(x => x.value == editRowConsuntivo.id_tipo_deliverable).label;
+
     var consuntiviToAdd: Consuntivo[] = new Array<Consuntivo>();
 
     for (let i = 0; i < this.nDays; i++) {
       if (editRowConsuntivo[i]._id != null || editRowConsuntivo[i].ore > 0) {
+        editRowConsuntivo[i].nome_attivita = this.lst_attivita.find(x => x.value == editRowConsuntivo.id_attivita).label;
+        editRowConsuntivo[i].nome_tipo_deliverable = this.lst_deliverable.find(x => x.value == editRowConsuntivo.id_tipo_deliverable).label;
         consuntiviToAdd.push(editRowConsuntivo[i]);
       }
     }
-      if (consuntiviToAdd.length > 0) {
-        this.consuntivazioneService
-          .addUpdateConsuntivi(consuntiviToAdd)
-          .subscribe(msg => {
-            alert(msg.body);            
-          },
-          err => alert(err)
-          );
-      }
-      editRowConsuntivo.isEditable = false;    
+    if (consuntiviToAdd.length > 0) {
+      this.consuntivazioneService
+        .addUpdateConsuntivi(consuntiviToAdd)
+        .subscribe(msg => {
+          alert(msg.body);
+        },
+        err => alert(err)
+        );
+    }
+    editRowConsuntivo.isEditable = false;
   }
 
   private abortEdit(r, i) {
@@ -321,14 +369,14 @@ export class MonthGridComponent implements OnChanges {
 
   //DELETE ROW
   private delete(r, i) {
-    
+
     var delCriteria;
     delCriteria = new Object();
-    delCriteria.id_utente= r.id_utente;
-    delCriteria.id_macro_area= r.id_macro_area;
-    delCriteria.id_ambito= r.id_ambito;
-    delCriteria.id_attivita= r.id_attivita;
-    delCriteria.id_tipo_deliverable= r.id_tipo_deliverable;
+    delCriteria.id_utente = r.id_utente;
+    delCriteria.id_macro_area = r.id_macro_area;
+    delCriteria.id_ambito = r.id_ambito;
+    delCriteria.id_attivita = r.id_attivita;
+    delCriteria.id_tipo_deliverable = r.id_tipo_deliverable;
 
     this.consuntivazioneService
       //.deleteConsuntivi(r.id_user, r.id_macro_area, r.id_ambito, r.id_attivita, r.id_tipo_deliverable)
@@ -348,25 +396,41 @@ export class MonthGridComponent implements OnChanges {
     return new Date(year, month, 0).getUTCDate();
   }
 
-  private resetConsuntivo(consuntivo: any){
+  private resetConsuntivo(consuntivo: any) {
     consuntivo.id_utente = null;
     consuntivo.id_cliente = null;
+    consuntivo.nome_cliente = null;
     consuntivo.id_ambito = null;
+    consuntivo.nome_ambito = null;
     consuntivo.id_macro_area = null;
+    consuntivo.nome_macro_area = null;
     consuntivo.id_attivita = null;
+    consuntivo.nome_attivita = null;
     consuntivo.id_tipo_deliverable = null;
-    consuntivo.data_consuntivo = new Date(this.yearSelected, this.monthSelected-1, 1, 0, 0, 0, 0);
+    consuntivo.nome_tipo_deliverable = null;
+    consuntivo.data_consuntivo = new Date(this.yearSelected, this.monthSelected - 1, 1, 0, 0, 0, 0);
 
   }
 
 
-  private cloneConsuntivoField(consuntivoSource: any, consuntivoTarget: any){
+  private cloneConsuntivoField(consuntivoSource: any, consuntivoTarget: any) {
     consuntivoTarget.id_utente = consuntivoSource.id_utente;
     consuntivoTarget.id_cliente = consuntivoSource.id_cliente;
+    consuntivoTarget.nome_cliente = consuntivoSource.nome_cliente;
     consuntivoTarget.id_ambito = consuntivoSource.id_ambito;
+    consuntivoTarget.nome_ambito = consuntivoSource.nome_ambito;
     consuntivoTarget.id_macro_area = consuntivoSource.id_macro_area;
+    consuntivoTarget.nome_macro_area = consuntivoSource.nome_macro_area;
     consuntivoTarget.id_attivita = consuntivoSource.id_attivita;
+    consuntivoTarget.nome_attivita = consuntivoSource.nome_attivita;
     consuntivoTarget.id_tipo_deliverable = consuntivoSource.id_tipo_deliverable;
+    consuntivoTarget.nome_tipo_deliverable = consuntivoSource.nome_tipo_deliverable;
     consuntivoTarget.data_consuntivo = consuntivoSource.data_consuntivo;
+  }
+
+  /*il form group non ha di per se un metodo per verificare se sul form è stato fatto il submit*/
+  private checkForm(form) {
+    this.formSubmitted = true;
+    return form.valid;
   }
 }

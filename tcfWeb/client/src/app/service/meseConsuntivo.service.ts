@@ -14,4 +14,14 @@ export class MeseConsuntivoService {
   	return this.http.get('/tcf/api/meseConsuntivoController/mesiConsuntiviUtente/'+userId+'/'+year)
     .map(res => res.json()); 
   }
+
+
+    //add Consuntivo
+    @beforeMethod(LogAspect.log)
+    addMeseConsuntivo(meseConsuntivoParam : MeseConsuntivo){
+      var headers = new Headers();
+      headers.append('Content-Type', 'application/json');
+      return this.http.post('/tcf/api/meseConsuntivoController/CRUD/', meseConsuntivoParam, {headers:headers})
+        .map(res => res.json());
+    }
 }
