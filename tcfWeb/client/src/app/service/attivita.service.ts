@@ -40,4 +40,10 @@ export class AttivitaService {
   	return this.http.put('/tcf/api/attivitaController/CRUD/?criteria='+JSON.stringify(criteria), attivitaParam, {headers:headers})
   		.map(res => res.json());
   }
+  
+  @beforeMethod(LogAspect.log)
+  getAttivitaByCliente(criteria){
+  	return this.http.get('/tcf/api/attivitaController/CRUD?criteria='+JSON.stringify(criteria))
+  		.map(res=> res.json());
+  }
 }

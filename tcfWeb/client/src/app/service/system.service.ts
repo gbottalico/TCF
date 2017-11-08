@@ -32,10 +32,10 @@ export class SystemService {
         return this.getGenericCall("/FTC/COMMON/lst_deliverable");      
     }
 
-    @beforeMethod(LogAspect.log)
+    /*@beforeMethod(LogAspect.log)
     getAmbiti() {
         return this.getGenericCall("/FTC/COMMON/lst_ambiti");               
-    }
+    }*/
 
     @beforeMethod(LogAspect.log)
     getAree() {

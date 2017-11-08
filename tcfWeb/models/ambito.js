@@ -16,6 +16,7 @@ const AmbitoSchema = mongoose.Schema({
 	data_inizio_validita:{
 		type: Date,
 		required: true,
+		default: Date.now
 	},
 	data_fine_validita:{
 		type: Date,

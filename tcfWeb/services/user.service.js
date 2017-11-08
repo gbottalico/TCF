@@ -1,4 +1,4 @@
-var config = require('config.json');
+var config = require('config.json')[process.env.NODE_ENV || 'dev'];
 var _ = require('lodash');
 var jwt = require('jsonwebtoken');
 var bcrypt = require('bcryptjs');
@@ -32,6 +32,7 @@ function authenticate(username, password) {
         if (err) {
             deferred.reject(err.name + ': ' + err.message);
         } else {
+            console.log(config.secret);
             if (user && bcrypt.compareSync(password, user.password)) {
                 //aggiungo il token
                 userSelected = JSON.parse(JSON.stringify(user));
