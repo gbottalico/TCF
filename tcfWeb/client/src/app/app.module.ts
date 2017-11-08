@@ -4,7 +4,8 @@ import { HttpModule } from '@angular/http';
 import { FormsModule }   from '@angular/forms';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { NgModule, ErrorHandler } from '@angular/core';
-import { logConfig } from './app.config';
+import { logConfig } from './log.config';
+import { environment } from '../environments/environment';
 
 import { CustomHttpProvider } from './helpers/custom-http';
 import { AppComponent } from './app.component';
@@ -36,7 +37,7 @@ var consoleAppender = JL.createConsoleAppender('consoleAppender');
 
 JL().setOptions({ "level": logConfig.logLevel, 
                   "appenders": [ajaxAppender, consoleAppender] });
-JL.setOptions({ "defaultAjaxUrl": logConfig.apiUrl });
+JL.setOptions({ "defaultAjaxUrl": environment.apiUrl + logConfig.apiUrl });
 
 
 @NgModule({

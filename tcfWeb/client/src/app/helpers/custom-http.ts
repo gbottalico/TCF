@@ -1,6 +1,7 @@
 import { Injectable } from "@angular/core";
 import { ConnectionBackend, XHRBackend, RequestOptions, Request, RequestOptionsArgs, Response, Http, Headers } from "@angular/http";
-import { appConfig } from '../app.config';
+
+import { environment } from '../../environments/environment';
 
 import { Observable } from "rxjs/Observable";
 import 'rxjs/add/operator/catch';
@@ -14,19 +15,19 @@ export class CustomHttp extends Http {
     }
 
     get(url: string, options?: RequestOptionsArgs): Observable<Response> {
-        return super.get(appConfig.apiUrl + url, this.addJwt(options)).catch(this.handleError);
+        return super.get(environment.apiUrl + url, this.addJwt(options)).catch(this.handleError);
     }
 
     post(url: string, body: string, options?: RequestOptionsArgs): Observable<Response> {
-        return super.post(appConfig.apiUrl + url, body, this.addJwt(options)).catch(this.handleError);
+        return super.post(environment.apiUrl + url, body, this.addJwt(options)).catch(this.handleError);
     }
 
     put(url: string, body: string, options?: RequestOptionsArgs): Observable<Response> {
-        return super.put(appConfig.apiUrl + url, body, this.addJwt(options)).catch(this.handleError);
+        return super.put(environment.apiUrl + url, body, this.addJwt(options)).catch(this.handleError);
     }
 
     delete(url: string, options?: RequestOptionsArgs): Observable<Response> {
-        return super.delete(appConfig.apiUrl + url, this.addJwt(options)).catch(this.handleError);
+        return super.delete(environment.apiUrl + url, this.addJwt(options)).catch(this.handleError);
     }
 
     // private helper methods
