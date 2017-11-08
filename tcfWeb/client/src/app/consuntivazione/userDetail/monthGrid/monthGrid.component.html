@@ -65,9 +65,15 @@
 
                 <div class="ui-grid-col-12 ui-g-12 ui-md-12">
                     <span class="ui-float-label">
+<<<<<<< HEAD
                             <label for="ddl_clienti" [ngStyle]="{'color': isValid('ddl_clienti')}" style="top: -.60em;font-size:12px;">Clienti</label>
                         </span>
                     <p-dropdown id="ddl_clienti" formControlName="ddl_clienti" [options]="lst_clienti" [(ngModel)]="newRowConsuntivo.id_cliente" 
+=======
+                                <label for="ddl_clienti" style="top: -.60em;font-size:12px; color:#d6d6d6">Cliente</label>
+                            </span>
+                    <p-dropdown  formControlName="ddl_clienti" name="ddl_clienti" [options]="lst_clienti" [(ngModel)]="newRowConsuntivo.id_cliente" required="true"
+>>>>>>> 1bf7cfde1ab34f1b14d4d692119ed7e476f7430a
                         appendTo="body" placeholder="Seleziona Cliente" [autoWidth]="false" [style]="{'width':'100%'}"></p-dropdown>
                 </div>
             </div>
