@@ -67,7 +67,7 @@
                     <span class="ui-float-label">
                                 <label for="ddl_clienti" style="top: -.60em;font-size:12px; color:#d6d6d6">Cliente</label>
                             </span>
-                    <p-dropdown [ngModelOptions]="{standalone: true}"  formControlName="ddl_clienti" name="ddl_clienti" [options]="lst_clienti" [(ngModel)]="newRowConsuntivo.id_cliente" required="true"
+                    <p-dropdown  formControlName="ddl_clienti" name="ddl_clienti" [options]="lst_clienti" [(ngModel)]="newRowConsuntivo.id_cliente" required="true"
                         appendTo="body" placeholder="Seleziona Cliente" [autoWidth]="false" [style]="{'width':'100%'}"></p-dropdown>
                     <label for="ddl_clienti" [ngStyle]="{'color': isValid((activityForm.get('ddl_clienti').touched || formSubmitted) && activityForm.get('ddl_clienti').errors)}">{{((activityForm.get('ddl_clienti').touched || formSubmitted) && activityForm.get('ddl_clienti').errors) ? "Seleziona Cliente" : "Cliente"}}</label>
                 </div>
