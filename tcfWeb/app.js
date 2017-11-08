@@ -72,7 +72,7 @@ app.use('/tcf/api/userController/CRUD',       RouterFactory.create({path: "", mo
 app.use('/tcf/api/sedeController/CRUD',       RouterFactory.create({path: "", model: require('./models/sede.js')}));
 app.use('/tcf/api/attivitaController/CRUD',   RouterFactory.create({path: "", model: require('./models/attivita.js')}));
 app.use('/tcf/api/consuntivoController/CRUD', RouterFactory.create({path: "", model: require('./models/consuntivo.js')}));
-
+app.use('/tcf/api/commessaClienteController/CRUD', RouterFactory.create({path: "", model: require('./models/commessaCliente.js')}));
 
 
 //STATIC CUSTOM ROUTES

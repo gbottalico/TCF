@@ -5,17 +5,12 @@ const CommessaClienteSchema = mongoose.Schema({
 		type: Number,
 		required: true
 	},
-	id_cliente : {
+	id_cliente: {
 		type: String,
 		required: true
 	},
 	id_commessa_fnc : {
 		type: Number,
-		required: true
-	},
-	
-	id_macro_area : {
-		type: String,
 		required: true
 	},
 	codice_commessa:{

@@ -10,6 +10,7 @@ import { ConsuntivazioneComponent } from './consuntivazione/consuntivazione.comp
 import { ChangeEmailComponent } from './user/changeemail/changeemail.component';
 import { ChangePwdComponent } from './user/changepwd/changepwd.component';
 import { GestioneUtentiComponent } from './amministrazione/gestioneUtenti/gestioneUtenti.component';
+import { GestioneAttivitaComponent } from './amministrazione/gestioneAttivita/gestioneAttivita.component';
 
 
 const routes: Routes = [
@@ -20,6 +21,7 @@ const routes: Routes = [
   { path: 'consuntivazione', component: ConsuntivazioneComponent, canActivate: [AuthGuard] },
   { path: 'userChangeEmail', component: ChangeEmailComponent, canActivate: [AuthGuard] },
   { path: 'userChangePwd', component: ChangePwdComponent, canActivate: [AuthGuard] },
+  { path: 'clienti', component: GestioneAttivitaComponent, canActivate: [AuthGuard]},
   { path: '**', redirectTo: '' }
 ];
  

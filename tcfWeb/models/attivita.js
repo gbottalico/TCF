@@ -10,7 +10,11 @@ const AttivitaSchema = mongoose.Schema({
 		type: String,
 		required: true
 	},
-	id_stato_attivita: {
+	id_cliente: {
+		type: String,
+		required: true
+	},
+	id_macro_area: {
 		type: String,
 		required: true
 	},
@@ -41,6 +45,10 @@ const AttivitaSchema = mongoose.Schema({
 	data_fine_validita:{
 		type: Date,
 		required: false
+	},
+	stato_attivita:{
+		type: String,
+		required: true
 	}
 });
 

@@ -10,8 +10,8 @@ function addCliente(req, res){
 	clienteService.addCliente(req.body).then(function(){
 		 res.sendStatus(200);
 	}).catch(function (err) {
-            res.status(400).send(err);
-        });
+		res.status(400).send(err);
+	});
 	
 };
 
@@ -28,7 +28,7 @@ function getClienteById(req, res){
 	clienteService.getClienteById(req.params.idCliente).then(function(clienti){
 		 res.send(clienti);
 	}).catch(function (err) {
-            res.status(400).send(err);
+		res.status(400).send(err);
     });
 	
 };

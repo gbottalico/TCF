@@ -25,20 +25,20 @@ export class UserService {
   		.map(res => res.json());
   }
 
-  //add user
   @beforeMethod(LogAspect.log)
-  updateUser(modifiedUser){
-    var headers = new Headers();
+  deleteUser(criteria){
+  	var headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    return this.http.post('/tcf/api/userController/insOrUpdUtente/', modifiedUser, {headers:headers})
-      .map(res => res.json());
+    return this.http.delete('/tcf/api/userController/CRUD?criteria='+JSON.stringify(criteria), {headers:headers})
+  		.map(res => res.json());
   }
 
-  //delete user
   @beforeMethod(LogAspect.log)
-  deleteUser(id){
-    return this.http.delete('/tcf/api/userController/CRUD/' + id)
-      .map(res => res.json);
+  updateUser(userParam, criteria){
+  	var headers = new Headers();
+  	headers.append('Content-Type', 'application/json');
+  	return this.http.put('/tcf/api/userController/CRUD/?criteria='+JSON.stringify(criteria), userParam, {headers:headers})
+  		.map(res => res.json());
   }
 
   @beforeMethod(LogAspect.log)
@@ -62,12 +62,6 @@ export class UserService {
   @beforeMethod(LogAspect.log)
   getUsersByClient(userLogged){
   	return this.http.get('/tcf/api/userController/userByClient/' + userLogged + "/")
-    .map(res => res.json()); 
-  }
-
-  @beforeMethod(LogAspect.log)
-  getMaxProfile(userLogged){
-  	return this.http.get('/tcf/api/userController/getMaxProfile/' + userLogged + "/")
     .map(res => res.json()); 
   }
 }

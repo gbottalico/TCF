@@ -39,7 +39,7 @@
                 <div class="ui-g ui-fluid">
                     <div class="ui-g-12 ui-md-12">
                         <span class="ui-float-label">
-                            <input type="text" id="cognome" formControlName="cognome" [formGroup]="userForm" [ngStyle]="{'border-color': isValid((userForm.get('cognome').touched || formSubmitted) && userForm.get('cognome').errors)}" pInputText [(ngModel)]="newUser.cognome" >
+                            <input type="text" id="cognome" formControlName="cognome" [ngStyle]="{'border-color': isValid((userForm.get('cognome').touched || formSubmitted) && userForm.get('cognome').errors)}" pInputText [(ngModel)]="newUser.cognome" >
                             <label for="cognome" [ngStyle]="{'color': isValid((userForm.get('cognome').touched || formSubmitted) && userForm.get('cognome').errors)}">{{((userForm.get('cognome').touched || formSubmitted) && userForm.get('cognome').errors) ? "Inserisci cognome" : "Cognome"}}</label>
                         </span>
                     </div>
@@ -47,7 +47,7 @@
                 <div class="ui-g ui-fluid">
                     <div class="ui-g-12 ui-md-12">
                         <span class="ui-float-label">
-                                <input type="text" id="nome" formControlName="nome" [formGroup]="userForm" [ngStyle]="{'border-color': isValid((userForm.get('nome').touched || formSubmitted) && userForm.get('nome').errors)}" pInputText [(ngModel)]="newUser.nome">
+                                <input type="text" id="nome" formControlName="nome" [ngStyle]="{'border-color': isValid((userForm.get('nome').touched || formSubmitted) && userForm.get('nome').errors)}" pInputText [(ngModel)]="newUser.nome">
                                 <label for="nome" [ngStyle]="{'color': isValid((userForm.get('nome').touched || formSubmitted) && userForm.get('nome').errors)}" > {{(userForm.get('nome').touched || formSubmitted) && userForm.get('nome').errors ? 'Inserisci nome' : 'Nome'}}</label>
                            </span>
                     </div>
