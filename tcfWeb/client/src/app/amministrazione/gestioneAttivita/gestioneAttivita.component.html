@@ -76,7 +76,7 @@
                             <label for="cliente" [ngStyle]="{'color': isValid('cliente')}" style="top: -.60em;font-size:12px;" >Cliente</label>
                         </span>
                         <p-dropdown id="cliente" formControlName="cliente" [options]="lst_clienti" [style]="{'width':'100%'}" placeholder="Seleziona cliente"
-                            [(ngModel)]="newActivity.id_cliente">
+                            [(ngModel)]="newActivity.id_cliente" (onChange)="selectFromCliente('ambito')">
                         </p-dropdown>
                     </div>
                 </div>
@@ -86,7 +86,7 @@
                             <label for="ambito" [ngStyle]="{'color': isValid('ambito')}" style="top: -.60em;font-size:12px;">Ambito</label>
                         </span>
                         <p-dropdown id="ambito" formControlName="ambito" [options]="lst_ambiti" [style]="{'width':'100%'}" placeholder="Seleziona ambito"
-                            [(ngModel)]="newActivity.id_ambito" (onChange)="selectCommessa()" [disabled]="isDisabled('ambito')">
+                            [(ngModel)]="newActivity.id_ambito" (onChange)="selectFromCliente('commessa_cliente')" [disabled]="isDisabled('ambito')">
                         </p-dropdown>
                     </div>
                 </div>

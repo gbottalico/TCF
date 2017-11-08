@@ -11,13 +11,14 @@ import { SystemService } from '../../service/system.service';
 import { CommessaCliente } from '../../model/commessaCliente';
 import { CommessaClienteService } from '../../service/commessaCliente.service';
 import { AttivitaService } from '../../service/attivita.service';
+import { AmbitoService } from '../../service/ambito.service';
 // import { AttivitaService } from '../../service/attivita.service';
 
 @Component({
     selector: 'gestioneAttivita',
     templateUrl: './gestioneAttivita.component.html',
     styleUrls: ['./gestioneAttivita.component.css'],
-    providers: [CommessaClienteService, FormBuilder, AuthenticationService, ClienteService, ConfirmationService],
+    providers: [AmbitoService, CommessaClienteService, FormBuilder, AuthenticationService, ClienteService, ConfirmationService],
     // encapsulation: ViewEncapsulation.None
 })
 
@@ -38,11 +39,12 @@ export class GestioneAttivitaComponent implements OnInit {
     lst_stati: SelectItem[] = [{ label: 'Aperto', value: 'OPEN' }, { label: 'In Verifica', value: 'CHECK' }, { label: 'Chiuso', value: 'CLOSE' }];
 
     constructor(private formBuilder: FormBuilder,
-                private clienteService: ClienteService,
-                private systemService: SystemService,
-                private confirmationService: ConfirmationService,
-                private commessaClienteService: CommessaClienteService,
-                private attivitaService: AttivitaService) {
+        private clienteService: ClienteService,
+        private systemService: SystemService,
+        private confirmationService: ConfirmationService,
+        private commessaClienteService: CommessaClienteService,
+        private attivitaService: AttivitaService,
+        private ambitoService: AmbitoService) {
 
         this.newActivity = new Attivita();
         this.activities = new Array<Attivita>();
@@ -72,12 +74,6 @@ export class GestioneAttivitaComponent implements OnInit {
         this.clienteService.getClienti().subscribe(clienti => {
             clienti.forEach(clienti => {
                 this.lst_clienti.push({ label: clienti.nome_cliente, value: clienti._id });
-            });
-        });
-
-        this.systemService.getAmbiti().subscribe(ambiti => {
-            ambiti.forEach(element => {
-                this.lst_ambiti.push({ label: element.label, value: element.value });
             });
         });
 
@@ -127,23 +123,34 @@ export class GestioneAttivitaComponent implements OnInit {
         this.displayDialog = false;
     }
 
-    private selectCommessa() {
+    private selectFromCliente(componentName) {
         var selCriteria;
         selCriteria = new Object();
         selCriteria.id_cliente = this.newActivity.id_cliente;
-        this.lst_commesse_clienti = [];
-        this.commessaClienteService.getCommessaByCliente(selCriteria).subscribe(commesse => {
-            commesse.forEach(element => {
-                this.lst_commesse_clienti.push({ label: element.nome_commessa, value: element._id });
-            });
-        })
+        switch (componentName) {
+            case 'ambito':
+                this.lst_ambiti = [];
+                this.ambitoService.getAmbitoByCliente(selCriteria).subscribe(commesse => {
+                    commesse.forEach(element => {
+                      this.lst_ambiti.push({ label: element.nome_ambito, value: element._id });
+                    });
+                  })
+                break;
+            case 'commessa_cliente':
+                this.lst_commesse_clienti = [];
+                this.commessaClienteService.getCommessaByCliente(selCriteria).subscribe(commesse => {
+                    commesse.forEach(element => {
+                        this.lst_commesse_clienti.push({ label: element.nome_commessa, value: element._id });
+                    });
+                })
+                break;
+        }
     }
 
     private deleteRow(rowData, rowIndex) {
         var selCriteria;
         selCriteria = new Object();
         selCriteria.codice_attivita = rowData.codice_attivita;
-        console.log(rowData.codice_attivita);
         this.confirmationService.confirm({
             message: "Sei sicuro di voler eliminare l'attività '" + rowData.nome_attivita + "' ?",
             header: 'Elimina attività',
@@ -211,10 +218,10 @@ export class GestioneAttivitaComponent implements OnInit {
         return null;
     }
 
-    private isDisabled(component): boolean {
+    private isDisabled(componentName): boolean {
         var disabled = false;
 
-        switch (component) {
+        switch (componentName) {
             case 'ambito': disabled = this.newActivity.id_cliente == null;
                 break;
             case 'macroArea': disabled = this.newActivity.id_cliente == null;

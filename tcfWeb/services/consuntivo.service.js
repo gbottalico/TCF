@@ -1,4 +1,3 @@
-
 var _ = require('lodash');
 var Q = require('q');
 var dateFormat = require('dateformat');

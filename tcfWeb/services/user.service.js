@@ -32,6 +32,7 @@ function authenticate(username, password) {
         if (err) {
             deferred.reject(err.name + ': ' + err.message);
         } else {
+            console.log(config.secret);
             if (user && bcrypt.compareSync(password, user.password)) {
                 //aggiungo il token
                 userSelected = JSON.parse(JSON.stringify(user));

@@ -7,15 +7,16 @@ import { User } from '../../../model/user';
 import { ConsuntivazioneService } from '../../../service/consuntivazione.service';
 import { SystemService } from '../../../service/system.service';
 import { AttivitaService } from '../../../service/attivita.service';
-import { SelectItem } from 'primeng/primeng';
+import { SelectItem, ConfirmationService } from 'primeng/primeng';
 import { ClienteService } from '../../../service/cliente.service';
 import { MeseConsuntivoService } from '../../../service/meseConsuntivo.service';
+import { AmbitoService } from '../../../service/ambito.service';
 
 @Component({
   selector: 'month-grid',
   templateUrl: './monthGrid.component.html',
   styleUrls: ['./monthGrid.component.css'],
-  providers: [FormBuilder]
+  providers: [FormBuilder, AmbitoService, ConfirmationService]
 })
 
 export class MonthGridComponent implements OnChanges {
@@ -49,7 +50,7 @@ export class MonthGridComponent implements OnChanges {
   lst_aree: SelectItem[];
   lst_attivita: SelectItem[];
   lst_deliverable: SelectItem[];
-  activityForm: FormGroup;
+  consuntivoForm: FormGroup;
 
   constructor(
     private consuntivazioneService: ConsuntivazioneService,
@@ -57,11 +58,18 @@ export class MonthGridComponent implements OnChanges {
     private clienteService: ClienteService,
     private meseConsuntivoService: MeseConsuntivoService,
     private systemService: SystemService,
-    private formBuilder: FormBuilder
-    ) {
+    private ambitoService: AmbitoService,
+    private formBuilder: FormBuilder,
+    private confirmationService: ConfirmationService
+  ) {
 
-      this.activityForm = this.formBuilder.group({
-        ddl_clienti: new FormControl('', Validators.required)});  
+    this.consuntivoForm = this.formBuilder.group({
+      ddl_clienti: new FormControl('', Validators.required),
+      ddl_ambiti: new FormControl('', Validators.required),
+      ddl_aree: new FormControl('', Validators.required),
+      ddl_attivita: new FormControl('', Validators.required),
+      ddl_deliverable: new FormControl('', Validators.required),
+    });
 
     this.newRowConsuntivo = new Object();
     this.blankConsuntivo = new Consuntivo()
@@ -69,11 +77,8 @@ export class MonthGridComponent implements OnChanges {
 
     //POPOLAMENTO LISTE
     this.lst_clienti = new Array<SelectItem>();
-    this.clienteService.getClienti().subscribe(clienti => {
-      clienti.forEach(cliente => {
-        this.lst_clienti.push({ label: cliente.nome_cliente, value: cliente._id });
-      });
-    });
+    
+    
 
     this.lst_attivita = new Array<SelectItem>();
     this.attivitaService.getAttivita().subscribe(attivitas => {
@@ -89,10 +94,6 @@ export class MonthGridComponent implements OnChanges {
 
     this.systemService.getAree().subscribe(domain => {
       this.lst_aree = domain;
-    });
-
-    this.systemService.getAmbiti().subscribe(domain => {
-      this.lst_ambiti = domain;
     });
 
 
@@ -249,9 +250,19 @@ export class MonthGridComponent implements OnChanges {
   //NEW ROW
   private showDialogToAdd() {
     //Inizializzazione dei parametri di input
+    this.lst_clienti = [];
+    this.clienteService.getClienti().subscribe(clienti => {
+      clienti.forEach(clienteAll => {
+        this.userSelected.clienti.forEach(clienteUser => {
+          if(clienteAll._id == clienteUser.id_cliente)
+          this.lst_clienti.push({ label: clienteAll.nome_cliente, value: clienteAll._id});
+        });
+      });
+    });
     this.resetConsuntivo(this.newRowConsuntivo);
     this.newRowConsuntivo.id_utente = this.userSelected._id;
-
+    this.consuntivoForm.reset();
+    this.formSubmitted = false;
     this.displayDialog = true;
 
   }
@@ -276,49 +287,49 @@ export class MonthGridComponent implements OnChanges {
 
 
     //Se è la prima riga inserita del mese devo creare anche il mese /sarebbe da creare il servizio ad-hoc server side
-    if(this.consuntivi.length == 0){
-      var meseConsuntivo : MeseConsuntivo = new MeseConsuntivo();
+    if (this.consuntivi.length == 0) {
+      var meseConsuntivo: MeseConsuntivo = new MeseConsuntivo();
       meseConsuntivo.anno_consuntivo = this.yearSelected.toString();
       meseConsuntivo.mese_consuntivo = this.monthSelected.toString();
       meseConsuntivo.id_utente = this.userSelected._id.toString();
       meseConsuntivo.nome_stato = "Aperto";
       this.meseConsuntivoService.addMeseConsuntivo(meseConsuntivo).subscribe(
-        obj=>{
+        obj => {
           this.addConsuntivo();
         },
-        err=>{
+        err => {
           alert("errore nell'inserimento del mese")
         }
       );
-    }else{
+    } else {
       this.addConsuntivo();
-    }  
+    }
 
   }
 
-  private addConsuntivo(){
+  private addConsuntivo() {
     this.consuntivazioneService.addConsuntivo(this.newRowConsuntivo).subscribe
-    (obj => {
-      var newCons: any = JSON.parse(JSON.stringify(obj));
+      (obj => {
+        var newCons: any = JSON.parse(JSON.stringify(obj));
 
-      //inizializzo la nuova riga con 0 ore su tutti i gg 
-      this.cloneConsuntivoField(this.newRowConsuntivo, this.blankConsuntivo);
-      this.blankConsuntivo.ore = 0;
-      this.blankConsuntivo.data_consuntivo = new Date(this.yearSelected, this.monthSelected - 1, 1, 0, 0, 0, 0);
-      //inizializzo la table
-      for (let i = 0; i < this.nDays; i++) {
-        var blankItem = JSON.parse(JSON.stringify(this.blankConsuntivo));
-        blankItem.data_consuntivo = new Date(this.yearSelected, this.monthSelected - 1, i + 1, 0, 0, 0, 0);
-        newCons[i] = blankItem;
+        //inizializzo la nuova riga con 0 ore su tutti i gg 
+        this.cloneConsuntivoField(this.newRowConsuntivo, this.blankConsuntivo);
+        this.blankConsuntivo.ore = 0;
+        this.blankConsuntivo.data_consuntivo = new Date(this.yearSelected, this.monthSelected - 1, 1, 0, 0, 0, 0);
+        //inizializzo la table
+        for (let i = 0; i < this.nDays; i++) {
+          var blankItem = JSON.parse(JSON.stringify(this.blankConsuntivo));
+          blankItem.data_consuntivo = new Date(this.yearSelected, this.monthSelected - 1, i + 1, 0, 0, 0, 0);
+          newCons[i] = blankItem;
+        }
+        //var deepCopyObj = JSON.parse(JSON.stringify(this.newConsuntivo));
+        this.consuntivi = this.consuntivi.concat(newCons);
+        this.displayDialog = false;
+      },
+      err => {
+        alert(err);
       }
-      //var deepCopyObj = JSON.parse(JSON.stringify(this.newConsuntivo));
-      this.consuntivi = this.consuntivi.concat(newCons);
-      this.displayDialog = false;
-    },
-    err => {
-      alert(err);
-    }
-    );
+      );
   }
 
 
@@ -378,16 +389,23 @@ export class MonthGridComponent implements OnChanges {
     delCriteria.id_attivita = r.id_attivita;
     delCriteria.id_tipo_deliverable = r.id_tipo_deliverable;
 
-    this.consuntivazioneService
-      //.deleteConsuntivi(r.id_user, r.id_macro_area, r.id_ambito, r.id_attivita, r.id_tipo_deliverable)
-      .deleteConsuntivi(delCriteria)
-      .subscribe(msg => {
-        this.consuntivi.splice(i, 1);
-        this.consuntivi = Object.create(this.consuntivi); //deepcopy    
-        alert("deleted " + msg);
-      },
-      err => alert(err)
-      );
+    this.confirmationService.confirm({
+      message: "Sei sicuro di voler eliminare l'attività '" + r.nome_attivita + "' ?",
+      header: 'Elimina attività',
+      icon: 'fa fa-trash',
+      accept: () => {
+
+        this.consuntivazioneService
+          //.deleteConsuntivi(r.id_user, r.id_macro_area, r.id_ambito, r.id_attivita, r.id_tipo_deliverable)
+          .deleteConsuntivi(delCriteria)
+          .subscribe(msg => {
+            this.consuntivi.splice(i, 1);
+            this.consuntivi = Object.create(this.consuntivi); //deepcopy    
+          },
+          err => alert(err)
+          );
+      }
+    });
 
   }
 
@@ -433,4 +451,55 @@ export class MonthGridComponent implements OnChanges {
     this.formSubmitted = true;
     return form.valid;
   }
+
+  private selectFromCliente(componentname) {
+    var selCriteria;
+    selCriteria = new Object();
+    selCriteria.id_cliente = this.newRowConsuntivo.id_cliente;
+
+    switch (componentname) {
+      case 'attivita':
+        this.lst_attivita = [];
+        this.attivitaService.getAttivitaByCliente(selCriteria).subscribe(commesse => {
+          commesse.forEach(element => {
+            this.lst_attivita.push({ label: element.nome_attivita, value: element.codice_attivita });
+          });
+        })
+        break;
+      case 'ambito':
+        this.lst_ambiti = [];
+        this.ambitoService.getAmbitoByCliente(selCriteria).subscribe(commesse => {
+          commesse.forEach(element => {
+            this.lst_ambiti.push({ label: element.nome_ambito, value: element._id });
+          });
+        })
+        break;
+    }
+  }
+
+  private isDisabled(componentName): boolean {
+    var disabled = false;
+
+    switch (componentName) {
+      case 'ambito': disabled = this.newRowConsuntivo.id_cliente == null;
+        break;
+      case 'macro_area': disabled = this.newRowConsuntivo.id_cliente == null;
+        break;
+      case 'attivita': disabled = this.newRowConsuntivo.id_cliente == null || this.newRowConsuntivo.id_ambito == null || this.newRowConsuntivo.id_macro_area == null;
+        break;
+      case 'deliverable': disabled = this.newRowConsuntivo.id_cliente == null || this.newRowConsuntivo.id_ambito == null || this.newRowConsuntivo.id_macro_area == null || this.newRowConsuntivo.id_attivita == null;
+        break;
+    }
+
+    return disabled;
+  }
+
+  private isValid(componentName: string) {
+    if ((this.consuntivoForm.get(componentName).touched || this.formSubmitted) && this.consuntivoForm.get(componentName).errors)
+      return "#a94442";
+    else
+      return "#898989"; //#d6d6d6
+  }
+
+
 }
