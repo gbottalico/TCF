@@ -17,7 +17,7 @@ import { JL } from 'jsnlog';
 //LOGGER SETTING
 export class UncaughtExceptionHandler implements ErrorHandler {
   handleError(error: any) {
-      JL().fatalException('Uncaught Exception', error);
+      JL().fatalException('Arch Uncaught Exception', error);
   }
 }
 

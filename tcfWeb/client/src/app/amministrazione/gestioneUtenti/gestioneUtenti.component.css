@@ -1,5 +1,3 @@
-@import url("../../../assets/css/gestioneUtenti.css"); 
-
 /*Inizio override primeng.css*/
 :host ::ng-deep .ui-calendar .ui-calendar-button {
     background-color: #b10022 !important;

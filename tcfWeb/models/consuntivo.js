@@ -10,9 +10,13 @@ const ConsuntivoSchema = mongoose.Schema({
 		type: String,
 		required: true
 	},
-	nome_utente: {
+	id_cliente: {
 		type: String,
-		required: false
+		required: true
+	},
+	nome_cliente: {
+		type: String,
+		required: true
 	},
 	id_ambito: {
 		type: String,
