@@ -49,7 +49,7 @@ export class MonthGridComponent implements OnChanges {
   lst_aree: SelectItem[];
   lst_attivita: SelectItem[];
   lst_deliverable: SelectItem[];
-  activityForm: FormGroup;
+  consuntivoForm: FormGroup;
 
   constructor(
     private consuntivazioneService: ConsuntivazioneService,
@@ -58,10 +58,15 @@ export class MonthGridComponent implements OnChanges {
     private meseConsuntivoService: MeseConsuntivoService,
     private systemService: SystemService,
     private formBuilder: FormBuilder
-    ) {
+  ) {
 
-      this.activityForm = this.formBuilder.group({
-        ddl_clienti: new FormControl('', Validators.required)});  
+    this.consuntivoForm = this.formBuilder.group({
+      ddl_clienti: new FormControl('', Validators.required),
+      ddl_ambiti: new FormControl('', Validators.required),
+      ddl_aree: new FormControl('', Validators.required),
+      ddl_attivita: new FormControl('', Validators.required),
+      ddl_deliverable: new FormControl('', Validators.required),
+    });
 
     this.newRowConsuntivo = new Object();
     this.blankConsuntivo = new Consuntivo()
@@ -276,49 +281,49 @@ export class MonthGridComponent implements OnChanges {
 
 
     //Se è la prima riga inserita del mese devo creare anche il mese /sarebbe da creare il servizio ad-hoc server side
-    if(this.consuntivi.length == 0){
-      var meseConsuntivo : MeseConsuntivo = new MeseConsuntivo();
+    if (this.consuntivi.length == 0) {
+      var meseConsuntivo: MeseConsuntivo = new MeseConsuntivo();
       meseConsuntivo.anno_consuntivo = this.yearSelected.toString();
       meseConsuntivo.mese_consuntivo = this.monthSelected.toString();
       meseConsuntivo.id_utente = this.userSelected._id.toString();
       meseConsuntivo.nome_stato = "Aperto";
       this.meseConsuntivoService.addMeseConsuntivo(meseConsuntivo).subscribe(
-        obj=>{
+        obj => {
           this.addConsuntivo();
         },
-        err=>{
+        err => {
           alert("errore nell'inserimento del mese")
         }
       );
-    }else{
+    } else {
       this.addConsuntivo();
-    }  
+    }
 
   }
 
-  private addConsuntivo(){
+  private addConsuntivo() {
     this.consuntivazioneService.addConsuntivo(this.newRowConsuntivo).subscribe
-    (obj => {
-      var newCons: any = JSON.parse(JSON.stringify(obj));
+      (obj => {
+        var newCons: any = JSON.parse(JSON.stringify(obj));
 
-      //inizializzo la nuova riga con 0 ore su tutti i gg 
-      this.cloneConsuntivoField(this.newRowConsuntivo, this.blankConsuntivo);
-      this.blankConsuntivo.ore = 0;
-      this.blankConsuntivo.data_consuntivo = new Date(this.yearSelected, this.monthSelected - 1, 1, 0, 0, 0, 0);
-      //inizializzo la table
-      for (let i = 0; i < this.nDays; i++) {
-        var blankItem = JSON.parse(JSON.stringify(this.blankConsuntivo));
-        blankItem.data_consuntivo = new Date(this.yearSelected, this.monthSelected - 1, i + 1, 0, 0, 0, 0);
-        newCons[i] = blankItem;
+        //inizializzo la nuova riga con 0 ore su tutti i gg 
+        this.cloneConsuntivoField(this.newRowConsuntivo, this.blankConsuntivo);
+        this.blankConsuntivo.ore = 0;
+        this.blankConsuntivo.data_consuntivo = new Date(this.yearSelected, this.monthSelected - 1, 1, 0, 0, 0, 0);
+        //inizializzo la table
+        for (let i = 0; i < this.nDays; i++) {
+          var blankItem = JSON.parse(JSON.stringify(this.blankConsuntivo));
+          blankItem.data_consuntivo = new Date(this.yearSelected, this.monthSelected - 1, i + 1, 0, 0, 0, 0);
+          newCons[i] = blankItem;
+        }
+        //var deepCopyObj = JSON.parse(JSON.stringify(this.newConsuntivo));
+        this.consuntivi = this.consuntivi.concat(newCons);
+        this.displayDialog = false;
+      },
+      err => {
+        alert(err);
       }
-      //var deepCopyObj = JSON.parse(JSON.stringify(this.newConsuntivo));
-      this.consuntivi = this.consuntivi.concat(newCons);
-      this.displayDialog = false;
-    },
-    err => {
-      alert(err);
-    }
-    );
+      );
   }
 
 
@@ -432,5 +437,12 @@ export class MonthGridComponent implements OnChanges {
   private checkForm(form) {
     this.formSubmitted = true;
     return form.valid;
+  }
+
+  private isValid(componentName: string) {
+    if ((this.consuntivoForm.get(componentName).touched || this.formSubmitted) && this.consuntivoForm.get(componentName).errors)
+      return "#a94442";
+    else
+      return "#898989"; //#d6d6d6
   }
 }
