@@ -5,10 +5,12 @@ var app = express();
 var cors = require('cors');
 var bodyParser = require('body-parser');
 var expressJwt = require('express-jwt');
-var config = require('config.json');
+var config = require('config.json')[process.env.NODE_ENV || 'dev'];
 var RouterFactory = require('node-express-crud-router').RouterFactory;
 
 mongoose.connect(config.connectionString);
+
+console.log(config);
 
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -97,7 +99,7 @@ app.use('/tcf/api/sedeController', require('./controllers/sede.controller'));
   
 
 // start server
-var port = process.env.NODE_ENV === 'production' ? 80 : 4000;
+var port = config.port;
 var server = app.listen(port, function () {
     JL().info('Server listening on port ' + port);
 });
