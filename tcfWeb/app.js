@@ -76,6 +76,7 @@ app.use('/tcf/api/attivitaController/CRUD',         RouterFactory.create({path: 
 app.use('/tcf/api/consuntivoController/CRUD',       RouterFactory.create({path: "", model: require('./models/consuntivo.js')}));
 app.use('/tcf/api/meseConsuntivoController/CRUD',   RouterFactory.create({path: "", model: require('./models/meseConsuntivo.js')}));
 app.use('/tcf/api/clienteController/CRUD',          RouterFactory.create({path: "", model: require('./models/cliente.js')}));
+app.use('/tcf/api/commessaClienteController/CRUD', RouterFactory.create({path: "", model: require('./models/commessaCliente.js')}));
 
 
 //STATIC CUSTOM ROUTES

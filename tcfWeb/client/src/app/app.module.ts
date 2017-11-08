@@ -10,6 +10,8 @@ import { CustomHttpProvider } from './helpers/custom-http';
 import { AppComponent } from './app.component';
 import { MasterModule } from './master/master.module';
 import { GestioneUtentiModule } from './amministrazione/gestioneUtenti/gestioneUtenti.module';
+import { GestioneAttivitaModule } from './amministrazione/gestioneAttivita/gestioneAttivita.module';
+
 import { JL } from 'jsnlog';
 
 //LOGGER SETTING
@@ -49,6 +51,7 @@ JL.setOptions({ "defaultAjaxUrl": logConfig.apiUrl });
     FormsModule,
     MasterModule,
     GestioneUtentiModule,
+    GestioneAttivitaModule,
     NgbModule.forRoot()
   ],
   providers: [

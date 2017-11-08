@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, OnChanges, OnInit, Injectable } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnChanges, OnInit, Injectable, ViewEncapsulation } from '@angular/core';
 import { User } from '../../model/user';
 import * as $ from 'jquery';
 import 'jquery-ui';
@@ -64,16 +64,15 @@ export class GestioneUtentiComponent implements OnInit {
       email: new FormControl('', Validators.compose([Validators.required, Validators.email])),
       dataInizio: new FormControl('', Validators.required),
       dataFine: new FormControl('', this.controlDateValidator),
-      username: new FormControl('', [Validators.required, /*this.usernameValidator*/]),
+      username: new FormControl('', [Validators.required/*, this.usernameValidator*/]),
       password: new FormControl('', Validators.required),
       confPassword: new FormControl('', [Validators.required, this.matchPasswordValidator]),
       dataInizioCliente: new FormControl('',Validators.required),
-      dataFineCliente: new FormControl('', [Validators.required, this.controlClientDateValidator])
+      dataFineCliente: new FormControl('', this.controlClientDateValidator)
     });
   }
 
   ngOnInit() {
-    $('.chiudi').hide();
     this.getInformations();
   }
 
@@ -95,7 +94,7 @@ export class GestioneUtentiComponent implements OnInit {
         this.maxClientDate.push(clienti.data_fine_validita);
       });
     });
-    this.userService.getUsers().subscribe(users => this.allSistemUser = users);
+    //this.userService.getUsers().subscribe(users => this.allSistemUser = users);
   }
 
   /*Gestione click MODIFICA UTENTE*/
@@ -118,15 +117,15 @@ export class GestioneUtentiComponent implements OnInit {
   /*Gestione click AGGIUNTA UTENTE*/
   addNewUser() {
     this.newUser = new User();
+    this.formSubmitted = false;
     this.headerUtente = "Aggiungi Utente";
     this.btnDialog = "Aggiungi";
     this.userIndex = null;
     this.displayDialog = true;
-
+    this.userForm.reset();
   }
 
   saveNew() {
-    this.formSubmitted = true;
     if (this.userIndex == null) { //aggiunta
       this.userService.addUser(this.newUser).subscribe(event => {
         this.users.push(this.newUser);
@@ -135,7 +134,11 @@ export class GestioneUtentiComponent implements OnInit {
       });
     }
     else { //modifica
-      this.userService.updateUser(this.newUser).subscribe(event => {
+      var selCriteria;
+      selCriteria = new Object();
+      selCriteria._id = this.newUser._id;
+      console.log(selCriteria);
+      this.userService.updateUser(this.newUser, selCriteria).subscribe(event => {
         this.users[this.userIndex] = this.newUser;
         this.users = JSON.parse(JSON.stringify(this.users)); //deepcopy
         this.changeFormatDate(this.users);
@@ -165,12 +168,15 @@ export class GestioneUtentiComponent implements OnInit {
 
   //DELETE ROW
   private deleteRow(rowData, rowIndex) {
+    var selCriteria;
+    selCriteria = new Object();
+    selCriteria._id = rowData._id;
     this.confirmationService.confirm({
       message: "Sei sicuro di voler eliminare l'utente '" + rowData._id + "' ?",
       header: 'Elimina utente',
       icon: 'fa fa-trash',
       accept: () => {
-        this.userService.deleteUser(rowData._id).subscribe(event => {
+        this.userService.deleteUser(selCriteria).subscribe(event => {
           this.users.splice(rowIndex, 1);
           this.users = JSON.parse(JSON.stringify(this.users)); //deepcopy
           this.changeFormatDate(this.users);
@@ -205,12 +211,10 @@ export class GestioneUtentiComponent implements OnInit {
 
   private isValid(valid, form) {
     var color;
-    if (valid) {
+    if (valid) 
       color = "#a94442"
-      if (form != null)
-        form.valid = false;
-    }
-    else color = "#d6d6d6";
+    else
+      color = "#d6d6d6";
 
     return color;
   }
@@ -244,6 +248,7 @@ export class GestioneUtentiComponent implements OnInit {
 
   /*private usernameValidator(control: FormControl) {
     let username = control.value;
+    if(this.allSistemUser != null)
     this.allSistemUser.forEach(element => {
         if(element._id == username)
           return { usernameExist: true}
