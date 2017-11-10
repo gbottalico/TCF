@@ -5,7 +5,7 @@ import { FormsModule, ReactiveFormsModule }   from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgModule } from '@angular/core';
 import { MonthGridComponent} from './monthGrid.component';
-import {DataTableModule, PanelModule, SharedModule, DialogModule, DropdownModule} from 'primeng/primeng';
+import { ConfirmDialogModule, DataTableModule, PanelModule, SharedModule, DialogModule, DropdownModule} from 'primeng/primeng';
 import { ConsuntivazioneService } from '../../../service/consuntivazione.service';
 import { ClienteService } from '../../../service/cliente.service';
 import { SystemService } from '../../../service/system.service';
@@ -29,7 +29,8 @@ import { MeseConsuntivoService } from '../../../service/meseConsuntivo.service';
     DropdownModule,
     SharedModule,
     DialogModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    ConfirmDialogModule
   ],
   providers: [
     ConsuntivazioneService,

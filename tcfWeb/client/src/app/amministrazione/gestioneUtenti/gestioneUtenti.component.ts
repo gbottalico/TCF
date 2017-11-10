@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, OnChanges, OnInit, Injectable, ViewEncapsulation } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnChanges, OnInit, Injectable, ViewEncapsulation, ChangeDetectorRef } from '@angular/core';
 import { User } from '../../model/user';
 import * as $ from 'jquery';
 import 'jquery-ui';
@@ -52,7 +52,8 @@ export class GestioneUtentiComponent implements OnInit {
     private clienteService: ClienteService,
     private confirmationService: ConfirmationService,
     private authenticationService: AuthenticationService,
-    private formBuilder: FormBuilder) {
+    private formBuilder: FormBuilder,
+    private cdRef: ChangeDetectorRef) {
     this.authenticationService.user$.subscribe(user => { this.userLogged = user });
     this.allSistemUser = [];
     this.users = null;
@@ -67,8 +68,9 @@ export class GestioneUtentiComponent implements OnInit {
       username: new FormControl('', [Validators.required/*, this.usernameValidator*/]),
       password: new FormControl('', Validators.required),
       confPassword: new FormControl('', [Validators.required, this.matchPasswordValidator]),
-      dataInizioCliente: new FormControl('',Validators.required),
-      dataFineCliente: new FormControl('', this.controlClientDateValidator)
+      dataInizioCliente: new FormControl('', Validators.required),
+      dataFineCliente: new FormControl('', this.controlClientDateValidator),
+      sede: new FormControl('', Validators.required)
     });
   }
 
@@ -103,9 +105,9 @@ export class GestioneUtentiComponent implements OnInit {
     this.newUser.data_inizio_validita = new Date(rowData.data_inizio_validita);
     this.newUser.data_fine_validita = rowData.data_fine_validita != null ? new Date(rowData.data_fine_validita) : null;
     this.newUser.clienti.forEach((element, index) => {
-      if (rowData.clienti[index] != null) {
-        element.data_inizio_validita_cliente = rowData.clienti[index].data_inizio_validita_cliente != null ? new Date(rowData.clienti[index].data_inizio_validita_cliente) : null;
-        element.data_fine_validita_cliente = rowData.clienti[index].data_fine_validita_cliente != null ? new Date(rowData.clienti[index].data_fine_validita_cliente) : null;
+      if (element != null) {
+        element.data_inizio_validita_cliente = element.data_inizio_validita_cliente != null ? new Date(element.data_inizio_validita_cliente) : null;
+        element.data_fine_validita_cliente = element.data_fine_validita_cliente != null ? new Date(element.data_fine_validita_cliente) : null;
       }
     });
     this.headerUtente = "Modifica Utente - " + this.newUser.nome + " " + this.newUser.cognome;
@@ -117,6 +119,8 @@ export class GestioneUtentiComponent implements OnInit {
   /*Gestione click AGGIUNTA UTENTE*/
   addNewUser() {
     this.newUser = new User();
+    this.newUser.isAdmin = false;
+    this.newUser.data_inizio_validita = new Date();
     this.formSubmitted = false;
     this.headerUtente = "Aggiungi Utente";
     this.btnDialog = "Aggiungi";
@@ -155,15 +159,14 @@ export class GestioneUtentiComponent implements OnInit {
     newCliente.data_inizio_validita_cliente = new Date();
     newCliente.data_fine_validita_cliente = null;
 
+
     if (this.newUser.clienti == null) {
       this.newUser.clienti = [{ id_cliente: null, id_profilo: null, data_inizio_validita_cliente: new Date(), data_fine_validita_cliente: null }];
     } else {
       this.newUser.clienti.push(newCliente);
     }
-
     this.newUser.clienti = JSON.parse(JSON.stringify(this.newUser.clienti)); //deepcopy
     this.changeFormatDate(this.newUser);
-
   }
 
   //DELETE ROW
@@ -209,41 +212,31 @@ export class GestioneUtentiComponent implements OnInit {
     }
   }
 
-  private isValid(valid, form) {
-    var color;
-    if (valid) 
-      color = "#a94442"
-    else
-      color = "#d6d6d6";
-
-    return color;
-  }
-
   private matchPasswordValidator(control: FormControl) {
     let password = control.root.value['password'] != null ? control.root.value['password'] : null;
-    let confPassword = control.value; 
-    if (password != confPassword) { 
-        return { matchPassword: true }
+    let confPassword = control.value;
+    if (password != confPassword) {
+      return { matchPassword: true }
     }
-    return null; 
+    return null;
   }
 
   private controlDateValidator(control: FormControl) {
     let dataInizio = control.root.value['dataInizio'] != null ? control.root.value['dataInizio'] : null;
-    let dataFine = control.value; 
-    if (dataInizio > dataFine && dataFine != null) { 
-        return { controlDate: true }
+    let dataFine = control.value;
+    if (dataInizio > dataFine && dataFine != null) {
+      return { controlDate: true }
     }
-    return null; 
+    return null;
   }
 
   private controlClientDateValidator(control: FormControl) {
     let dataInizioCliente = control.root.value['dataInizioCliente'] != null ? control.root.value['dataInizioCliente'] : null;
-    let dataFineCliente = control.value; 
-    if (dataInizioCliente > dataFineCliente && dataFineCliente != null) { 
-        return { controlClientDate: true }
+    let dataFineCliente = control.value;
+    if (dataInizioCliente > dataFineCliente && dataFineCliente != null) {
+      return { controlClientDate: true }
     }
-    return null; 
+    return null;
   }
 
   /*private usernameValidator(control: FormControl) {
@@ -262,7 +255,12 @@ export class GestioneUtentiComponent implements OnInit {
     return form.valid;
   }
 
-  
+  private isValid(componentName: string) {
+    if ((this.userForm.get(componentName).touched || this.formSubmitted) && this.userForm.get(componentName).errors)
+      return "#a94442";
+    else
+      return "#898989"; //#d6d6d6
+  }
 }
 
 

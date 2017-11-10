@@ -77,8 +77,8 @@ export class MonthGridComponent implements OnChanges {
 
     //POPOLAMENTO LISTE
     this.lst_clienti = new Array<SelectItem>();
-    
-    
+
+
 
     this.lst_attivita = new Array<SelectItem>();
     this.attivitaService.getAttivita().subscribe(attivitas => {
@@ -254,8 +254,8 @@ export class MonthGridComponent implements OnChanges {
     this.clienteService.getClienti().subscribe(clienti => {
       clienti.forEach(clienteAll => {
         this.userSelected.clienti.forEach(clienteUser => {
-          if(clienteAll._id == clienteUser.id_cliente)
-          this.lst_clienti.push({ label: clienteAll.nome_cliente, value: clienteAll._id});
+          if (clienteAll._id == clienteUser.id_cliente)
+            this.lst_clienti.push({ label: clienteAll.nome_cliente, value: clienteAll._id });
         });
       });
     });
@@ -390,23 +390,16 @@ export class MonthGridComponent implements OnChanges {
     delCriteria.id_tipo_deliverable = r.id_tipo_deliverable;
 
     this.confirmationService.confirm({
-      message: "Sei sicuro di voler eliminare l'attività '" + r.nome_attivita + "' ?",
-      header: 'Elimina attività',
+      message: "Sei sicuro di voler eliminare '" + r.nome_attivita + "' ?",
+      header: 'Elimina consuntivo',
       icon: 'fa fa-trash',
       accept: () => {
-
-        this.consuntivazioneService
-          //.deleteConsuntivi(r.id_user, r.id_macro_area, r.id_ambito, r.id_attivita, r.id_tipo_deliverable)
-          .deleteConsuntivi(delCriteria)
-          .subscribe(msg => {
-            this.consuntivi.splice(i, 1);
-            this.consuntivi = Object.create(this.consuntivi); //deepcopy    
-          },
-          err => alert(err)
-          );
+        this.consuntivazioneService.deleteConsuntivi(delCriteria).subscribe(msg => {
+          this.consuntivi.splice(i, 1);
+          this.consuntivi = Object.create(this.consuntivi); //deepcopy    
+        });
       }
     });
-
   }
 
   //UTILITY
@@ -458,15 +451,18 @@ export class MonthGridComponent implements OnChanges {
     selCriteria.id_cliente = this.newRowConsuntivo.id_cliente;
 
     switch (componentname) {
-      case 'attivita':
+      case 'attivita':        
         this.lst_attivita = [];
-        this.attivitaService.getAttivitaByCliente(selCriteria).subscribe(commesse => {
-          commesse.forEach(element => {
+        this.attivitaService.getAttivitaByCliente(selCriteria).subscribe(attivita => {
+          attivita.forEach(element => {
             this.lst_attivita.push({ label: element.nome_attivita, value: element.codice_attivita });
           });
         })
         break;
       case 'ambito':
+        this.consuntivoForm.reset();
+        this.resetConsuntivo(this.newRowConsuntivo);
+        this.newRowConsuntivo.id_cliente = selCriteria.id_cliente;       
         this.lst_ambiti = [];
         this.ambitoService.getAmbitoByCliente(selCriteria).subscribe(commesse => {
           commesse.forEach(element => {

@@ -3,7 +3,7 @@ import { Component, Input, Output, EventEmitter, OnChanges, OnInit, Injectable, 
 import { SelectItem } from 'primeng/primeng';
 import { ClienteService } from '../../service/cliente.service';
 import { Cliente } from '../../model/cliente';
-import { ConfirmationService } from 'primeng/primeng';
+import { ConfirmationService, DataTable } from 'primeng/primeng';
 import { AuthenticationService } from '../../service/authentication.service';
 import { FormGroup, FormBuilder, Validators, AbstractControl, FormControl, ValidatorFn, ValidationErrors } from '@angular/forms';
 import { Attivita } from '../../model/attivita';
@@ -12,6 +12,7 @@ import { CommessaCliente } from '../../model/commessaCliente';
 import { CommessaClienteService } from '../../service/commessaCliente.service';
 import { AttivitaService } from '../../service/attivita.service';
 import { AmbitoService } from '../../service/ambito.service';
+import { Ambito } from '../../model/ambito';
 // import { AttivitaService } from '../../service/attivita.service';
 
 @Component({
@@ -23,6 +24,9 @@ import { AmbitoService } from '../../service/ambito.service';
 })
 
 export class GestioneAttivitaComponent implements OnInit {
+    ambiti: Ambito[];
+    commesse: CommessaCliente[];
+    activityClone: Attivita;
     activities: Attivita[];
     newActivity: Attivita;
     commessaCliente: CommessaCliente[];
@@ -82,6 +86,13 @@ export class GestioneAttivitaComponent implements OnInit {
                 this.lst_macro_aree.push({ label: element.label, value: element.value });
             });
         });
+
+        this.ambitoService.getAmbito().subscribe(ambiti => {
+            this.ambiti = ambiti;
+        });
+        this.commessaClienteService.getCommesse().subscribe(commesse => {
+            this.commesse = commesse;
+        });
     }
 
     addNewActivity() {
@@ -93,7 +104,7 @@ export class GestioneAttivitaComponent implements OnInit {
         this.displayDialog = true;
         this.activityForm.reset();
         this.newActivity.data_inizio_validita = new Date();
-        this.newActivity.stato_attivita = this.lst_stati[0].value;
+        this.newActivity.stato_attivita = "OPEN";
     }
 
     /*il form group non ha di per se un metodo per verificare se sul form è stato fatto il submit*/
@@ -103,6 +114,12 @@ export class GestioneAttivitaComponent implements OnInit {
     }
 
     saveNew() {
+        this.newActivity.nome_cliente = this.lst_clienti.find(x => x.value == this.newActivity.id_cliente).label;
+        this.newActivity.nome_ambito = this.lst_ambiti.find(x => x.value == this.newActivity.id_ambito).label;
+        this.newActivity.nome_macro_area = this.lst_macro_aree.find(x => x.value == this.newActivity.id_macro_area).label;
+        this.newActivity.nome_commessa_cliente = this.lst_commesse_clienti.find(x => x.value == this.newActivity.id_commessa_cliente).label;
+        this.newActivity.nome_stato = this.lst_stati.find(x => x.value == this.newActivity.stato_attivita).label;
+
         if (this.activityIndex == null) { //aggiunta
             this.attivitaService.addAttivita(this.newActivity).subscribe(event => {
                 this.activities.push(this.newActivity);
@@ -123,26 +140,29 @@ export class GestioneAttivitaComponent implements OnInit {
         this.displayDialog = false;
     }
 
-    private selectFromCliente(componentName) {
+    private selectFromCliente(componentName, isEdit) {
         var selCriteria;
         selCriteria = new Object();
         selCriteria.id_cliente = this.newActivity.id_cliente;
         switch (componentName) {
             case 'ambito':
+                if (!isEdit) {
+                    this.activityForm.reset();
+                    this.resetActivity(this.newActivity);
+                    this.newActivity.id_cliente = selCriteria.id_cliente;
+                }
                 this.lst_ambiti = [];
-                this.ambitoService.getAmbitoByCliente(selCriteria).subscribe(commesse => {
-                    commesse.forEach(element => {
-                      this.lst_ambiti.push({ label: element.nome_ambito, value: element._id });
-                    });
-                  })
+                this.ambiti.forEach(element => {
+                    if (element.id_cliente == selCriteria.id_cliente)
+                        this.lst_ambiti.push({ label: element.nome_ambito, value: element._id })
+                });
                 break;
             case 'commessa_cliente':
                 this.lst_commesse_clienti = [];
-                this.commessaClienteService.getCommessaByCliente(selCriteria).subscribe(commesse => {
-                    commesse.forEach(element => {
-                        this.lst_commesse_clienti.push({ label: element.nome_commessa, value: element._id });
-                    });
-                })
+                this.commesse.forEach(element => {
+                    if (element.id_cliente == selCriteria.id_cliente)
+                        this.lst_commesse_clienti.push({ label: element.nome_commessa, value: element._id })
+                });
                 break;
         }
     }
@@ -167,7 +187,11 @@ export class GestioneAttivitaComponent implements OnInit {
 
 
     private editRow(rowData, rowIndex) {
-        this.newActivity = rowData;
+        this.newActivity = JSON.parse(JSON.stringify(rowData));
+        //this.changeFormatDate(this.newActivity);
+        this.selectFromCliente('ambito', true);
+        this.selectFromCliente('commessa_cliente', true);
+
         this.newActivity.data_inizio_validita = new Date(rowData.data_inizio_validita);
         this.newActivity.data_fine_validita = rowData.data_fine_validita != null ? new Date(rowData.data_fine_validita) : null;
         this.headerAttivita = "Modifica attività - " + this.newActivity.nome_attivita;
@@ -184,29 +208,6 @@ export class GestioneAttivitaComponent implements OnInit {
                 activity.data_fine_validita = activity.data_fine_validita != null ? new Date(activity.data_fine_validita) : null;
             }
         });
-    }
-
-    private getLabelFromValue(value, listName) {
-        var label;
-        switch (listName) {
-            case 'ambito':
-                if (this.lst_ambiti != null)
-                    label = this.lst_ambiti.find(element => element.value == value).label;
-                break;
-            case 'macroarea':
-                if (this.lst_macro_aree != null)
-                    label = this.lst_macro_aree.find(element => element.value == value).label;
-                break;
-            case 'cliente':
-                if (this.lst_clienti != null)
-                    label = this.lst_clienti.find(element => element.value == value).label;
-                break;
-            case 'stato':
-                if (this.lst_stati != null)
-                    label = this.lst_stati.find(element => element.value == value).label;
-                break;
-        }
-        return label;
     }
 
     private controlDateValidator(control: FormControl) {
@@ -238,5 +239,24 @@ export class GestioneAttivitaComponent implements OnInit {
             return "#a94442";
         else
             return "#898989"; //#d6d6d6
+    }
+
+    private resetActivity(attivita: Attivita) {
+        attivita.id_ambito = null;
+        attivita.nome_ambito = null;
+        attivita.id_commessa_cliente = null;
+        attivita.nome_commessa_cliente = null;
+        attivita.id_macro_area = null;
+        attivita.nome_macro_area = null;
+        attivita.data_inizio_validita = new Date();
+        attivita.data_fine_validita = null;
+        attivita.stato_attivita = this.lst_stati[0].value;
+        attivita.nome_stato = this.lst_stati[0].label;
+        attivita.budget_gg = null;
+        attivita.budget_euro = null;
+    }
+
+    reset(dt: DataTable){
+        dt.reset();
     }
 }
