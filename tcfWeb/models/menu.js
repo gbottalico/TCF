@@ -1,7 +1,10 @@
 const mongoose = require('mongoose');
 
 const MenuEntrySchema = mongoose.Schema({
-
+	id: {
+		type: Number,
+		required: true
+	},
 	title_menu: {
 		type: String,
 		required: true
