@@ -10,6 +10,12 @@ export class CommessaClienteService {
   constructor(private http:Http) { }
 
   @beforeMethod(LogAspect.log)
+  getCommesse(){
+  	return this.http.get('/tcf/api/commessaClienteController/CRUD')
+  		.map(res=> res.json());
+  }
+
+  @beforeMethod(LogAspect.log)
   getCommessaByCliente(idParam){
   	return this.http.get('/tcf/api/commessaClienteController/CRUD?criteria='+JSON.stringify(idParam))
   		.map(res=> res.json());
@@ -17,7 +23,6 @@ export class CommessaClienteService {
 
   @beforeMethod(LogAspect.log)
   getClienteByCommessa(idParam){
-    console.log('/tcf/api/commessaClienteController/CRUD?criteria='+JSON.stringify(idParam));
   	return this.http.get('/tcf/api/commessaClienteController/CRUD?criteria='+JSON.stringify(idParam))
   		.map(res=> res.json());
   }

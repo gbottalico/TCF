@@ -4,6 +4,10 @@ const mongoose = require('mongoose');
 
 const SedeSchema = mongoose.Schema({
 
+	_id: {
+		type: String,
+		required: true
+	},
 	nome_sede:{
 		type: String,
 		required: true
