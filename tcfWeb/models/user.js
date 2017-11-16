@@ -6,7 +6,7 @@ const UserSchema = mongoose.Schema({
 		required: true
 	},
 	id_sede:{
-		type: Number,
+		type: String,
 		required: false
 	},
 	password:{

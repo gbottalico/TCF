@@ -78,6 +78,7 @@ app.use('/tcf/api/meseConsuntivoController/CRUD',   RouterFactory.create({path: 
 app.use('/tcf/api/clienteController/CRUD',          RouterFactory.create({path: "", model: require('./models/cliente.js')}));
 app.use('/tcf/api/commessaClienteController/CRUD',  RouterFactory.create({path: "", model: require('./models/commessaCliente.js')}));
 app.use('/tcf/api/ambitoController/CRUD',           RouterFactory.create({path: "", model: require('./models/ambito.js')}));
+app.use('/tcf/api/menuController/CRUD',             RouterFactory.create({path: "", model: require('./models/menu.js')}));
 
 //STATIC CUSTOM ROUTES
 app.use('/tcf/api/userController', require('./controllers/user.controller'));
@@ -88,7 +89,6 @@ app.use('/tcf/api/menuController', require('./controllers/menu.controller'));
 app.use('/tcf/api/meseConsuntivoController', require('./controllers/meseConsuntivo.controller'));
 app.use('/tcf/api/clienteController', require('./controllers/cliente.controller'));
 app.use('/tcf/api/sedeController', require('./controllers/sede.controller'));
-
 
 
 // app._router.stack.forEach(function(r){

@@ -1,10 +1,7 @@
 const mongoose = require('mongoose');
 
-const MenuEntrySchema = mongoose.Schema({
-	id: {
-		type: Number,
-		required: true
-	},
+const MenuSchema = mongoose.Schema({
+
 	title_menu: {
 		type: String,
 		required: true
@@ -12,11 +9,6 @@ const MenuEntrySchema = mongoose.Schema({
 	desc_menu: {
 		type: String,
 		required: false
-	},
-	parent_id: {
-		type: Number,
-		required: false,
-		default: 0
 	},
 	url: {
 		type: String,
@@ -32,12 +24,12 @@ const MenuEntrySchema = mongoose.Schema({
 		required: false
 	},
 	ord_vis: {
-		type: String,
+		type: Number,
 		required: true
 	},
 	data_inizio_validita: {
 		type: Date,
-		required: true,
+		required: false,
 	},
 	data_fine_validita: {
 		type: Date,
@@ -45,4 +37,4 @@ const MenuEntrySchema = mongoose.Schema({
 	}
 });
 
-const MenuEntry = module.exports = mongoose.model('MenuEntry', MenuEntrySchema); 
+const MenuEntry = module.exports = mongoose.model('Menu', MenuSchema); 
