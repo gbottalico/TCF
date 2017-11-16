@@ -52,7 +52,7 @@ export class UserListComponent implements OnChanges{
   }
 
   getUsers(){
-    this.userService.getUsersByClient(this.userLogged._id).subscribe( users => this.users = users);
+    this.userService.getUsersByManager(this.userLogged._id).subscribe( users => this.users = users);
   }
 
   chooseClass(userParam : User){

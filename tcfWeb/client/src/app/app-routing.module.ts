@@ -21,7 +21,7 @@ const routes: Routes = [
   { path: 'consuntivazione', component: ConsuntivazioneComponent, canActivate: [AuthGuard] },
   { path: 'userChangeEmail', component: ChangeEmailComponent, canActivate: [AuthGuard] },
   { path: 'userChangePwd', component: ChangePwdComponent, canActivate: [AuthGuard] },
-  { path: 'clienti', component: GestioneAttivitaComponent, canActivate: [AuthGuard]},
+  { path: 'attivita', component: GestioneAttivitaComponent, canActivate: [AuthGuard]},
   { path: '**', redirectTo: '' }
 ];
  

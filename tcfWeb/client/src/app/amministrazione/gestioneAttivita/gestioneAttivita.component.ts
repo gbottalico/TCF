@@ -234,6 +234,7 @@ export class GestioneAttivitaComponent implements OnInit {
         return disabled;
     }
 
+//TODO da gestire esternamente con CSS!!
     private isValid(componentName: string) {
         if ((this.activityForm.get(componentName).touched || this.formSubmitted) && this.activityForm.get(componentName).errors)
             return "#a94442";

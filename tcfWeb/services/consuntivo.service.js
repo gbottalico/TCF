@@ -141,7 +141,7 @@ function getConsuntiviUtente(id_user, month, year) {
     mongoose.set('debug', true);
 	var query = [
 		{
-			"$project":
+			$project:
 			{
 				doc: "$$ROOT",
 				year: { $cond: ["$data_consuntivo", { $year: "$data_consuntivo" }, -1] },
@@ -151,7 +151,7 @@ function getConsuntiviUtente(id_user, month, year) {
 			}
 		},
 		{
-			"$match": {
+			$match: {
 				"month": new Number(month).valueOf(),
 				"year": new Number(year).valueOf(),
 				"user": id_user

@@ -7,7 +7,7 @@ routerUser.post('/authenticate', authenticate);
 
 routerUser.post('/userChangeEmail', changeUserEmail);
 routerUser.post('/userChangePwd', changeUserPwd);
-routerUser.get('/userByClient/:userLogged', getUsersByClient);
+routerUser.get('/userByManager/:userLogged', getUsersByManager);
 routerUser.post('/insOrUpdUtente', insOrUpdUtente); 			//CREATE-UPDATE
 
 
@@ -56,9 +56,11 @@ function changeUserPwd(req, res) {
 //SECURITY SECTION - END
 
 
-function getUsersByClient(req, res){
-	userService.getUsersByClient(req.params.userLogged).then(function(users){		 
-		 res.send(users);
+function getUsersByManager(req, res){
+	
+	userService.getUsersByManager(req.params.userLogged).then(function(users){		 
+		console.log("controller:  " + JSON.stringify(users)); 
+		res.send(users);
 	}).catch(function (err) {
 		res.status(400).send(err);
 	});

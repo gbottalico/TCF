@@ -16,7 +16,7 @@ const UserCliente = require('../models/userCliente.js');
 serviceUser.authenticate = authenticate;
 serviceUser.changeUserEmail = changeUserEmail;
 serviceUser.changeUserPwd = changeUserPwd;
-serviceUser.getUsersByClient = getUsersByClient;
+serviceUser.getUsersByManager = getUsersByManager;
 serviceUser.getById = getById;
 serviceUser.insOrUpdUser = insOrUpdUser;
 serviceUser.delUser = delUser;
@@ -84,35 +84,89 @@ function getAll() {
     return deferred.promise;
 }
 
-function getUsersByClient(userLogged) {
-    var logPrefix = 'user.service.getUsersByClient: ';
+function getUsersByManager(userLogged) {
+    var logPrefix = 'user.service.getUsersByManager: ';
     var deferred = Q.defer();
     let utente = new User();
-    var clienti = [];
+    var userManager = [];
+    console.log('userLogged ' + userLogged);
 
-    utente.getUsersByClient({ idUser : userLogged}, (err, clienti) => {
+    var query = [
+        {				
+            $project:
+            {
+                isAdmin : "$isAdmin",
+                clienti: {
+                    $filter: {
+                        input: '$clienti',
+                        as: 'item',
+                        cond: {$eq: ['$$item.id_profilo', 'AP']} 
+                    }	
+                }
+            }
+        },
+        {
+            $match:{
+                "_id": userLogged
+            }
+        },
+        {
+            $unwind : {
+                path: '$clienti',
+                preserveNullAndEmptyArrays: true
+            }
+        },
+        {
+            $project:{
+                isAdmin: '$isAdmin',
+                id_cliente: '$clienti.id_cliente',
+            }	
+        },
+        {
+            $group : {
+                _id : "$_id",
+                isAdmin : {
+                    $last : '$isAdmin',
+                },
+                clienti : {
+                    $push : 
+                        '$id_cliente'
+                }
+            }
+        }
+    ];
+
+    User.aggregate(query).exec((err, userManager) => {
         if (err) {
             deferred.reject(err.name + ': ' + err.message);
         }
         else {
-            if(clienti[0] != null)
-                if(clienti[0].isAdmin == true){
+            console.log("userManager, err: " + userManager + "----" + err);
+            if(userManager[0] != null){
+                console.log("userManager[0].isAdmin: " + userManager[0].isAdmin);
+            
+                if(userManager[0].isAdmin == true){
                     User.find({"_id":{$ne : userLogged}}, function (err, users) {
                         if (err) {
                             deferred.reject(err.name + ': ' + err.message);
                         } else {
+                            console.log("service" + users);
                             deferred.resolve(users);
                         }
                     });       
                 }
-                else
-                    User.find({"_id":{$ne : userLogged}, "clienti": {"$elemMatch":{"id_cliente":{"$in": clienti[0].clienti}}} }, 
+                else{
+                    User.find({"_id":{$ne : userLogged}, "clienti": {"$elemMatch":{"id_cliente":{"$in": userManager[0].clienti}}} }, 
                         function(err, users){
                             if(err)
                                 deferred.reject(err.name + ': ' + err.message);
                             else
                                 deferred.resolve(users);
                         });
+                    }
+                }else{
+                    console.log('User not retrieved!');
+                }
         }
     });
     return deferred.promise;

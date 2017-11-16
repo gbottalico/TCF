@@ -79,7 +79,7 @@ export class GestioneUtentiComponent implements OnInit {
   }
 
   getInformations() {
-    this.userService.getUsersByClient(this.userLogged._id).subscribe(users => this.users = users);
+    this.userService.getUsersByManager(this.userLogged._id).subscribe(users => this.users = users);
     this.sedeService.getSedi().subscribe(sedi => {
       sedi.forEach(sedi => {
         this.sediList.push({ label: sedi.nome_sede, value: sedi._id });

@@ -60,8 +60,8 @@ export class UserService {
   }
 
   @beforeMethod(LogAspect.log)
-  getUsersByClient(userLogged){
-  	return this.http.get('/tcf/api/userController/userByClient/' + userLogged + "/")
+  getUsersByManager(userLogged){
+  	return this.http.get('/tcf/api/userController/userByManager/' + userLogged + "/")
     .map(res => res.json()); 
   }
 }

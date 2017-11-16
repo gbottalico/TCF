@@ -62,51 +62,5 @@ const UserSchema = mongoose.Schema({
 
 });
 
-UserSchema.methods.getUsersByClient = function getUsersByClient(params, callback) {
-	
-		mongoose.set('debug', true);
-		var query = [
-			{				
-				"$project":
-				{
-					isAdmin : "$isAdmin",
-					clienti: {
-						$filter: {
-							input: '$clienti',
-							as: 'item',
-							cond: {$eq: ['$$item.id_profilo', 'AP']}
-						}	
-					}
-				}
-			},
-			{
-				"$match":{
-					"_id": params.idUser
-				}
-			},
-			{
-				$unwind : '$clienti'
-			},
-			{
-				$project:{
-					isAdmin: '$isAdmin',
-					id_cliente: '$clienti.id_cliente',
-				}	
-			},
-			{
-				$group : {
-					_id : "$_id",
-					isAdmin : {
-						$last : '$isAdmin',
-					},
-					clienti : {
-						$push : 
-							'$id_cliente'
-					}
-				}
-			}
-		];
-	
-		return User.aggregate(query).exec(callback);
-}
+
 const User = module.exports = mongoose.model('User', UserSchema); 
