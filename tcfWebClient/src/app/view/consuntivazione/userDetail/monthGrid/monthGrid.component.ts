@@ -331,7 +331,6 @@ this.hd.g
   }
 
   private refreshMonthList(){
-    alert("Sono entrato nell'eventEmitter");
     this.newMonthOpened.emit();
   }
 
@@ -481,7 +480,7 @@ this.hd.g
     switch (componentname) {
       case 'attivita':        
         this.lst_attivita = [];
-        this.attivitaService.getAttivitaByCliente(selCriteria).subscribe(attivita => {
+        this.attivitaService.getAttivitaWithCriteria(selCriteria).subscribe(attivita => {
           attivita.forEach(element => {
             this.lst_attivita.push({ label: element.nome_attivita, value: element._id });
           });

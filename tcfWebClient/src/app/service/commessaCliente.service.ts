@@ -15,14 +15,20 @@ export class CommessaClienteService {
   		.map(res=> res.json());
   }
 
-  @beforeMethod(LogAspect.log)
+  /*@beforeMethod(LogAspect.log)
   getCommessaByCliente(idParam){
   	return this.http.get('/tcf/api/commessaClienteController/CRUD?criteria='+JSON.stringify(idParam))
   		.map(res=> res.json());
-  }
+  }*/
+
+  /*@beforeMethod(LogAspect.log)
+  getClienteByCommessa(idParam){
+  	return this.http.get('/tcf/api/commessaClienteController/CRUD?criteria='+JSON.stringify(idParam))
+  		.map(res=> res.json());
+  }*/
 
   @beforeMethod(LogAspect.log)
-  getClienteByCommessa(idParam){
+  getCommessaWithCriteria(idParam){
   	return this.http.get('/tcf/api/commessaClienteController/CRUD?criteria='+JSON.stringify(idParam))
   		.map(res=> res.json());
   }
